@@ -2,22 +2,14 @@
 <html lang="ar" dir="rtl">
 
 <head>
-
 <meta charset="utf-8">
-
-<meta name="viewport"
-content="width=device-width,initial-scale=1,viewport-fit=cover">
-
-<meta name="theme-color"
-content="#080b10">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080b10">
 
 <title>XAUUSD Gold Analyzer</title>
 
 <style>
-
-*{
-box-sizing:border-box
-}
+*{box-sizing:border-box}
 
 body{
 margin:0;
@@ -77,9 +69,7 @@ font-size:18px;
 margin-bottom:14px
 }
 
-.icon{
-font-size:20px
-}
+.icon{font-size:20px}
 
 .row{
 display:flex;
@@ -88,17 +78,11 @@ padding:11px 0;
 border-bottom:1px solid #202631
 }
 
-.row:last-child{
-border-bottom:0
-}
+.row:last-child{border-bottom:0}
 
-.label{
-color:#aab3c0
-}
+.label{color:#aab3c0}
 
-.value{
-font-weight:700
-}
+.value{font-weight:700}
 
 .price{
 font-size:25px;
@@ -133,25 +117,11 @@ font-size:18px;
 margin-top:5px
 }
 
-.support{
-color:#5ac8fa
-}
-
-.resist{
-color:#ff8a80
-}
-
-.good{
-color:#57df91
-}
-
-.bad{
-color:#ff6b6b
-}
-
-.neutral{
-color:#ffb74d
-}
+.support{color:#5ac8fa}
+.resist{color:#ff8a80}
+.good{color:#57df91}
+.bad{color:#ff6b6b}
+.neutral{color:#ffb74d}
 
 .note{
 font-size:12px;
@@ -186,36 +156,20 @@ padding:9px
 color:#8da8c7;
 text-decoration:none
 }
-
 </style>
-
 </head>
 
 <body>
 
 <div class="wrap">
 
-
-<!-- HEADER -->
-
 <div class="head">
-
 <div>
-
-<h1>
-🥇 XAUUSD Gold Analyzer
-</h1>
-
-<div class="sub">
-تحليل الذهب فقط • دخول يدوي
+<h1>🥇 XAUUSD Gold Analyzer</h1>
+<div class="sub">تحليل الذهب فقط • دخول يدوي</div>
 </div>
 
-</div>
-
-<div class="badge">
-● LIVE
-</div>
-
+<div class="badge">● LIVE</div>
 </div>
 
 
@@ -228,20 +182,12 @@ text-decoration:none
 سعر الذهب الحي
 </div>
 
-<div
-class="price"
-id="price">
-
+<div class="price" id="price">
 جاري جلب السعر...
-
 </div>
 
-<div
-class="status"
-id="priceStatus">
-
+<div class="status" id="priceStatus">
 الاتصال بمصدر XAUUSD
-
 </div>
 
 </div>
@@ -252,52 +198,33 @@ id="priceStatus">
 <div class="card">
 
 <div class="title">
-
-<span class="icon">
-📰
-</span>
-
+<span class="icon">📰</span>
 الأخبار المباشرة للذهب
-
 </div>
-
 
 <div class="liveNews">
 
 <iframe
 class="calendar"
-
 src="https://sslecal2.investing.com/?columns=exc_flags,exc_currency,exc_importance,exc_actual,exc_forecast,exc_previous&importance=2,3&features=datepicker,timezone&countries=5&calType=week"
-
 frameborder="0"
 allowtransparency="true"
 marginwidth="0"
 marginheight="0">
-
 </iframe>
 
 <div class="source">
-
 Real Time Economic Calendar provided by
-
-<a
-href="https://www.investing.com/"
-target="_blank"
-rel="nofollow">
-
+<a href="https://www.investing.com/" target="_blank" rel="nofollow">
 Investing.com
-
 </a>
-
 </div>
 
 </div>
 
 <div class="note">
-
 🟢 الأخبار تتحدث من المصدر المباشر.
-عند صدور Actual يظهر داخل التقويم.
-
+عند صدور Actual يظهر داخل التقويم مباشرة.
 </div>
 
 </div>
@@ -308,72 +235,27 @@ Investing.com
 <div class="card">
 
 <div class="title">
-
-<span class="icon">
-💪
-</span>
-
+<span class="icon">💪</span>
 قوة السوق
-
 </div>
-
 
 <div class="row">
-
-<span class="label">
-اتجاه الذهب
-</span>
-
-<span
-class="value"
-id="trend">
-
-جارٍ التحليل
-
-</span>
-
+<span class="label">اتجاه الذهب</span>
+<span class="value" id="trend">جارٍ التحليل</span>
 </div>
-
 
 <div class="row">
-
-<span class="label">
-قوة الحركة
-</span>
-
-<span
-class="value"
-id="strength">
-
-جارٍ التحليل
-
-</span>
-
+<span class="label">قوة الحركة</span>
+<span class="value" id="strength">جارٍ التحليل</span>
 </div>
-
 
 <div class="row">
-
-<span class="label">
-الزخم
-</span>
-
-<span
-class="value"
-id="momentum">
-
-جارٍ التحليل
-
-</span>
-
+<span class="label">الزخم</span>
+<span class="value" id="momentum">جارٍ التحليل</span>
 </div>
 
-
-<div class="note"
-id="analysisStatus">
-
+<div class="note" id="analysisStatus">
 جاري تحليل بيانات XAUUSD...
-
 </div>
 
 </div>
@@ -384,48 +266,26 @@ id="analysisStatus">
 <div class="card">
 
 <div class="title">
-
-<span class="icon">
-📍
-</span>
-
+<span class="icon">📍</span>
 مناطق الدعم والمقاومة
-
 </div>
-
 
 <div class="levels">
 
-
 <div class="level support">
-
 أقرب دعم
-
-<b id="support">
---
-</b>
-
+<b id="support">--</b>
 </div>
-
 
 <div class="level resist">
-
 أقرب مقاومة
-
-<b id="resistance">
---
-</b>
-
+<b id="resistance">--</b>
 </div>
 
-
 </div>
-
 
 <div class="note">
-
 يتم حساب المستويات من بيانات حركة XAUUSD الأخيرة.
-
 </div>
 
 </div>
@@ -436,52 +296,30 @@ id="analysisStatus">
 <div class="card">
 
 <div class="title">
-
-<span class="icon">
-🎯
-</span>
-
+<span class="icon">🎯</span>
 النتيجة
-
 </div>
-
 
 <div class="row">
-
-<span class="label">
-الحالة
-</span>
-
-<span
-class="value"
-id="signal">
-
-WAIT
-
-</span>
-
+<span class="label">الحالة</span>
+<span class="value neutral" id="signal">WAIT</span>
 </div>
-
 
 <div class="note">
-
 التحليل آلي، والتنفيذ يدوي.
 لا توجد أوامر تداول داخل التطبيق.
-
 </div>
 
 </div>
-
 
 </div>
 
 
 <script>
 
-
-/* =====================================
-   XAUS
-===================================== */
+/* =========================================
+   XAUS API
+========================================= */
 
 const SPOT_API =
 "https://xaus.com/api/v1/spot?fresh=";
@@ -490,9 +328,9 @@ const INTRADAY_API =
 "https://xaus.com/api/v1/intraday?symbol=xau&hours=24&fresh=";
 
 
-/* =====================================
+/* =========================================
    عناصر الصفحة
-===================================== */
+========================================= */
 
 const priceEl =
 document.getElementById("price");
@@ -522,14 +360,13 @@ const analysisStatus =
 document.getElementById("analysisStatus");
 
 
-/* =====================================
-   رقم
-===================================== */
+/* =========================================
+   تحويل الرقم
+========================================= */
 
 function num(v){
 
-const n =
-Number(v);
+const n = Number(v);
 
 return Number.isFinite(n)
 ? n
@@ -538,9 +375,9 @@ return Number.isFinite(n)
 }
 
 
-/* =====================================
+/* =========================================
    تنسيق السعر
-===================================== */
+========================================= */
 
 function fmt(v){
 
@@ -555,9 +392,9 @@ maximumFractionDigits:2
 }
 
 
-/* =====================================
-   لون
-===================================== */
+/* =========================================
+   الألوان
+========================================= */
 
 function setClass(el,cls){
 
@@ -567,16 +404,102 @@ el.className =
 }
 
 
-/* =====================================
+/* =========================================
+   تحويل الوقت بشكل آمن
+   يدعم:
+   - milliseconds
+   - seconds
+   - ISO string
+========================================= */
+
+function parseTime(value){
+
+if(value === null || value === undefined){
+return null;
+}
+
+
+/* رقم */
+
+if(typeof value === "number"){
+
+if(!Number.isFinite(value)){
+return null;
+}
+
+
+/* Unix seconds */
+
+if(value < 100000000000){
+
+return value * 1000;
+
+}
+
+
+/* Unix milliseconds */
+
+return value;
+
+}
+
+
+/* نص */
+
+if(typeof value === "string"){
+
+const trimmed =
+value.trim();
+
+if(!trimmed){
+return null;
+}
+
+
+/* إذا كان النص رقم */
+
+if(/^\d+(\.\d+)?$/.test(trimmed)){
+
+const n =
+Number(trimmed);
+
+if(n < 100000000000){
+
+return n * 1000;
+
+}
+
+return n;
+
+}
+
+
+/* ISO / تاريخ عادي */
+
+const parsed =
+Date.parse(trimmed);
+
+if(Number.isFinite(parsed)){
+
+return parsed;
+
+}
+
+}
+
+return null;
+
+}
+
+
+/* =========================================
    جلب السعر الحالي
-===================================== */
+========================================= */
 
 async function getSpot(){
 
 const url =
-SPOT_API +
-Date.now();
-
+SPOT_API + Date.now();
 
 const response =
 await fetch(
@@ -585,7 +508,6 @@ url,
 cache:"no-store"
 }
 );
-
 
 if(!response.ok){
 
@@ -596,49 +518,59 @@ response.status
 
 }
 
-
 const data =
 await response.json();
 
 
+/* دعم أكثر من شكل محتمل */
+
 const price =
 num(
 data.spot_usd_oz ??
-data.xau?.price
+data.xau?.price ??
+data.price ??
+data.data?.spot_usd_oz ??
+data.data?.price
 );
 
 
-if(price===null){
+if(price === null){
 
 throw new Error(
-"Invalid price"
+"Invalid XAUUSD price"
 );
 
 }
 
 
 return {
+
 price:price,
-state:data.data_state?.status ||
+
+state:
+data.data_state?.status ||
+data.data_state ||
 "unknown",
-updated:data.updated_at ||
+
+updated:
+data.updated_at ||
 data.price_as_of ||
+data.timestamp ||
 null
+
 };
 
 }
 
 
-/* =====================================
-   جلب intraday
-===================================== */
+/* =========================================
+   جلب بيانات الحركة
+========================================= */
 
 async function getIntraday(){
 
 const url =
-INTRADAY_API +
-Date.now();
-
+INTRADAY_API + Date.now();
 
 const response =
 await fetch(
@@ -647,7 +579,6 @@ url,
 cache:"no-store"
 }
 );
-
 
 if(!response.ok){
 
@@ -658,33 +589,95 @@ response.status
 
 }
 
-
 const data =
 await response.json();
 
 
-let points =
-Array.isArray(data.points)
-? data.points
-: [];
+/* دعم points في أكثر من مكان */
+
+let rawPoints = [];
+
+if(Array.isArray(data.points)){
+
+rawPoints =
+data.points;
+
+}
+else if(Array.isArray(data.data?.points)){
+
+rawPoints =
+data.data.points;
+
+}
+else if(Array.isArray(data.intraday)){
+
+rawPoints =
+data.intraday;
+
+}
 
 
-points =
-points
-.map(
-p=>({
-t:new Date(p.t).getTime(),
-p:num(p.p)
+const points =
+rawPoints
+.map((p)=>{
+
+/* الشكل الأساسي {t,p} */
+
+let time =
+p?.t ??
+p?.time ??
+p?.timestamp ??
+p?.date ??
+p?.datetime;
+
+let price =
+p?.p ??
+p?.price ??
+p?.value ??
+p?.spot_usd_oz;
+
+
+/* أحياناً تكون النقطة Array */
+
+if(Array.isArray(p)){
+
+time = p[0];
+price = p[1];
+
+}
+
+
+const t =
+parseTime(time);
+
+const pr =
+num(price);
+
+
+return {
+t:t,
+p:pr
+};
+
 })
-)
-.filter(
-p=>
+.filter((p)=>
 Number.isFinite(p.t) &&
-p.p!==null
+p.p !== null
 )
-.sort(
-(a,b)=>a.t-b.t
+.sort((a,b)=>
+a.t-b.t
 );
+
+
+/* تأكد أن البيانات وصلت */
+
+if(!points.length){
+
+throw new Error(
+"INTRADAY: no valid points"
+);
+
+}
 
 
 return points;
@@ -692,37 +685,33 @@ return points;
 }
 
 
-/* =====================================
+/* =========================================
    أقرب سعر حسب الوقت
-===================================== */
+========================================= */
 
 function priceAt(
 points,
 minutesAgo
 ){
 
-if(!points.length)
+if(!points.length){
 return null;
+}
 
 
 const target =
 Date.now() -
-minutesAgo*60*1000;
+minutesAgo * 60 * 1000;
 
 
-let best =
-points[0];
+/* نبحث فقط في النقاط السابقة للهدف */
+
+let best = null;
+
+let distance = Infinity;
 
 
-let distance =
-Math.abs(
-best.t-target
-);
-
-
-for(
-const p of points
-){
+for(const p of points){
 
 const d =
 Math.abs(
@@ -730,56 +719,60 @@ p.t-target
 );
 
 
-if(d<distance){
+if(d < distance){
 
-best=p;
-distance=d;
+distance = d;
+
+best = p;
 
 }
-
-}
-
-
-return best.p;
 
 }
 
 
-/* =====================================
+return best
+? best.p
+: null;
+
+}
+
+
+/* =========================================
    دعم ومقاومة
-===================================== */
+========================================= */
 
 function levels(
 points,
 current
 ){
 
-if(!points.length)
+if(!points.length){
+
 return {
 support:null,
 resistance:null
 };
+
+}
 
 
 const recent =
 points.slice(
 Math.max(
 0,
-points.length-360
+points.length - 360
 )
 );
 
 
-const lows=[];
-const highs=[];
+const lows = [];
+const highs = [];
 
 
 /*
-360 نقطة تقريبًا =
-12 ساعة إذا كانت
-البيانات كل دقيقتين
+360 نقطة تقريباً
+12 ساعة عند بيانات كل دقيقتين
 */
-
 
 for(
 let i=2;
@@ -791,11 +784,13 @@ const p =
 recent[i].p;
 
 
+/* Swing Low */
+
 if(
-p<=recent[i-1].p &&
-p<=recent[i-2].p &&
-p<=recent[i+1].p &&
-p<=recent[i+2].p
+p <= recent[i-1].p &&
+p <= recent[i-2].p &&
+p <= recent[i+1].p &&
+p <= recent[i+2].p
 ){
 
 lows.push(p);
@@ -803,11 +798,13 @@ lows.push(p);
 }
 
 
+/* Swing High */
+
 if(
-p>=recent[i-1].p &&
-p>=recent[i-2].p &&
-p>=recent[i+1].p &&
-p>=recent[i+2].p
+p >= recent[i-1].p &&
+p >= recent[i-2].p &&
+p >= recent[i+1].p &&
+p >= recent[i+2].p
 ){
 
 highs.push(p);
@@ -817,58 +814,47 @@ highs.push(p);
 }
 
 
-/* دعم */
+/* أقرب دعم */
 
 const supports =
 lows
-.filter(
-p=>p<current
-)
-.sort(
-(a,b)=>b-a
-);
+.filter(p=>p < current)
+.sort((a,b)=>b-a);
 
 
-/* مقاومة */
+/* أقرب مقاومة */
 
 const resistances =
 highs
-.filter(
-p=>p>current
-)
-.sort(
-(a,b)=>a-b
-);
+.filter(p=>p > current)
+.sort((a,b)=>a-b);
 
 
 return {
 
 support:
 supports.length
-?supports[0]
-:null,
+? supports[0]
+: null,
 
 resistance:
 resistances.length
-?resistances[0]
-:null
+? resistances[0]
+: null
 
 };
 
 }
 
 
-/* =====================================
+/* =========================================
    التحليل
-===================================== */
+========================================= */
 
 function analyze(
 current,
 points
 ){
-
-const p5 =
-priceAt(points,5);
 
 const p15 =
 priceAt(points,15);
@@ -880,19 +866,27 @@ const p60 =
 priceAt(points,60);
 
 
+/*
+إذا لم تتوفر بيانات كافية
+لا نبقي الصفحة على جارٍ التحليل
+*/
+
 if(
-p15===null ||
-p30===null
+p15 === null ||
+p30 === null
 ){
+
+analysisStatus.textContent =
+"تم جلب السعر، لكن لا توجد بيانات حركة كافية للتحليل حالياً.";
 
 return;
 
 }
 
 
-/* =================
+/* =========================================
    التغيرات
-================= */
+========================================= */
 
 const change15 =
 ((current-p15)/p15)*100;
@@ -901,24 +895,24 @@ const change30 =
 ((current-p30)/p30)*100;
 
 const change60 =
-p60!==null
-?((current-p60)/p60)*100
-:change30;
+p60 !== null
+? ((current-p60)/p60)*100
+: change30;
 
 
-/* =================
+/* =========================================
    الاتجاه
-================= */
+========================================= */
 
 let trend;
 
+
 if(
-change30>0.12 &&
-change60>0.20
+change30 > 0.12 &&
+change60 > 0.20
 ){
 
-trend =
-"صاعد";
+trend = "صاعد";
 
 setClass(
 trendEl,
@@ -927,12 +921,11 @@ trendEl,
 
 }
 else if(
-change30<-0.12 &&
-change60<-0.20
+change30 < -0.12 &&
+change60 < -0.20
 ){
 
-trend =
-"هابط";
+trend = "هابط";
 
 setClass(
 trendEl,
@@ -942,8 +935,7 @@ trendEl,
 }
 else{
 
-trend =
-"عرضي";
+trend = "عرضي";
 
 setClass(
 trendEl,
@@ -956,20 +948,19 @@ trendEl.textContent =
 trend;
 
 
-/* =================
+/* =========================================
    قوة الحركة
-================= */
+========================================= */
 
 const absMove =
 Math.abs(change15);
 
-
 let strength;
 
-if(absMove>=0.30){
 
-strength =
-"قوية";
+if(absMove >= 0.30){
+
+strength = "قوية";
 
 setClass(
 strengthEl,
@@ -977,10 +968,9 @@ strengthEl,
 );
 
 }
-else if(absMove>=0.12){
+else if(absMove >= 0.12){
 
-strength =
-"متوسطة";
+strength = "متوسطة";
 
 setClass(
 strengthEl,
@@ -990,8 +980,7 @@ strengthEl,
 }
 else{
 
-strength =
-"ضعيفة";
+strength = "ضعيفة";
 
 setClass(
 strengthEl,
@@ -1004,19 +993,19 @@ strengthEl.textContent =
 strength;
 
 
-/* =================
+/* =========================================
    الزخم
-================= */
+========================================= */
 
 let momentum;
 
+
 if(
-change15>0.06 &&
-change30>change15*0.6
+change15 > 0.06 &&
+change30 > change15 * 0.6
 ){
 
-momentum =
-"إيجابي";
+momentum = "إيجابي";
 
 setClass(
 momentumEl,
@@ -1025,12 +1014,11 @@ momentumEl,
 
 }
 else if(
-change15<-0.06 &&
-change30<change15*0.6
+change15 < -0.06 &&
+change30 < change15 * 0.6
 ){
 
-momentum =
-"سلبي";
+momentum = "سلبي";
 
 setClass(
 momentumEl,
@@ -1040,8 +1028,7 @@ momentumEl,
 }
 else{
 
-momentum =
-"محايد";
+momentum = "محايد";
 
 setClass(
 momentumEl,
@@ -1054,9 +1041,9 @@ momentumEl.textContent =
 momentum;
 
 
-/* =================
+/* =========================================
    الدعم والمقاومة
-================= */
+========================================= */
 
 const lr =
 levels(
@@ -1065,60 +1052,42 @@ current
 );
 
 
-if(lr.support!==null){
-
 supportEl.textContent =
-fmt(lr.support);
+lr.support !== null
+? fmt(lr.support)
+: "--";
 
-}
-else{
-
-supportEl.textContent =
-"--";
-
-}
-
-
-if(lr.resistance!==null){
 
 resistanceEl.textContent =
-fmt(lr.resistance);
-
-}
-else{
-
-resistanceEl.textContent =
-"--";
-
-}
+lr.resistance !== null
+? fmt(lr.resistance)
+: "--";
 
 
-/* =================
+/* =========================================
    النتيجة
-================= */
+========================================= */
 
 let signal =
 "WAIT";
 
 
 if(
-trend==="صاعد" &&
-momentum==="إيجابي" &&
-strength!=="ضعيفة"
+trend === "صاعد" &&
+momentum === "إيجابي" &&
+strength !== "ضعيفة"
 ){
 
-signal =
-"UP";
+signal = "UP";
 
 }
 else if(
-trend==="هابط" &&
-momentum==="سلبي" &&
-strength!=="ضعيفة"
+trend === "هابط" &&
+momentum === "سلبي" &&
+strength !== "ضعيفة"
 ){
 
-signal =
-"DOWN";
+signal = "DOWN";
 
 }
 
@@ -1127,7 +1096,7 @@ signalEl.textContent =
 signal;
 
 
-if(signal==="UP"){
+if(signal === "UP"){
 
 setClass(
 signalEl,
@@ -1135,7 +1104,7 @@ signalEl,
 );
 
 }
-else if(signal==="DOWN"){
+else if(signal === "DOWN"){
 
 setClass(
 signalEl,
@@ -1153,22 +1122,31 @@ signalEl,
 }
 
 
+/* =========================================
+   حالة التحديث
+========================================= */
+
 analysisStatus.textContent =
 "آخر تحديث: " +
 new Date().toLocaleTimeString(
 "ar-IQ"
-);
+) +
+" • بيانات الحركة: " +
+points.length +
+" نقطة";
 
 }
 
 
-/* =====================================
-   تحديث كامل
-===================================== */
+/* =========================================
+   تحديث السوق
+========================================= */
 
 async function updateMarket(){
 
 try{
+
+/* السعر */
 
 const spot =
 await getSpot();
@@ -1180,14 +1158,18 @@ fmt(spot.price);
 
 
 priceStatus.textContent =
-spot.state==="fresh"
+spot.state === "fresh"
 ? "السعر حي • XAU/USD"
-: "السعر متوفر لكن تحقق من حداثة البيانات";
+: "السعر متوفر • يتم تحديثه تلقائياً";
 
+
+/* الحركة */
 
 const points =
 await getIntraday();
 
+
+/* التحليل */
 
 analyze(
 spot.price,
@@ -1195,7 +1177,8 @@ points
 );
 
 
-}catch(error){
+}
+catch(error){
 
 console.error(
 "Market error:",
@@ -1203,29 +1186,43 @@ error
 );
 
 
-priceEl.textContent =
-"تعذر جلب السعر";
-
+/* عرض الخطأ للمستخدم */
 
 priceStatus.textContent =
 "تعذر الاتصال بمصدر XAUUSD";
 
+
+analysisStatus.textContent =
+"فشل جلب بيانات التحليل. يتم إعادة المحاولة تلقائياً.";
+
+
+/* لا نمسح السعر القديم إذا كان موجوداً */
+
+if(
+priceEl.textContent ===
+"جاري جلب السعر..."
+){
+
+priceEl.textContent =
+"تعذر جلب السعر";
+
+}
+
 }
 
 }
 
 
-/* =====================================
-   تشغيل
-===================================== */
+/* =========================================
+   تشغيل أولي
+========================================= */
 
 updateMarket();
 
 
-/*
-السعر يتحدث كل 30 ثانية تقريبًا.
-نطلب البيانات كل 30 ثانية.
-*/
+/* =========================================
+   تحديث كل 30 ثانية
+========================================= */
 
 setInterval(
 updateMarket,
@@ -1235,5 +1232,4 @@ updateMarket,
 </script>
 
 </body>
-
 </html>
