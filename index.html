@@ -311,7 +311,10 @@ margin-top:10px
 
 .scoreValue{
 font-size:25px;
-font-weight:900
+font-weight:900;
+direction:ltr;
+unicode-bidi:isolate;
+text-align:center
 }
 
 .signalBox{
@@ -629,8 +632,6 @@ Investing.com
 </div>
 
 
-<!-- الاحتمالات ومناطق الدخول -->
-
 <div class="card" id="entryAnalysis">
 
 <div class="title">
@@ -772,7 +773,9 @@ id="entryReason">
 
 <div
 class="scoreValue neutral"
-id="analysisScore">
+id="analysisScore"
+dir="ltr"
+style="direction:ltr;unicode-bidi:isolate;text-align:center;">
 50 / 100
 </div>
 
@@ -889,6 +892,15 @@ document.getElementById("strength");
 
 const momentumEl=
 document.getElementById("momentum");
+
+const signalEl=
+document.getElementById("signal");
+
+const signalReasonEl=
+document.getElementById("signalReason");
+
+const updateAgeEl=
+document.getElementById("updateAge");
 
 
 function fmt(v){
@@ -1266,13 +1278,11 @@ if(close>open){
 state="🟢 شمعة صاعدة";
 
 }
-
 else if(close<open){
 
 state="🔴 شمعة هابطة";
 
 }
-
 else{
 
 state="🟡 شمعة محايدة";
@@ -2086,16 +2096,29 @@ const score=
 Math.abs(prob.score);
 
 
-document.getElementById(
-"analysisScore"
-).textContent=
-score+" / 100";
-
-
+/* إصلاح اتجاه عرض الدرجة */
 const scoreEl=
 document.getElementById(
 "analysisScore"
 );
+
+scoreEl.textContent=
+String(score)+" / 100";
+
+scoreEl.setAttribute(
+"dir",
+"ltr"
+);
+
+scoreEl.style.direction=
+"ltr";
+
+scoreEl.style.unicodeBidi=
+"isolate";
+
+scoreEl.style.textAlign=
+"center";
+
 
 scoreEl.className=
 "scoreValue "+
