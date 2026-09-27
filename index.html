@@ -729,8 +729,7 @@ id="entryReason">
 <div
 class="scoreValue neutral"
 id="analysisScore"
-dir="ltr"
-style="direction:ltr;unicode-bidi:isolate;text-align:center;">
+dir="ltr">
 50 / 100
 </div>
 
@@ -815,9 +814,10 @@ id="updateAge">
 
 <script>
 
-/* ================================
-   مصدر بيانات XAUUSD الجديد
-================================ */
+/* =========================================
+   XAUUSD DATA SOURCE
+   Biquote
+========================================= */
 
 const SPOT_API =
 "https://biquote.io/api/XAUUSD";
@@ -892,13 +892,13 @@ v>=0?"+":""
 }
 
 
-/* ================================
-   جلب السعر المباشر
-================================ */
+/* =========================================
+   LIVE PRICE
+========================================= */
 
 async function getSpot(){
 
-const r=
+const response=
 await fetch(
 SPOT_API+
 "?allowStale=true&fresh="+
@@ -908,53 +908,64 @@ cache:"no-store"
 }
 );
 
-if(!r.ok){
+if(!response.ok){
+
 throw new Error(
-"Spot "+r.status
+"XAUUSD price HTTP "+
+response.status
 );
+
 }
 
 const data=
-await r.json();
+await response.json();
+
 
 const price=
 Number(
 data.mid ??
 data.bid ??
-data.ask ??
-data.last
+data.ask
 );
 
+
 if(!Number.isFinite(price)){
+
 throw new Error(
-"No XAUUSD price"
+"XAUUSD price missing"
 );
+
 }
+
 
 return{
 price:price,
+
 marketState:
 data.marketState ??
 "open",
+
 stale:
 Boolean(data.stale),
+
 quoteAge:
 Number(
 data.quoteAgeSeconds ??
 0
 )
+
 };
 
 }
 
 
-/* ================================
-   جلب شموع 5M
-================================ */
+/* =========================================
+   5 MINUTE OHLC
+========================================= */
 
 async function getIntraday(){
 
-const r=
+const response=
 await fetch(
 OHLC_API+
 "?interval=5m&limit=300&fresh="+
@@ -964,55 +975,78 @@ cache:"no-store"
 }
 );
 
-if(!r.ok){
+if(!response.ok){
+
 throw new Error(
-"OHLC "+r.status
+"XAUUSD OHLC HTTP "+
+response.status
 );
+
 }
+
 
 const data=
-await r.json();
+await response.json();
 
-if(!Array.isArray(data.bars)){
+
+if(
+!data ||
+!Array.isArray(data.bars)
+){
+
 throw new Error(
-"No OHLC bars"
+"XAUUSD OHLC bars missing"
 );
+
 }
+
 
 return data.bars
 .map(
-b=>({
+bar=>({
+
 t:Date.parse(
-b.openTime
+bar.openTime
 ),
+
 p:Number(
-b.close
+bar.close
 ),
+
 open:Number(
-b.open
+bar.open
 ),
+
 high:Number(
-b.high
+bar.high
 ),
+
 low:Number(
-b.low
+bar.low
 ),
+
 isOpen:Boolean(
-b.isOpen
+bar.isOpen
 )
+
 })
 )
 .filter(
-p=>
-Number.isFinite(p.t) &&
-Number.isFinite(p.p)
+bar=>
+Number.isFinite(bar.t) &&
+Number.isFinite(bar.p)
 )
 .sort(
-(a,b)=>a.t-b.t
+(a,b)=>
+a.t-b.t
 );
 
 }
 
+
+/* =========================================
+   PRICE HISTORY HELPERS
+========================================= */
 
 function priceAt(
 points,
@@ -1023,35 +1057,46 @@ if(!points.length){
 return null;
 }
 
+
 const target=
 Date.now()-
 minutes*60*1000;
 
+
 let best=
 points[0];
+
 
 let diff=
 Math.abs(
 best.t-target
 );
 
+
 for(
-const p of points
+const point of points
 ){
 
-const d=
+const currentDiff=
 Math.abs(
-p.t-target
+point.t-target
 );
 
-if(d<diff){
 
-best=p;
-diff=d;
+if(
+currentDiff<diff
+){
+
+best=
+point;
+
+diff=
+currentDiff;
 
 }
 
 }
+
 
 return best.p;
 
@@ -1068,8 +1113,11 @@ if(
 !Number.isFinite(current) ||
 oldPrice===0
 ){
+
 return 0;
+
 }
+
 
 return(
 (current-oldPrice)/
@@ -1079,29 +1127,45 @@ oldPrice
 }
 
 
+/* =========================================
+   TIMEFRAME TREND
+========================================= */
+
 function timeframeTrend(
 minutes
 ){
 
-const old=
+const oldPrice=
 priceAt(
 marketData.points,
 minutes
 );
 
-const c=
+
+const movement=
 change(
-old,
+oldPrice,
 marketData.price
 );
 
-if(c>0.10){
+
+if(
+movement>0.10
+){
+
 return "صاعد";
+
 }
 
-if(c<-0.10){
+
+if(
+movement<-0.10
+){
+
 return "هابط";
+
 }
+
 
 return "عرضي";
 
@@ -1109,31 +1173,42 @@ return "عرضي";
 
 
 function colorValue(
-el,
+element,
 value
 ){
 
-el.className=
+element.className=
 "value "+
 (
 value==="صاعد" ||
 value==="إيجابي"
-?"good":
+?
+"good"
+:
 value==="هابط" ||
 value==="سلبي"
-?"bad":
+?
+"bad"
+:
 "neutral"
 );
 
 }
 
 
+/* =========================================
+   SUPPORT / RESISTANCE
+========================================= */
+
 function levels(){
 
 const points=
 marketData.points.slice(-300);
 
-if(points.length<10){
+
+if(
+points.length<10
+){
 
 return{
 s1:null,
@@ -1144,8 +1219,10 @@ r2:null
 
 }
 
+
 const current=
 marketData.price;
+
 
 const lows=[];
 const highs=[];
@@ -1193,31 +1270,36 @@ lows.sort(
 (a,b)=>b-a
 );
 
+
 highs.sort(
 (a,b)=>a-b
 );
 
 
-function unique(arr){
+function unique(
+array
+){
 
-const out=[];
+const result=[];
+
 
 for(
-const v of arr
+const value of array
 ){
 
 if(
-!out.some(
-x=>Math.abs(x-v)<1
+!result.some(
+x=>Math.abs(x-value)<1
 )
 ){
 
-out.push(v);
+result.push(value);
 
 }
 
+
 if(
-out.length>=2
+result.length>=2
 ){
 
 break;
@@ -1226,7 +1308,8 @@ break;
 
 }
 
-return out;
+
+return result;
 
 }
 
@@ -1239,21 +1322,31 @@ unique(highs);
 
 
 return{
+
 s1:L[0]??null,
 s2:L[1]??null,
+
 r1:H[0]??null,
 r2:H[1]??null
+
 };
 
 }
 
 
+/* =========================================
+   CURRENT 5M CANDLE
+========================================= */
+
 function candle(){
 
-const pts=
-marketData.points.slice(-6);
+const points=
+marketData.points.slice(-1);
 
-if(pts.length<2){
+
+if(
+points.length<1
+){
 
 document.getElementById(
 "candleState"
@@ -1264,52 +1357,56 @@ return "عرضي";
 
 }
 
+
+const c=
+points[0];
+
+
 const open=
-pts[0].open ??
-pts[0].p;
+c.open;
 
 const close=
-pts[pts.length-1].p;
+c.p;
 
 const high=
-Math.max(
-...pts.map(
-x=>x.high ??
-x.p
-)
-);
+c.high;
 
 const low=
-Math.min(
-...pts.map(
-x=>x.low ??
-x.p
-)
-);
+c.low;
+
 
 const range=
 high-low;
+
 
 const body=
 Math.abs(
 close-open
 );
 
-const bodyPct=
-range>0?
-(body/range)*100:
+
+const bodyPercent=
+range>0
+?
+(body/range)*100
+:
 0;
 
 
 let state;
 
-if(close>open){
+
+if(
+close>open
+){
 
 state=
 "🟢 شمعة صاعدة";
 
 }
-else if(close<open){
+else if(
+close<open
+){
 
 state=
 "🔴 شمعة هابطة";
@@ -1341,18 +1438,28 @@ fmt(low)+
 "</b> • Close: <b>"+
 fmt(close)+
 "</b><br>قوة جسم الشمعة: <b>"+
-bodyPct.toFixed(0)+
+bodyPercent.toFixed(0)+
 "%</b>";
 
 
-return close>open?
-"صاعد":
-close<open?
-"هابط":
-"عرضي";
+return(
+close>open
+?
+"صاعد"
+:
+close<open
+?
+"هابط"
+:
+"عرضي"
+);
 
 }
 
+
+/* =========================================
+   PROBABILITY MODEL
+========================================= */
 
 function probability(
 trend5,
@@ -1368,13 +1475,23 @@ candleDir
 let score=0;
 
 
-const addTrend=
-v=>
-v==="صاعد"?
-1:
-v==="هابط"?
--1:
-0;
+function addTrend(
+value
+){
+
+return(
+value==="صاعد"
+?
+1
+:
+value==="هابط"
+?
+-1
+:
+0
+);
+
+}
 
 
 score+=
@@ -1394,34 +1511,50 @@ addTrend(trend)*12;
 
 
 score+=
-momentum==="إيجابي"?
-15:
-momentum==="سلبي"?
--15:
+momentum==="إيجابي"
+?
+15
+:
+momentum==="سلبي"
+?
+-15
+:
 0;
 
 
 score+=
-strength==="قوية"?
+strength==="قوية"
+?
 (
-momentum==="إيجابي"?
-8:
+momentum==="إيجابي"
+?
+8
+:
 -8
-):
-strength==="متوسطة"?
+)
+:
+strength==="متوسطة"
+?
 (
-momentum==="إيجابي"?
-4:
+momentum==="إيجابي"
+?
+4
+:
 -4
-):
+)
+:
 0;
 
 
 score+=
-candleDir==="صاعد"?
-5:
-candleDir==="هابط"?
--5:
+candleDir==="صاعد"
+?
+5
+:
+candleDir==="هابط"
+?
+-5
+:
 0;
 
 
@@ -1437,18 +1570,23 @@ score
 
 const up=
 Math.round(
-50+score/2
+50+
+score/2
 );
 
 
 return{
-up,
+up:up,
 down:100-up,
-score
+score:score
 };
 
 }
 
+
+/* =========================================
+   ENTRY ZONES
+========================================= */
 
 function updateEntry(
 prob,
@@ -1567,7 +1705,9 @@ momentum==="سلبي" &&
 strength!=="ضعيفة";
 
 
-if(buyOK){
+if(
+buyOK
+){
 
 buyStatus.textContent=
 "صالحة تحليلية";
@@ -1593,7 +1733,9 @@ buyReason.textContent=
 }
 
 
-if(sellOK){
+if(
+sellOK
+){
 
 sellStatus.textContent=
 "صالحة تحليلية";
@@ -1619,7 +1761,9 @@ sellReason.textContent=
 }
 
 
-if(buyOK){
+if(
+buyOK
+){
 
 decision.textContent=
 "🟢 شراء محتمل";
@@ -1631,7 +1775,9 @@ reason.textContent=
 "التحليل يميل للصعود. المنطقة المراقبة هي منطقة الدعم.";
 
 }
-else if(sellOK){
+else if(
+sellOK
+){
 
 decision.textContent=
 "🔴 بيع محتمل";
@@ -1659,6 +1805,10 @@ reason.textContent=
 }
 
 
+/* =========================================
+   CHART
+========================================= */
+
 function drawChart(){
 
 const canvas=
@@ -1666,11 +1816,14 @@ document.getElementById(
 "chart"
 );
 
+
 const rect=
 canvas.getBoundingClientRect();
 
+
 const ratio=
 window.devicePixelRatio||1;
+
 
 canvas.width=
 rect.width*ratio;
@@ -1678,10 +1831,12 @@ rect.width*ratio;
 canvas.height=
 rect.height*ratio;
 
+
 const ctx=
 canvas.getContext(
 "2d"
 );
+
 
 ctx.setTransform(
 ratio,
@@ -1692,11 +1847,13 @@ ratio,
 0
 );
 
+
 const w=
 rect.width;
 
 const h=
 rect.height;
+
 
 ctx.clearRect(
 0,
@@ -1706,20 +1863,26 @@ h
 );
 
 
-const pts=
+const points=
 marketData.points.slice(
 -80
 );
 
-if(pts.length<2){
+
+if(
+points.length<2
+){
+
 return;
+
 }
 
 
 const values=
-pts.map(
+points.map(
 x=>x.p
 );
+
 
 const min=
 Math.min(
@@ -1731,8 +1894,10 @@ Math.max(
 ...values
 );
 
+
 const pad=
 (max-min)*0.1||1;
+
 
 const lo=
 min-pad;
@@ -1744,20 +1909,23 @@ max+pad;
 function x(i){
 
 return(
-i/(pts.length-1)
+i/(points.length-1)
 )*(w-20)+10;
 
 }
 
 
-function y(v){
+function y(value){
 
 return(
 h-10
-)-
+)
+-
 (
-(v-lo)/(hi-lo)
-)*(h-20);
+(value-lo)/
+(hi-lo)
+)
+*(h-20);
 
 }
 
@@ -1777,6 +1945,7 @@ i++
 const yy=
 (i/5)*h;
 
+
 ctx.beginPath();
 
 ctx.moveTo(
@@ -1794,27 +1963,37 @@ ctx.stroke();
 }
 
 
-function level(
-v,
+function drawLevel(
+value,
 label,
-support
+isSupport
 ){
 
-if(v===null){
+if(
+value===null
+){
+
 return;
+
 }
 
+
 const yy=
-y(v);
+y(value);
+
 
 ctx.setLineDash(
 [5,5]
 );
 
+
 ctx.strokeStyle=
-support?
-"#5ac8fa":
+isSupport
+?
+"#5ac8fa"
+:
 "#ff8a80";
+
 
 ctx.beginPath();
 
@@ -1830,23 +2009,30 @@ yy
 
 ctx.stroke();
 
+
 ctx.setLineDash([]);
+
 
 ctx.font=
 "11px Arial";
 
+
 ctx.fillStyle=
-support?
-"#5ac8fa":
+isSupport
+?
+"#5ac8fa"
+:
 "#ff8a80";
+
 
 ctx.textAlign=
 "left";
 
+
 ctx.fillText(
 label+
 " "+
-fmt(v),
+fmt(value),
 8,
 Math.max(
 12,
@@ -1861,13 +2047,14 @@ const lv=
 levels();
 
 
-level(
+drawLevel(
 lv.s1,
 "دعم",
 true
 );
 
-level(
+
+drawLevel(
 lv.r1,
 "مقاومة",
 false
@@ -1877,16 +2064,19 @@ false
 ctx.beginPath();
 
 
-pts.forEach(
-(p,i)=>{
+points.forEach(
+(point,index)=>{
 
 const xx=
-x(i);
+x(index);
 
 const yy=
-y(p.p);
+y(point.p);
 
-if(i===0){
+
+if(
+index===0
+){
 
 ctx.moveTo(
 xx,
@@ -1916,16 +2106,18 @@ ctx.stroke();
 
 
 const last=
-pts[pts.length-1];
+points[points.length-1];
+
 
 const lx=
-x(pts.length-1);
+x(points.length-1);
 
 const ly=
 y(last.p);
 
 
 ctx.beginPath();
+
 
 ctx.arc(
 lx,
@@ -1934,6 +2126,7 @@ ly,
 0,
 Math.PI*2
 );
+
 
 ctx.fillStyle=
 "#f0b90b";
@@ -1949,6 +2142,10 @@ fmt(last.p);
 
 }
 
+
+/* =========================================
+   MAIN ANALYSIS
+========================================= */
 
 function analyze(){
 
@@ -2006,18 +2203,23 @@ const id of
 ]
 ){
 
-const el=
+const element=
 document.getElementById(
 id
 );
 
-el.className=
+
+element.className=
 "tfValue "+
 (
-el.textContent==="صاعد"?
-"good":
-el.textContent==="هابط"?
-"bad":
+element.textContent==="صاعد"
+?
+"good"
+:
+element.textContent==="هابط"
+?
+"bad"
+:
 "neutral"
 );
 
@@ -2033,6 +2235,7 @@ marketData.points,
 marketData.price
 );
 
+
 const ch15=
 change(
 priceAt(
@@ -2041,6 +2244,7 @@ marketData.points,
 ),
 marketData.price
 );
+
 
 const ch60=
 change(
@@ -2057,10 +2261,12 @@ document.getElementById(
 ).textContent=
 pct(ch5);
 
+
 document.getElementById(
 "move15"
 ).textContent=
 pct(ch15);
+
 
 document.getElementById(
 "move60"
@@ -2098,16 +2304,27 @@ let trend=
 "عرضي";
 
 
-if(positives>=3){
-trend="صاعد";
+if(
+positives>=3
+){
+
+trend=
+"صاعد";
+
 }
-else if(negatives>=3){
-trend="هابط";
+else if(
+negatives>=3
+){
+
+trend=
+"هابط";
+
 }
 
 
 trendEl.textContent=
 trend;
+
 
 colorValue(
 trendEl,
@@ -2120,17 +2337,22 @@ Math.abs(
 ch15
 );
 
+
 let strength=
 "ضعيفة";
 
 
-if(abs15>=0.30){
+if(
+abs15>=0.30
+){
 
 strength=
 "قوية";
 
 }
-else if(abs15>=0.12){
+else if(
+abs15>=0.12
+){
 
 strength=
 "متوسطة";
@@ -2141,11 +2363,14 @@ strength=
 strengthEl.textContent=
 strength;
 
+
 strengthEl.className=
 "value "+
 (
-strength==="قوية"?
-"good":
+strength==="قوية"
+?
+"good"
+:
 "neutral"
 );
 
@@ -2177,6 +2402,7 @@ momentum=
 momentumEl.textContent=
 momentum;
 
+
 colorValue(
 momentumEl,
 momentum
@@ -2192,15 +2418,18 @@ document.getElementById(
 ).textContent=
 fmt(lv.s1);
 
+
 document.getElementById(
 "support2"
 ).textContent=
 fmt(lv.s2);
 
+
 document.getElementById(
 "resistance1"
 ).textContent=
 fmt(lv.r1);
+
 
 document.getElementById(
 "resistance2"
@@ -2231,6 +2460,7 @@ document.getElementById(
 prob.up+
 "%";
 
+
 document.getElementById(
 "downProbability"
 ).textContent=
@@ -2243,6 +2473,7 @@ document.getElementById(
 ).style.width=
 prob.up+
 "%";
+
 
 document.getElementById(
 "downBar"
@@ -2273,11 +2504,14 @@ scoreEl.setAttribute(
 "ltr"
 );
 
+
 scoreEl.style.direction=
 "ltr";
 
+
 scoreEl.style.unicodeBidi=
 "isolate";
+
 
 scoreEl.style.textAlign=
 "center";
@@ -2286,12 +2520,16 @@ scoreEl.style.textAlign=
 scoreEl.className=
 "scoreValue "+
 (
-score>=60?
+score>=60
+?
 (
-prob.score>=0?
-"good":
+prob.score>=0
+?
+"good"
+:
 "bad"
-):
+)
+:
 "neutral"
 );
 
@@ -2299,14 +2537,18 @@ prob.score>=0?
 document.getElementById(
 "scoreReason"
 ).textContent=
-prob.score>0?
+prob.score>0
+?
 "ميل النموذج الحالي صعودي، بدرجة توافق "+
 score+
-"/100.":
-prob.score<0?
+"/100."
+:
+prob.score<0
+?
 "ميل النموذج الحالي هبوطي، بدرجة توافق "+
 score+
-"/100.":
+"/100."
+:
 "العوامل متوازنة تقريباً.";
 
 
@@ -2337,6 +2579,7 @@ prob.up>=58
 signal=
 "UP";
 
+
 reason=
 "الفريمات تميل للصعود + الزخم إيجابي + قوة الحركة مناسبة.";
 
@@ -2351,6 +2594,7 @@ prob.down>=58
 signal=
 "DOWN";
 
+
 reason=
 "الفريمات تميل للهبوط + الزخم سلبي + قوة الحركة مناسبة.";
 
@@ -2360,13 +2604,18 @@ reason=
 signalEl.textContent=
 signal;
 
+
 signalEl.className=
 "signal "+
 (
-signal==="UP"?
-"good":
-signal==="DOWN"?
-"bad":
+signal==="UP"
+?
+"good"
+:
+signal==="DOWN"
+?
+"bad"
+:
 "neutral"
 );
 
@@ -2380,9 +2629,9 @@ drawChart();
 }
 
 
-/* ================================
-   تحديث السوق
-================================ */
+/* =========================================
+   UPDATE MARKET
+========================================= */
 
 async function updateMarket(){
 
@@ -2391,18 +2640,18 @@ try{
 const spot=
 await getSpot();
 
-const price=
-spot.price;
 
 const points=
 await getIntraday();
 
 
 marketData.price=
-price;
+spot.price;
+
 
 marketData.points=
 points;
+
 
 marketData.lastUpdate=
 Date.now();
@@ -2410,7 +2659,9 @@ Date.now();
 
 priceEl.textContent=
 "$ "+
-fmt(price);
+fmt(
+spot.price
+);
 
 
 priceStatus.textContent=
@@ -2434,6 +2685,7 @@ console.error(
 error
 );
 
+
 priceStatus.textContent=
 "🔴 تعذر جلب بيانات XAUUSD";
 
@@ -2442,9 +2694,15 @@ priceStatus.textContent=
 }
 
 
+/* =========================================
+   UPDATE AGE
+========================================= */
+
 function updateAge(){
 
-if(!marketData.lastUpdate){
+if(
+!marketData.lastUpdate
+){
 
 updateAgeEl.textContent=
 "جاري تحديث البيانات...";
@@ -2454,7 +2712,7 @@ return;
 }
 
 
-const sec=
+const seconds=
 Math.floor(
 (
 Date.now()-
@@ -2464,23 +2722,23 @@ marketData.lastUpdate
 
 
 updateAgeEl.textContent=
-sec<2
+seconds<2
 ?
 "🔄 تم التحديث الآن"
 :
 "آخر تحديث منذ "+
-sec+
+seconds+
 " ثانية";
 
 }
 
 
-/* أول تشغيل */
+/* =========================================
+   START
+========================================= */
 
 updateMarket();
 
-
-/* تحديث كل 30 ثانية */
 
 setInterval(
 updateMarket,
@@ -2488,15 +2746,11 @@ updateMarket,
 );
 
 
-/* عداد آخر تحديث */
-
 setInterval(
 updateAge,
 1000
 );
 
-
-/* إعادة رسم الشارت عند تغيير حجم الشاشة */
 
 window.addEventListener(
 "resize",
