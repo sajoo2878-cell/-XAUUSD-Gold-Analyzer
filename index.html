@@ -4,167 +4,154 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#080b10">
+
 <title>XAUUSD Gold Analyzer</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box
+}
 
 body{
-margin:0;
-background:#080b10;
-color:#eef2f7;
-font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial,sans-serif
+  margin:0;
+  background:#080b10;
+  color:#eef2f7;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial,sans-serif
 }
 
 .wrap{
-max-width:760px;
-margin:auto;
-padding:18px 14px 35px
+  max-width:760px;
+  margin:auto;
+  padding:18px 14px 35px
 }
 
 .head{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:16px
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:16px
 }
 
 h1{
-font-size:25px;
-margin:0
+  font-size:25px;
+  margin:0
 }
 
 .sub{
-color:#8f9aaa;
-font-size:13px;
-margin-top:4px
+  color:#8f9aaa;
+  font-size:13px;
+  margin-top:4px
 }
 
 .badge{
-background:#10251a;
-color:#57df91;
-border:1px solid #1b6b3e;
-padding:7px 10px;
-border-radius:20px;
-font-size:12px
+  background:#10251a;
+  color:#57df91;
+  border:1px solid #1b6b3e;
+  padding:7px 10px;
+  border-radius:20px;
+  font-size:12px
 }
 
 .card{
-background:#11161e;
-border:1px solid #202733;
-border-radius:18px;
-padding:16px;
-margin:12px 0;
-box-shadow:0 8px 25px #0003
+  background:#11161e;
+  border:1px solid #202733;
+  border-radius:18px;
+  padding:16px;
+  margin:12px 0;
+  box-shadow:0 8px 25px #0003
 }
 
 .title{
-display:flex;
-align-items:center;
-gap:8px;
-font-weight:700;
-font-size:17px;
-margin-bottom:12px
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-weight:700;
+  font-size:18px;
+  margin-bottom:14px
 }
 
 .icon{
-font-size:20px
+  font-size:20px
+}
+
+.liveNews{
+  background:#080c12;
+  border:1px solid #252d38;
+  border-radius:14px;
+  overflow:hidden;
+  width:100%
+}
+
+.calendar{
+  width:100%;
+  height:620px;
+  border:0;
+  display:block;
+  background:#080c12
+}
+
+.source{
+  text-align:center;
+  font-size:11px;
+  color:#707b8b;
+  padding:9px
+}
+
+.source a{
+  color:#8da8c7;
+  text-decoration:none
 }
 
 .row{
-display:flex;
-justify-content:space-between;
-padding:10px 0;
-border-bottom:1px solid #202631
+  display:flex;
+  justify-content:space-between;
+  padding:10px 0;
+  border-bottom:1px solid #202631
 }
 
 .row:last-child{
-border-bottom:0
+  border-bottom:0
 }
 
 .label{
-color:#aab3c0
+  color:#aab3c0
 }
 
 .value{
-font-weight:600
+  font-weight:600
 }
 
 .levels{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px
 }
 
 .level{
-background:#0c1118;
-border-radius:13px;
-padding:13px
+  background:#0c1118;
+  border-radius:13px;
+  padding:13px
 }
 
 .level b{
-display:block;
-font-size:18px;
-margin-top:5px
+  display:block;
+  font-size:18px;
+  margin-top:5px
 }
 
 .support{
-color:#5ac8fa
+  color:#5ac8fa
 }
 
 .resist{
-color:#ff8a80
-}
-
-.btn{
-width:100%;
-border:0;
-border-radius:13px;
-padding:13px;
-background:#f0b90b;
-color:#111;
-font-weight:800;
-font-size:15px;
-margin-top:8px
+  color:#ff8a80
 }
 
 .note{
-font-size:12px;
-color:#8f9aaa;
-line-height:1.7;
-margin-top:10px
-}
-
-.news{
-padding:12px 0;
-border-bottom:1px solid #202631
-}
-
-.news:last-child{
-border:0
-}
-
-.time{
-color:#768294;
-font-size:11px;
-margin-top:5px
-}
-
-.high{
-color:#ff6b6b
-}
-
-.medium{
-color:#ffb74d
-}
-
-.low{
-color:#8f9aaa
-}
-
-.soon{
-border-right:3px solid #ff6b6b;
-padding-right:9px
+  font-size:12px;
+  color:#8f9aaa;
+  line-height:1.7;
+  margin-top:10px
 }
 </style>
 </head>
@@ -173,13 +160,22 @@ padding-right:9px
 
 <div class="wrap">
 
-<div class="head">
-<div>
-<h1>🥇 XAUUSD Gold Analyzer</h1>
-<div class="sub">تحليل الذهب فقط • دخول يدوي</div>
-</div>
+<!-- الرأس -->
 
-<div class="badge">● LIVE</div>
+<div class="head">
+
+  <div>
+    <h1>🥇 XAUUSD Gold Analyzer</h1>
+
+    <div class="sub">
+      تحليل الذهب فقط • دخول يدوي
+    </div>
+  </div>
+
+  <div class="badge">
+    ● LIVE
+  </div>
+
 </div>
 
 
@@ -187,30 +183,39 @@ padding-right:9px
 
 <div class="card">
 
-<div class="title">
-<span class="icon">📰</span>
-الأخبار المباشرة
-</div>
+  <div class="title">
+    <span class="icon">📰</span>
+    الأخبار المباشرة للذهب
+  </div>
 
-<div id="news">
+  <div class="liveNews">
 
-<div class="news">
-<b>جاري جلب أخبار اليوم...</b>
+    <iframe
+      class="calendar"
+      src="https://sslecal2.investing.com/?columns=exc_flags,exc_currency,exc_importance,exc_actual,exc_forecast,exc_previous&importance=2,3&features=datepicker,timezone&countries=5&calType=week"
+      frameborder="0"
+      allowtransparency="true"
+      marginwidth="0"
+      marginheight="0">
+    </iframe>
 
-<div class="time">
-الأحداث الاقتصادية المؤثرة على الذهب والدولار
-</div>
-</div>
+    <div class="source">
+      Real Time Economic Calendar provided by
+      <a
+        href="https://www.investing.com/"
+        target="_blank"
+        rel="nofollow">
+        Investing.com
+      </a>
+    </div>
 
-</div>
+  </div>
 
-<button class="btn" onclick="refreshNews()">
-تحديث الأخبار
-</button>
-
-<div class="note">
-يتم جلب أحداث اليوم مباشرة وتحديثها تلقائياً.
-</div>
+  <div class="note">
+    🟢 الأخبار تتحدث مباشرة من المصدر.
+    يتم عرض أخبار الولايات المتحدة ذات التأثير المتوسط والعالي على الأسواق.
+    عند صدور Actual يظهر داخل التقويم مباشرة.
+  </div>
 
 </div>
 
@@ -219,29 +224,50 @@ padding-right:9px
 
 <div class="card">
 
-<div class="title">
-<span class="icon">💪</span>
-قوة السوق
-</div>
+  <div class="title">
+    <span class="icon">💪</span>
+    قوة السوق
+  </div>
 
-<div class="row">
-<span class="label">اتجاه الذهب</span>
-<span class="value" id="trend">جارٍ التحليل</span>
-</div>
+  <div class="row">
+    <span class="label">
+      اتجاه الذهب
+    </span>
 
-<div class="row">
-<span class="label">قوة الحركة</span>
-<span class="value" id="strength">جارٍ التحليل</span>
-</div>
+    <span
+      class="value"
+      id="trend">
+      جارٍ التحليل
+    </span>
+  </div>
 
-<div class="row">
-<span class="label">الزخم</span>
-<span class="value" id="momentum">جارٍ التحليل</span>
-</div>
+  <div class="row">
+    <span class="label">
+      قوة الحركة
+    </span>
 
-<div class="note">
-سيتم ربط هذا القسم ببيانات سعر XAUUSD الحية.
-</div>
+    <span
+      class="value"
+      id="strength">
+      جارٍ التحليل
+    </span>
+  </div>
+
+  <div class="row">
+    <span class="label">
+      الزخم
+    </span>
+
+    <span
+      class="value"
+      id="momentum">
+      جارٍ التحليل
+    </span>
+  </div>
+
+  <div class="note">
+    سيتم ربط هذا القسم ببيانات سعر XAUUSD الحية.
+  </div>
 
 </div>
 
@@ -250,28 +276,38 @@ padding-right:9px
 
 <div class="card">
 
-<div class="title">
-<span class="icon">📍</span>
-مناطق الدعم والمقاومة
-</div>
+  <div class="title">
+    <span class="icon">📍</span>
+    مناطق الدعم والمقاومة
+  </div>
 
-<div class="levels">
+  <div class="levels">
 
-<div class="level support">
-أقرب دعم
-<b id="support">--</b>
-</div>
+    <div class="level support">
 
-<div class="level resist">
-أقرب مقاومة
-<b id="resistance">--</b>
-</div>
+      أقرب دعم
 
-</div>
+      <b id="support">
+        --
+      </b>
 
-<div class="note">
-سيتم حساب المناطق من بيانات XAUUSD الحية.
-</div>
+    </div>
+
+    <div class="level resist">
+
+      أقرب مقاومة
+
+      <b id="resistance">
+        --
+      </b>
+
+    </div>
+
+  </div>
+
+  <div class="note">
+    سيتم حساب المناطق من بيانات XAUUSD الحية.
+  </div>
 
 </div>
 
@@ -280,426 +316,33 @@ padding-right:9px
 
 <div class="card">
 
-<div class="title">
-<span class="icon">🎯</span>
-النتيجة
-</div>
-
-<div class="row">
-<span class="label">الحالة</span>
-<span class="value" id="signal">WAIT</span>
-</div>
-
-<div class="note">
-لا توجد أوامر تداول داخل التطبيق.
-القرار والتنفيذ يدويان.
-</div>
-
-</div>
-
-</div>
-
-
-<script>
-
-/* ==========================
-   FinanceCalendar
-   أحداث اليوم
-========================== */
-
-const API =
-"https://www.financecalendar.com/wp-json/fc/v1/today";
-
-
-/* ==========================
-   حماية النص
-========================== */
-
-function esc(value){
-
-return String(value ?? "").replace(
-/[&<>"']/g,
-
-function(char){
-
-const map={
-"&":"&amp;",
-"<":"&lt;",
-">":"&gt;",
-'"':"&quot;",
-"'":"&#39;"
-};
-
-return map[char];
-
-}
-
-);
-
-}
-
-
-/* ==========================
-   تصنيف التأثير
-========================== */
-
-function impactClass(value){
-
-const v=
-String(value ?? "")
-.toLowerCase();
-
-if(
-v.includes("high") ||
-v.includes("3")
-){
-return "high";
-}
-
-if(
-v.includes("medium") ||
-v.includes("2")
-){
-return "medium";
-}
-
-return "low";
-
-}
-
-
-/* ==========================
-   هل الخبر مهم للذهب؟
-========================== */
-
-function relevant(event){
-
-const currency=
-String(
-event.currency ||
-event.country ||
-""
-).toUpperCase();
-
-
-const name=
-String(
-event.name ||
-event.title ||
-event.event ||
-""
-).toLowerCase();
-
-
-const words=
-/gold|xau|fed|fomc|cpi|ppi|nfp|payroll|inflation|interest|rate|powell|treasury|unemployment|pce|gdp|retail sales|ism|jolts|jobless|nonfarm|consumer confidence|housing|sentiment/;
-
-
-return(
-currency==="USD" ||
-words.test(name)
-);
-
-}
-
-
-/* ==========================
-   التاريخ
-========================== */
-
-function formatDate(value){
-
-if(!value){
-return "";
-}
-
-try{
-
-return new Date(value).toLocaleString(
-"ar-IQ",
-{
-hour:"2-digit",
-minute:"2-digit"
-}
-);
-
-}catch{
-
-return String(value);
-
-}
-
-}
-
-
-/* ==========================
-   جلب أخبار اليوم
-========================== */
-
-async function refreshNews(){
-
-const box=
-document.getElementById("news");
-
-
-box.innerHTML=`
-<div class="news">
-<b>جاري تحديث الأخبار...</b>
-<div class="time">
-الاتصال بمصدر الأخبار المباشر
-</div>
-</div>
-`;
-
-
-try{
-
-const response=
-await fetch(
-API,
-{
-method:"GET",
-cache:"no-store"
-}
-);
-
-
-if(!response.ok){
-
-throw new Error(
-"HTTP "+response.status
-);
-
-}
-
-
-const raw=
-await response.json();
-
-
-let events=[];
-
-
-/*
-الصيغة الرسمية:
-{
-  market,
-  events
-}
-*/
-
-if(
-raw &&
-Array.isArray(raw.events)
-){
-
-events=
-raw.events;
-
-}
-
-
-/* احتياط إذا رجعت Array */
-
-else if(
-Array.isArray(raw)
-){
-
-events=
-raw;
-
-}
-
-
-/* احتياط لصيغ أخرى */
-
-else if(
-raw &&
-Array.isArray(raw.data)
-){
-
-events=
-raw.data;
-
-}
-
-
-/* فلترة أخبار الذهب */
-
-events=
-events
-.filter(relevant)
-.sort(
-
-function(a,b){
-
-const da=
-new Date(
-a.time_utc ||
-a.datetime ||
-a.date ||
-a.time ||
-0
-);
-
-const db=
-new Date(
-b.time_utc ||
-b.datetime ||
-b.date ||
-b.time ||
-0
-);
-
-return da-db;
-
-}
-
-)
-.slice(0,20);
-
-
-/* لا توجد أخبار */
-
-if(!events.length){
-
-box.innerHTML=`
-<div class="news">
-
-<b>لا توجد أخبار مؤثرة على الذهب اليوم</b>
-
-<div class="time">
-تم الاتصال بمصدر الأخبار بنجاح، لكن لا توجد أحداث مطابقة للفلترة حالياً.
-</div>
-
-</div>
-`;
-
-return;
-
-}
-
-
-/* عرض الأخبار */
-
-box.innerHTML=
-events.map(
-
-function(event){
-
-const name=
-event.name ||
-event.title ||
-event.event ||
-"حدث اقتصادي";
-
-
-const currency=
-event.currency ||
-event.country ||
-"";
-
-
-const impact=
-event.impact ||
-"";
-
-
-const date=
-event.time_utc ||
-event.datetime ||
-event.date ||
-event.time ||
-"";
-
-
-const timestamp=
-new Date(date).getTime();
-
-
-const soon=
-timestamp &&
-(
-timestamp-Date.now()
-)<3600000;
-
-
-return`
-
-<div class="news ${soon ? "soon":""}">
-
-<b>
-${esc(currency)}
-${currency ? " • ":""}
-${esc(name)}
-</b>
-
-<div class="time ${impactClass(impact)}">
-
-${esc(
-impact ||
-"غير محدد"
-)}
-
-${date ? " • ":""}
-
-${esc(
-formatDate(date)
-)}
+  <div class="title">
+    <span class="icon">🎯</span>
+    النتيجة
+  </div>
+
+  <div class="row">
+
+    <span class="label">
+      الحالة
+    </span>
+
+    <span
+      class="value"
+      id="signal">
+      WAIT
+    </span>
+
+  </div>
+
+  <div class="note">
+    لا توجد أوامر تداول داخل التطبيق.
+    القرار والتنفيذ يدويان.
+  </div>
 
 </div>
 
 </div>
-
-`;
-
-}
-
-).join("");
-
-
-}catch(error){
-
-console.error(
-"FinanceCalendar error:",
-error
-);
-
-
-box.innerHTML=`
-
-<div class="news">
-
-<b>
-تعذر جلب الأخبار الآن
-</b>
-
-<div class="time">
-تأكد من اتصال الإنترنت ثم اضغط تحديث الأخبار.
-</div>
-
-</div>
-
-`;
-
-}
-
-}
-
-
-/* تشغيل أول مرة */
-
-refreshNews();
-
-
-/* تحديث كل 5 دقائق */
-
-setInterval(
-refreshNews,
-300000
-);
-
-</script>
 
 </body>
 </html>
