@@ -2,11 +2,17 @@
 <html lang="ar" dir="rtl">
 
 <head>
+
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#080b10">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1,viewport-fit=cover">
+
+<meta name="theme-color"
+content="#080b10">
 
 <title>XAUUSD Gold Analyzer</title>
+
 
 <style>
 
@@ -22,9 +28,9 @@ font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial,sans-serif
 }
 
 .wrap{
-max-width:760px;
+max-width:780px;
 margin:auto;
-padding:18px 14px 35px
+padding:18px 14px 40px
 }
 
 .head{
@@ -79,6 +85,7 @@ font-size:20px
 .row{
 display:flex;
 justify-content:space-between;
+align-items:center;
 padding:11px 0;
 border-bottom:1px solid #202631
 }
@@ -96,7 +103,7 @@ font-weight:700
 }
 
 .price{
-font-size:25px;
+font-size:29px;
 font-weight:800;
 text-align:center;
 padding:12px;
@@ -108,32 +115,6 @@ text-align:center;
 font-size:11px;
 color:#7f8998;
 margin-top:4px
-}
-
-.levels{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px
-}
-
-.level{
-background:#0c1118;
-border-radius:13px;
-padding:13px
-}
-
-.level b{
-display:block;
-font-size:18px;
-margin-top:5px
-}
-
-.support{
-color:#5ac8fa
-}
-
-.resist{
-color:#ff8a80
 }
 
 .good{
@@ -148,11 +129,8 @@ color:#ff6b6b
 color:#ffb74d
 }
 
-.note{
-font-size:12px;
-color:#8f9aaa;
-line-height:1.7;
-margin-top:10px
+.blue{
+color:#5ac8fa
 }
 
 .liveNews{
@@ -182,6 +160,271 @@ color:#8da8c7;
 text-decoration:none
 }
 
+.note{
+font-size:12px;
+color:#8f9aaa;
+line-height:1.7;
+margin-top:10px
+}
+
+
+/* =====================================
+   MULTI TIMEFRAME
+===================================== */
+
+.tfGrid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:7px
+}
+
+.tfBox{
+background:#0c1118;
+border-radius:12px;
+padding:11px 6px;
+text-align:center;
+border:1px solid #1d2530
+}
+
+.tfName{
+font-size:12px;
+color:#8f9aaa;
+margin-bottom:7px
+}
+
+.tfValue{
+font-size:14px;
+font-weight:800
+}
+
+
+/* =====================================
+   MOVEMENT
+===================================== */
+
+.moveGrid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:8px
+}
+
+.moveBox{
+background:#0c1118;
+border-radius:12px;
+padding:12px 7px;
+text-align:center
+}
+
+.moveName{
+font-size:11px;
+color:#8f9aaa;
+margin-bottom:6px
+}
+
+.moveValue{
+font-size:16px;
+font-weight:800
+}
+
+
+/* =====================================
+   SUPPORT RESISTANCE
+===================================== */
+
+.levels{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px
+}
+
+.level{
+background:#0c1118;
+border-radius:13px;
+padding:13px
+}
+
+.levelTitle{
+font-size:13px;
+margin-bottom:6px
+}
+
+.level b{
+display:block;
+font-size:18px;
+margin-top:5px
+}
+
+.support{
+color:#5ac8fa
+}
+
+.resist{
+color:#ff8a80
+}
+
+
+/* =====================================
+   CANDLE
+===================================== */
+
+.candleBox{
+background:#0c1118;
+border-radius:13px;
+padding:14px
+}
+
+.candleMain{
+font-size:20px;
+font-weight:800;
+margin-bottom:7px
+}
+
+.candleDetails{
+font-size:12px;
+color:#8f9aaa;
+line-height:1.8
+}
+
+
+/* =====================================
+   NEWS FILTER
+===================================== */
+
+.newsAlert{
+border-radius:14px;
+padding:14px;
+background:#0c1118;
+border:1px solid #242c37
+}
+
+.newsAlert.high{
+border-color:#7b3434;
+background:#1a1012
+}
+
+.newsAlert.safe{
+border-color:#24543a;
+background:#0e1712
+}
+
+.newsTitle{
+font-size:17px;
+font-weight:800;
+margin-bottom:7px
+}
+
+.newsName{
+font-weight:700;
+margin-bottom:5px
+}
+
+.newsTime{
+font-size:12px;
+color:#9aa4b2
+}
+
+.newsValues{
+font-size:12px;
+margin-top:8px;
+color:#b7c0cc
+}
+
+
+/* =====================================
+   CHART
+===================================== */
+
+.chartWrap{
+background:#090e15;
+border:1px solid #202733;
+border-radius:14px;
+padding:8px;
+overflow:hidden
+}
+
+#chart{
+width:100%;
+height:290px;
+display:block
+}
+
+.chartLegend{
+display:flex;
+justify-content:space-between;
+font-size:11px;
+color:#7f8998;
+padding:6px 4px 2px
+}
+
+
+/* =====================================
+   RESULT
+===================================== */
+
+.signalBox{
+text-align:center;
+padding:16px;
+background:#0c1118;
+border-radius:14px
+}
+
+.signal{
+font-size:29px;
+font-weight:900
+}
+
+.reason{
+font-size:13px;
+color:#aab3c0;
+line-height:1.8;
+margin-top:7px
+}
+
+
+/* =====================================
+   UPDATE
+===================================== */
+
+.updateBox{
+text-align:center;
+font-size:11px;
+color:#7f8998;
+margin-top:8px
+}
+
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media(max-width:520px){
+
+.tfGrid{
+grid-template-columns:repeat(4,1fr)
+}
+
+.tfBox{
+padding:10px 3px
+}
+
+.tfValue{
+font-size:13px
+}
+
+.moveGrid{
+grid-template-columns:repeat(3,1fr)
+}
+
+.moveValue{
+font-size:14px
+}
+
+#chart{
+height:250px
+}
+
+}
+
 </style>
 
 </head>
@@ -189,10 +432,13 @@ text-decoration:none
 
 <body>
 
+
 <div class="wrap">
 
 
-<!-- HEADER -->
+<!-- =====================================
+HEADER
+===================================== -->
 
 <div class="head">
 
@@ -215,20 +461,17 @@ text-decoration:none
 </div>
 
 
-<!-- PRICE -->
+
+<!-- =====================================
+PRICE
+===================================== -->
 
 <div class="card">
 
 <div class="title">
-
-<span class="icon">
-💰
-</span>
-
+<span class="icon">💰</span>
 سعر الذهب الحي
-
 </div>
-
 
 <div
 class="price"
@@ -237,7 +480,6 @@ id="price">
 جاري جلب السعر...
 
 </div>
-
 
 <div
 class="status"
@@ -251,35 +493,27 @@ id="priceStatus">
 
 
 
-<!-- NEWS -->
+<!-- =====================================
+NEWS CALENDAR
+===================================== -->
 
 <div class="card">
 
 <div class="title">
-
-<span class="icon">
-📰
-</span>
-
+<span class="icon">📰</span>
 الأخبار المباشرة للذهب
-
 </div>
-
 
 <div class="liveNews">
 
 <iframe
 class="calendar"
-
 src="https://sslecal2.investing.com/?columns=exc_flags,exc_currency,exc_importance,exc_actual,exc_forecast,exc_previous&importance=2,3&features=datepicker,timezone&countries=5&calType=week"
-
 frameborder="0"
 allowtransparency="true"
 marginwidth="0"
 marginheight="0">
-
 </iframe>
-
 
 <div class="source">
 
@@ -298,11 +532,72 @@ Investing.com
 
 </div>
 
+<div class="note">
+🟢 الأخبار تتحدث من المصدر المباشر، وتظهر Actual عند صدور البيانات.
+</div>
+
+</div>
+
+
+
+<!-- =====================================
+HIGH IMPACT NEWS FILTER
+===================================== -->
+
+<div class="card">
+
+<div class="title">
+
+<span class="icon">
+🚨
+</span>
+
+فلتر الأخبار المهمة
+
+</div>
+
+
+<div
+id="newsAlert"
+class="newsAlert">
+
+<div
+class="newsTitle">
+
+جاري فحص الأخبار...
+
+</div>
+
+<div
+class="newsName"
+id="nextNews">
+
+جاري البحث عن أقرب خبر أمريكي قوي
+
+</div>
+
+<div
+class="newsTime"
+id="newsCountdown">
+
+--
+
+</div>
+
+<div
+class="newsValues"
+id="newsValues">
+
+--
+
+</div>
+
+</div>
+
 
 <div class="note">
 
-🟢 الأخبار تتحدث من المصدر المباشر.
-عند صدور Actual يظهر داخل التقويم.
+يتم فحص الأخبار الأمريكية عالية التأثير تلقائياً.
 
 </div>
 
@@ -310,7 +605,9 @@ Investing.com
 
 
 
-<!-- MARKET STRENGTH -->
+<!-- =====================================
+MARKET STRENGTH
+===================================== -->
 
 <div class="card">
 
@@ -375,12 +672,104 @@ id="momentum">
 
 </div>
 
+</div>
+
+
+
+<!-- =====================================
+MULTI TIMEFRAME
+===================================== -->
+
+<div class="card">
+
+<div class="title">
+
+<span class="icon">
+📊
+</span>
+
+تحليل الفريمات
+
+</div>
+
+
+<div class="tfGrid">
+
+
+<div class="tfBox">
+
+<div class="tfName">
+5M
+</div>
 
 <div
-class="note"
-id="analysisStatus">
+class="tfValue"
+id="tf5">
 
-جاري تحليل بيانات XAUUSD...
+--
+
+</div>
+
+</div>
+
+
+<div class="tfBox">
+
+<div class="tfName">
+15M
+</div>
+
+<div
+class="tfValue"
+id="tf15">
+
+--
+
+</div>
+
+</div>
+
+
+<div class="tfBox">
+
+<div class="tfName">
+30M
+</div>
+
+<div
+class="tfValue"
+id="tf30">
+
+--
+
+</div>
+
+</div>
+
+
+<div class="tfBox">
+
+<div class="tfName">
+1H
+</div>
+
+<div
+class="tfValue"
+id="tf60">
+
+--
+
+</div>
+
+</div>
+
+
+</div>
+
+
+<div class="note">
+
+الاتجاهات محسوبة من حركة السعر داخل كل فريم.
 
 </div>
 
@@ -388,7 +777,127 @@ id="analysisStatus">
 
 
 
-<!-- SUPPORT RESISTANCE -->
+<!-- =====================================
+PRICE MOVEMENT
+===================================== -->
+
+<div class="card">
+
+<div class="title">
+
+<span class="icon">
+⚡
+</span>
+
+سرعة حركة الذهب
+
+</div>
+
+
+<div class="moveGrid">
+
+
+<div class="moveBox">
+
+<div class="moveName">
+آخر 5 دقائق
+</div>
+
+<div
+class="moveValue"
+id="move5">
+
+--
+
+</div>
+
+</div>
+
+
+<div class="moveBox">
+
+<div class="moveName">
+آخر 15 دقيقة
+</div>
+
+<div
+class="moveValue"
+id="move15">
+
+--
+
+</div>
+
+</div>
+
+
+<div class="moveBox">
+
+<div class="moveName">
+آخر ساعة
+</div>
+
+<div
+class="moveValue"
+id="move60">
+
+--
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+
+<!-- =====================================
+CANDLE
+===================================== -->
+
+<div class="card">
+
+<div class="title">
+
+<span class="icon">
+🕯️
+</span>
+
+الشمعة الحالية 5M
+
+</div>
+
+
+<div class="candleBox">
+
+<div
+class="candleMain"
+id="candleState">
+
+--
+
+</div>
+
+<div
+class="candleDetails"
+id="candleDetails">
+
+--
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- =====================================
+SUPPORT RESISTANCE
+===================================== -->
 
 <div class="card">
 
@@ -408,9 +917,11 @@ id="analysisStatus">
 
 <div class="level support">
 
+<div class="levelTitle">
 أقرب دعم
+</div>
 
-<b id="support">
+<b id="support1">
 --
 </b>
 
@@ -419,9 +930,37 @@ id="analysisStatus">
 
 <div class="level resist">
 
+<div class="levelTitle">
 أقرب مقاومة
+</div>
 
-<b id="resistance">
+<b id="resistance1">
+--
+</b>
+
+</div>
+
+
+<div class="level support">
+
+<div class="levelTitle">
+الدعم الثاني
+</div>
+
+<b id="support2">
+--
+</b>
+
+</div>
+
+
+<div class="level resist">
+
+<div class="levelTitle">
+المقاومة الثانية
+</div>
+
+<b id="resistance2">
 --
 </b>
 
@@ -433,7 +972,7 @@ id="analysisStatus">
 
 <div class="note">
 
-يتم حساب المستويات من شموع XAUUSD الأخيرة.
+المستويات مستخرجة من شموع XAUUSD الأخيرة.
 
 </div>
 
@@ -441,7 +980,56 @@ id="analysisStatus">
 
 
 
-<!-- RESULT -->
+<!-- =====================================
+CHART
+===================================== -->
+
+<div class="card">
+
+<div class="title">
+
+<span class="icon">
+📈
+</span>
+
+شارت XAUUSD
+
+</div>
+
+
+<div class="chartWrap">
+
+<canvas id="chart"></canvas>
+
+<div class="chartLegend">
+
+<span>
+5M
+</span>
+
+<span id="chartCurrent">
+--
+
+</span>
+
+</div>
+
+</div>
+
+
+<div class="note">
+
+الشارت يعرض حركة آخر شموع 5M مع أقرب دعم ومقاومة.
+
+</div>
+
+</div>
+
+
+
+<!-- =====================================
+RESULT
+===================================== -->
 
 <div class="card">
 
@@ -456,19 +1044,24 @@ id="analysisStatus">
 </div>
 
 
-<div class="row">
+<div class="signalBox">
 
-<span class="label">
-الحالة
-</span>
-
-<span
-class="value neutral"
+<div
+class="signal neutral"
 id="signal">
 
 WAIT
 
-</span>
+</div>
+
+
+<div
+class="reason"
+id="signalReason">
+
+جاري تحليل جميع العوامل...
+
+</div>
 
 </div>
 
@@ -483,6 +1076,20 @@ WAIT
 </div>
 
 
+
+<!-- =====================================
+UPDATE
+===================================== -->
+
+<div
+class="updateBox"
+id="updateAge">
+
+جاري تحديث البيانات...
+
+</div>
+
+
 </div>
 
 
@@ -490,17 +1097,37 @@ WAIT
 <script>
 
 
-/* =========================================
-   BiQuote
-========================================= */
+/* =====================================
+   API
+===================================== */
 
 const BASE_API =
 "https://biquote.io/api";
 
 
-/* =========================================
-   عناصر الصفحة
-========================================= */
+/* =====================================
+   GLOBAL DATA
+===================================== */
+
+let marketData = {
+
+price:null,
+
+bars5:[],
+bars15:[],
+bars30:[],
+bars60:[],
+
+levels:null,
+
+lastUpdate:null
+
+};
+
+
+/* =====================================
+   ELEMENTS
+===================================== */
 
 const priceEl =
 document.getElementById("price");
@@ -517,22 +1144,68 @@ document.getElementById("strength");
 const momentumEl =
 document.getElementById("momentum");
 
-const supportEl =
-document.getElementById("support");
+const support1El =
+document.getElementById("support1");
 
-const resistanceEl =
-document.getElementById("resistance");
+const support2El =
+document.getElementById("support2");
+
+const resistance1El =
+document.getElementById("resistance1");
+
+const resistance2El =
+document.getElementById("resistance2");
 
 const signalEl =
 document.getElementById("signal");
 
-const analysisStatus =
-document.getElementById("analysisStatus");
+const signalReasonEl =
+document.getElementById("signalReason");
+
+const candleStateEl =
+document.getElementById("candleState");
+
+const candleDetailsEl =
+document.getElementById("candleDetails");
+
+const updateAgeEl =
+document.getElementById("updateAge");
 
 
-/* =========================================
-   رقم
-========================================= */
+/* =====================================
+   TIMEFRAME ELEMENTS
+===================================== */
+
+const tf5El =
+document.getElementById("tf5");
+
+const tf15El =
+document.getElementById("tf15");
+
+const tf30El =
+document.getElementById("tf30");
+
+const tf60El =
+document.getElementById("tf60");
+
+
+/* =====================================
+   MOVEMENT ELEMENTS
+===================================== */
+
+const move5El =
+document.getElementById("move5");
+
+const move15El =
+document.getElementById("move15");
+
+const move60El =
+document.getElementById("move60");
+
+
+/* =====================================
+   NUMBER
+===================================== */
 
 function num(v){
 
@@ -546,11 +1219,18 @@ return Number.isFinite(n)
 }
 
 
-/* =========================================
-   تنسيق السعر
-========================================= */
+/* =====================================
+   FORMAT PRICE
+===================================== */
 
 function fmt(v){
+
+if(v === null ||
+v === undefined){
+
+return "--";
+
+}
 
 return Number(v).toLocaleString(
 "en-US",
@@ -563,11 +1243,37 @@ maximumFractionDigits:2
 }
 
 
-/* =========================================
-   اللون
-========================================= */
+/* =====================================
+   FORMAT %
+===================================== */
 
-function setClass(el,cls){
+function fmtPct(v){
+
+if(v === null ||
+!Number.isFinite(v)){
+
+return "--";
+
+}
+
+const sign =
+v > 0 ? "+" : "";
+
+return sign +
+v.toFixed(2) +
+"%";
+
+}
+
+
+/* =====================================
+   CLASS
+===================================== */
+
+function setClass(
+el,
+cls
+){
 
 el.className =
 "value " + cls;
@@ -575,15 +1281,17 @@ el.className =
 }
 
 
-/* =========================================
-   جلب السعر
-========================================= */
+/* =====================================
+   FETCH
+===================================== */
 
-async function getSpot(){
+async function fetchJSON(
+url
+){
 
 const response =
 await fetch(
-BASE_API + "/XAUUSD?allowStale=true&fresh=" + Date.now(),
+url,
 {
 cache:"no-store"
 }
@@ -592,14 +1300,29 @@ cache:"no-store"
 if(!response.ok){
 
 throw new Error(
-"PRICE HTTP " +
+"HTTP " +
 response.status
 );
 
 }
 
+return await response.json();
+
+}
+
+
+/* =====================================
+   SPOT
+===================================== */
+
+async function getSpot(){
+
 const data =
-await response.json();
+await fetchJSON(
+BASE_API +
+"/XAUUSD?allowStale=true&fresh=" +
+Date.now()
+);
 
 
 const price =
@@ -613,7 +1336,7 @@ data.last
 if(price === null){
 
 throw new Error(
-"XAUUSD price not found"
+"XAUUSD price missing"
 );
 
 }
@@ -621,7 +1344,7 @@ throw new Error(
 
 return {
 
-price:price,
+price,
 
 marketState:
 data.marketState ||
@@ -634,73 +1357,57 @@ age:
 num(data.quoteAgeSeconds),
 
 timestamp:
-data.timestamp || null
+data.timestamp ||
+null
 
 };
 
 }
 
 
-/* =========================================
-   جلب الشموع
-========================================= */
+/* =====================================
+   OHLC
+===================================== */
 
 async function getOHLC(
 interval,
-limit=200
+limit
 ){
 
-const url =
+const data =
+await fetchJSON(
+
 BASE_API +
 "/XAUUSD/ohlc?interval=" +
 encodeURIComponent(interval) +
 "&limit=" +
 limit +
 "&fresh=" +
-Date.now();
+Date.now()
 
-
-const response =
-await fetch(
-url,
-{
-cache:"no-store"
-}
 );
 
 
-if(!response.ok){
-
-throw new Error(
-interval +
-" HTTP " +
-response.status
-);
-
-}
-
-
-const data =
-await response.json();
-
-
-if(!Array.isArray(data.bars)){
-
-throw new Error(
-interval +
-" bars not found"
-);
-
-}
-
-
-const bars =
+if(!Array.isArray(
 data.bars
+)){
+
+throw new Error(
+"No bars " +
+interval
+);
+
+}
+
+
+return data.bars
 
 .map(b=>({
 
 time:
-Date.parse(b.openTime),
+Date.parse(
+b.openTime
+),
 
 open:
 num(b.open),
@@ -731,35 +1438,22 @@ b.close !== null
 (a,b)=>a.time-b.time
 );
 
-
-if(!bars.length){
-
-throw new Error(
-interval +
-" no valid bars"
-);
-
 }
 
 
-return bars;
+/* =====================================
+   CHANGE
+===================================== */
 
-}
-
-
-/* =========================================
-   نسبة التغير
-========================================= */
-
-function percentChange(
+function changeFrom(
 oldPrice,
 newPrice
 ){
 
 if(
 oldPrice === null ||
-oldPrice === 0 ||
-newPrice === null
+newPrice === null ||
+oldPrice === 0
 ){
 
 return null;
@@ -774,231 +1468,157 @@ oldPrice
 }
 
 
-/* =========================================
-   الاتجاه
-========================================= */
+/* =====================================
+   BAR DIRECTION
+===================================== */
 
-function calculateTrend(
-bars15,
-bars30,
-bars60,
-current
+function barDirection(
+bar
 ){
 
-const last15 =
-bars15[bars15.length-1];
+if(!bar){
 
-const last30 =
-bars30[bars30.length-1];
+return "عرضي";
 
-const last60 =
-bars60[bars60.length-1];
+}
+
+if(bar.close > bar.open){
+
+return "صاعد";
+
+}
+
+if(bar.close < bar.open){
+
+return "هابط";
+
+}
+
+return "عرضي";
+
+}
 
 
-const old15 =
-bars15[Math.max(
+/* =====================================
+   TIMEFRAME TREND
+===================================== */
+
+function timeframeTrend(
+bars,
+lookback
+){
+
+if(
+!bars ||
+bars.length <= lookback
+){
+
+return "عرضي";
+
+}
+
+
+const last =
+bars[bars.length-1];
+
+const old =
+bars[
+Math.max(
 0,
-bars15.length-4
-)];
-
-const old30 =
-bars30[Math.max(
-0,
-bars30.length-3
-)];
-
-const old60 =
-bars60[Math.max(
-0,
-bars60.length-2
-)];
+bars.length-1-lookback
+)
+];
 
 
-const c15 =
-percentChange(
-old15.close,
-current
-);
-
-const c30 =
-percentChange(
-old30.close,
-current
-);
-
-const c60 =
-percentChange(
-old60.close,
-current
+const change =
+changeFrom(
+old.close,
+last.close
 );
 
 
-let trend =
-"عرضي";
+if(change === null){
+
+return "عرضي";
+
+}
 
 
-/*
-الاتجاه يعتمد على
-15 + 30 + 60 دقيقة
-*/
+if(change > 0.10){
 
-if(
-c15 !== null &&
-c30 !== null &&
-c60 !== null
+return "صاعد";
+
+}
+
+if(change < -0.10){
+
+return "هابط";
+
+}
+
+return "عرضي";
+
+}
+
+
+/* =====================================
+   UPDATE TF UI
+===================================== */
+
+function updateTF(
+el,
+value
 ){
 
-if(
-c15 > 0.10 &&
-c30 > 0.15 &&
-c60 > 0.20
-){
+el.textContent =
+value;
 
-trend =
-"صاعد";
 
-}
+if(value === "صاعد"){
 
-else if(
-c15 < -0.10 &&
-c30 < -0.15 &&
-c60 < -0.20
-){
-
-trend =
-"هابط";
+el.className =
+"tfValue good";
 
 }
 
+else if(value === "هابط"){
+
+el.className =
+"tfValue bad";
+
 }
 
+else{
 
-return {
+el.className =
+"tfValue neutral";
 
-trend,
-c15,
-c30,
-c60
-
-};
+}
 
 }
 
 
-/* =========================================
-   قوة الحركة
-========================================= */
-
-function calculateStrength(
-change15
-){
-
-const abs =
-Math.abs(
-change15 || 0
-);
-
-
-if(abs >= 0.30){
-
-return "قوية";
-
-}
-
-if(abs >= 0.12){
-
-return "متوسطة";
-
-}
-
-return "ضعيفة";
-
-}
-
-
-/* =========================================
-   الزخم
-========================================= */
-
-function calculateMomentum(
-change15,
-change30
-){
-
-if(
-change15 === null ||
-change30 === null
-){
-
-return "محايد";
-
-}
-
-
-if(
-change15 > 0.05 &&
-change30 > 0.08
-){
-
-return "إيجابي";
-
-}
-
-
-if(
-change15 < -0.05 &&
-change30 < -0.08
-){
-
-return "سلبي";
-
-}
-
-
-return "محايد";
-
-}
-
-
-/* =========================================
-   الدعم والمقاومة
-========================================= */
+/* =====================================
+   LEVELS
+===================================== */
 
 function calculateLevels(
 bars,
 current
 ){
 
-if(!bars.length){
-
-return {
-support:null,
-resistance:null
-};
-
-}
-
-
-/*
-آخر 100 شمعة تقريباً
-*/
-
 const recent =
 bars.slice(
 Math.max(
 0,
-bars.length-100
+bars.length-120
 )
 );
 
 
-const supports = [];
-const resistances = [];
+const lows = [];
+const highs = [];
 
-
-/*
-Swing levels
-*/
 
 for(
 let i=2;
@@ -1006,44 +1626,36 @@ i<recent.length-2;
 i++
 ){
 
-const candle =
+const c =
 recent[i];
 
 
-/* Swing Low */
-
 if(
-candle.low <= recent[i-1].low &&
-candle.low <= recent[i-2].low &&
-candle.low <= recent[i+1].low &&
-candle.low <= recent[i+2].low
+c.low <= recent[i-1].low &&
+c.low <= recent[i-2].low &&
+c.low <= recent[i+1].low &&
+c.low <= recent[i+2].low
 ){
 
-if(candle.low < current){
+if(c.low < current){
 
-supports.push(
-candle.low
-);
+lows.push(c.low);
 
 }
 
 }
 
-
-/* Swing High */
 
 if(
-candle.high >= recent[i-1].high &&
-candle.high >= recent[i-2].high &&
-candle.high >= recent[i+1].high &&
-candle.high >= recent[i+2].high
+c.high >= recent[i-1].high &&
+c.high >= recent[i-2].high &&
+c.high >= recent[i+1].high &&
+c.high >= recent[i+2].high
 ){
 
-if(candle.high > current){
+if(c.high > current){
 
-resistances.push(
-candle.high
-);
+highs.push(c.high);
 
 }
 
@@ -1052,94 +1664,414 @@ candle.high
 }
 
 
-/* أقرب دعم */
+/* أقرب دعم أولاً */
 
-supports.sort(
+lows.sort(
 (a,b)=>b-a
 );
 
 
-/* أقرب مقاومة */
+/* أقرب مقاومة أولاً */
 
-resistances.sort(
+highs.sort(
 (a,b)=>a-b
+);
+
+
+/*
+نحاول عدم عرض
+مستويات متقاربة جداً
+*/
+
+function uniqueLevels(
+arr,
+distance
+){
+
+const result = [];
+
+for(const value of arr){
+
+if(
+!result.some(
+x =>
+Math.abs(x-value) <= distance
+)
+){
+
+result.push(value);
+
+}
+
+if(result.length >= 2){
+
+break;
+
+}
+
+}
+
+return result;
+
+}
+
+
+const supports =
+uniqueLevels(
+lows,
+1.00
+);
+
+
+const resistances =
+uniqueLevels(
+highs,
+1.00
 );
 
 
 return {
 
-support:
-supports.length
-? supports[0]
-: null,
+support1:
+supports[0] ?? null,
 
-resistance:
-resistances.length
-? resistances[0]
-: null
+support2:
+supports[1] ?? null,
+
+resistance1:
+resistances[0] ?? null,
+
+resistance2:
+resistances[1] ?? null
 
 };
 
 }
 
 
-/* =========================================
-   التحليل الكامل
-========================================= */
+/* =====================================
+   CANDLE ANALYSIS
+===================================== */
 
-function analyze(
-current,
-bars5,
-bars15,
-bars30,
-bars60
+function analyzeCandle(
+bar
 ){
 
-const result =
-calculateTrend(
-bars15,
-bars30,
-bars60,
-current
+if(!bar){
+
+return;
+
+}
+
+
+const body =
+Math.abs(
+bar.close-bar.open
+);
+
+const range =
+bar.high-bar.low;
+
+
+const bodyPercent =
+range > 0
+? (body/range)*100
+: 0;
+
+
+let state;
+
+
+if(bodyPercent < 20){
+
+state =
+"🟡 شمعة مترددة";
+
+}
+
+else if(
+bar.close > bar.open
+){
+
+state =
+"🟢 شمعة صاعدة";
+
+}
+
+else if(
+bar.close < bar.open
+){
+
+state =
+"🔴 شمعة هابطة";
+
+}
+
+else{
+
+state =
+"🟡 شمعة محايدة";
+
+}
+
+
+candleStateEl.textContent =
+state;
+
+
+candleDetailsEl.innerHTML =
+
+"Open: <b>" +
+fmt(bar.open) +
+"</b> • " +
+
+"High: <b>" +
+fmt(bar.high) +
+"</b> • " +
+
+"Low: <b>" +
+fmt(bar.low) +
+"</b> • " +
+
+"Close: <b>" +
+fmt(bar.close) +
+"</b>" +
+
+"<br>قوة جسم الشمعة: <b>" +
+bodyPercent.toFixed(0) +
+"%</b>";
+
+}
+
+
+/* =====================================
+   MARKET ANALYSIS
+===================================== */
+
+function analyzeMarket(){
+
+const price =
+marketData.price;
+
+const b5 =
+marketData.bars5;
+
+const b15 =
+marketData.bars15;
+
+const b30 =
+marketData.bars30;
+
+const b60 =
+marketData.bars60;
+
+
+if(
+!price ||
+!b5.length ||
+!b15.length ||
+!b30.length ||
+!b60.length
+){
+
+return;
+
+}
+
+
+/* =====================================
+   TIMEFRAMES
+===================================== */
+
+const trend5 =
+timeframeTrend(
+b5,
+3
+);
+
+const trend15 =
+timeframeTrend(
+b15,
+3
+);
+
+const trend30 =
+timeframeTrend(
+b30,
+2
+);
+
+const trend60 =
+timeframeTrend(
+b60,
+2
 );
 
 
-const change15 =
-result.c15;
+updateTF(
+tf5El,
+trend5
+);
 
-const change30 =
-result.c30;
+updateTF(
+tf15El,
+trend15
+);
 
+updateTF(
+tf30El,
+trend30
+);
 
-const strength =
-calculateStrength(
-change15
+updateTF(
+tf60El,
+trend60
 );
 
 
-const momentum =
-calculateMomentum(
-change15,
-change30
+/* =====================================
+   MOVEMENT
+===================================== */
+
+const old5 =
+b5[
+Math.max(
+0,
+b5.length-2
+)
+];
+
+const old15 =
+b5[
+Math.max(
+0,
+b5.length-4
+)
+];
+
+const old60 =
+b5[
+Math.max(
+0,
+b5.length-13
+)
+];
+
+
+const ch5 =
+changeFrom(
+old5?.close ?? null,
+price
+);
+
+const ch15 =
+changeFrom(
+old15?.close ?? null,
+price
+);
+
+const ch60 =
+changeFrom(
+old60?.close ?? null,
+price
 );
 
 
-const levels =
-calculateLevels(
-bars5,
-current
+move5El.textContent =
+fmtPct(ch5);
+
+move15El.textContent =
+fmtPct(ch15);
+
+move60El.textContent =
+fmtPct(ch60);
+
+
+move5El.className =
+"moveValue " +
+(
+ch5 > 0
+? "good"
+: ch5 < 0
+? "bad"
+: "neutral"
 );
 
 
-/* =========================================
-   الاتجاه
-========================================= */
+move15El.className =
+"moveValue " +
+(
+ch15 > 0
+? "good"
+: ch15 < 0
+? "bad"
+: "neutral"
+);
+
+
+move60El.className =
+"moveValue " +
+(
+ch60 > 0
+? "good"
+: ch60 < 0
+? "bad"
+: "neutral"
+);
+
+
+/* =====================================
+   GENERAL TREND
+===================================== */
+
+const positive =
+[
+trend5,
+trend15,
+trend30,
+trend60
+]
+.filter(
+x => x === "صاعد"
+).length;
+
+
+const negative =
+[
+trend5,
+trend15,
+trend30,
+trend60
+]
+.filter(
+x => x === "هابط"
+).length;
+
+
+let trend =
+"عرضي";
+
+
+if(positive >= 3){
+
+trend =
+"صاعد";
+
+}
+
+else if(negative >= 3){
+
+trend =
+"هابط";
+
+}
+
 
 trendEl.textContent =
-result.trend;
+trend;
 
 
-if(result.trend === "صاعد"){
+if(trend === "صاعد"){
 
 setClass(
 trendEl,
@@ -1148,7 +2080,7 @@ trendEl,
 
 }
 
-else if(result.trend === "هابط"){
+else if(trend === "هابط"){
 
 setClass(
 trendEl,
@@ -1167,36 +2099,75 @@ trendEl,
 }
 
 
-/* =========================================
-   القوة
-========================================= */
+/* =====================================
+   STRENGTH
+===================================== */
+
+const abs15 =
+Math.abs(
+ch15 || 0
+);
+
+
+let strength =
+"ضعيفة";
+
+
+if(abs15 >= 0.30){
+
+strength =
+"قوية";
+
+}
+
+else if(abs15 >= 0.12){
+
+strength =
+"متوسطة";
+
+}
+
 
 strengthEl.textContent =
 strength;
 
 
-if(strength === "قوية"){
-
 setClass(
 strengthEl,
-"good"
+strength === "قوية"
+? "good"
+: "neutral"
 );
+
+
+/* =====================================
+   MOMENTUM
+===================================== */
+
+let momentum =
+"محايد";
+
+
+if(
+(ch5 || 0) > 0.05 &&
+(ch15 || 0) > 0.08
+){
+
+momentum =
+"إيجابي";
 
 }
 
-else{
+else if(
+(ch5 || 0) < -0.05 &&
+(ch15 || 0) < -0.08
+){
 
-setClass(
-strengthEl,
-"neutral"
-);
+momentum =
+"سلبي";
 
 }
 
-
-/* =========================================
-   الزخم
-========================================= */
 
 momentumEl.textContent =
 momentum;
@@ -1230,36 +2201,56 @@ momentumEl,
 }
 
 
-/* =========================================
-   الدعم
-========================================= */
+/* =====================================
+   LEVELS
+===================================== */
 
-supportEl.textContent =
-levels.support !== null
-? fmt(levels.support)
-: "--";
-
-
-/* =========================================
-   المقاومة
-========================================= */
-
-resistanceEl.textContent =
-levels.resistance !== null
-? fmt(levels.resistance)
-: "--";
+const levels =
+calculateLevels(
+b5,
+price
+);
 
 
-/* =========================================
-   النتيجة
-========================================= */
+marketData.levels =
+levels;
+
+
+support1El.textContent =
+fmt(levels.support1);
+
+support2El.textContent =
+fmt(levels.support2);
+
+resistance1El.textContent =
+fmt(levels.resistance1);
+
+resistance2El.textContent =
+fmt(levels.resistance2);
+
+
+/* =====================================
+   CANDLE
+===================================== */
+
+analyzeCandle(
+b5[b5.length-1]
+);
+
+
+/* =====================================
+   SIGNAL
+===================================== */
 
 let signal =
 "WAIT";
 
+let reason =
+"";
+
 
 if(
-result.trend === "صاعد" &&
+trend === "صاعد" &&
 momentum === "إيجابي" &&
 strength !== "ضعيفة"
 ){
@@ -1267,11 +2258,13 @@ strength !== "ضعيفة"
 signal =
 "UP";
 
+reason =
+"الاتجاه العام صاعد + الزخم إيجابي + الحركة ليست ضعيفة.";
+
 }
 
-
 else if(
-result.trend === "هابط" &&
+trend === "هابط" &&
 momentum === "سلبي" &&
 strength !== "ضعيفة"
 ){
@@ -1279,8 +2272,25 @@ strength !== "ضعيفة"
 signal =
 "DOWN";
 
+reason =
+"الاتجاه العام هابط + الزخم سلبي + الحركة ليست ضعيفة.";
+
 }
 
+else{
+
+signal =
+"WAIT";
+
+reason =
+"الاتجاه والزخم والقوة لا تتفق حالياً على حركة واحدة.";
+
+}
+
+
+/* =====================================
+   SIGNAL UI
+===================================== */
 
 signalEl.textContent =
 signal;
@@ -1288,66 +2298,659 @@ signal;
 
 if(signal === "UP"){
 
-setClass(
-signalEl,
-"good"
-);
+signalEl.className =
+"signal good";
 
 }
 
 else if(signal === "DOWN"){
 
-setClass(
-signalEl,
-"bad"
-);
+signalEl.className =
+"signal bad";
 
 }
 
 else{
 
-setClass(
-signalEl,
-"neutral"
+signalEl.className =
+"signal neutral";
+
+}
+
+
+signalReasonEl.textContent =
+reason;
+
+
+/* =====================================
+   CHART
+===================================== */
+
+drawChart();
+
+}
+
+
+/* =====================================
+   CHART
+===================================== */
+
+function drawChart(){
+
+const canvas =
+document.getElementById(
+"chart"
+);
+
+if(!canvas){
+
+return;
+
+}
+
+
+const rect =
+canvas.getBoundingClientRect();
+
+
+const ratio =
+window.devicePixelRatio || 1;
+
+
+canvas.width =
+rect.width * ratio;
+
+canvas.height =
+rect.height * ratio;
+
+
+const ctx =
+canvas.getContext("2d");
+
+
+ctx.scale(
+ratio,
+ratio
+);
+
+
+const width =
+rect.width;
+
+const height =
+rect.height;
+
+
+ctx.clearRect(
+0,
+0,
+width,
+height
+);
+
+
+const bars =
+marketData.bars5.slice(
+-80
+);
+
+
+if(bars.length < 2){
+
+return;
+
+}
+
+
+const prices = [];
+
+
+for(const b of bars){
+
+prices.push(
+b.high,
+b.low
 );
 
 }
 
 
-/* =========================================
-   حالة التحليل
-========================================= */
+if(marketData.levels){
 
-analysisStatus.textContent =
-"آخر تحديث: " +
-new Date().toLocaleTimeString(
-"ar-IQ"
-) +
-" • 5m: " +
-bars5.length +
-" • 15m: " +
-bars15.length +
-" • 30m: " +
-bars30.length +
-" • 1h: " +
-bars60.length;
+if(
+marketData.levels.support1
+){
+
+prices.push(
+marketData.levels.support1
+);
+
+}
+
+if(
+marketData.levels.resistance1
+){
+
+prices.push(
+marketData.levels.resistance1
+);
+
+}
 
 }
 
 
-/* =========================================
-   تحديث السوق
-========================================= */
+let min =
+Math.min(...prices);
 
-async function updateMarket(){
+let max =
+Math.max(...prices);
+
+
+const padding =
+(max-min)*0.08 || 1;
+
+min -= padding;
+max += padding;
+
+
+function x(i){
+
+return (
+i /
+(bars.length-1)
+) * (width-20) + 10;
+
+}
+
+
+function y(price){
+
+return (
+height-10
+) -
+(
+(price-min) /
+(max-min)
+) *
+(height-20);
+
+}
+
+
+/* =====================================
+   GRID
+===================================== */
+
+ctx.strokeStyle =
+"#1b222c";
+
+ctx.lineWidth =
+1;
+
+
+for(let i=1;i<5;i++){
+
+const yy =
+(i/5)*height;
+
+ctx.beginPath();
+
+ctx.moveTo(
+0,
+yy
+);
+
+ctx.lineTo(
+width,
+yy
+);
+
+ctx.stroke();
+
+}
+
+
+/* =====================================
+   SUPPORT
+===================================== */
+
+function drawLevel(
+price,
+text,
+type
+){
+
+if(price === null ||
+price === undefined){
+
+return;
+
+}
+
+
+const yy =
+y(price);
+
+
+ctx.setLineDash(
+[5,5]
+);
+
+ctx.strokeStyle =
+type === "support"
+? "#5ac8fa"
+: "#ff8a80";
+
+ctx.beginPath();
+
+ctx.moveTo(
+0,
+yy
+);
+
+ctx.lineTo(
+width,
+yy
+);
+
+ctx.stroke();
+
+ctx.setLineDash([]);
+
+
+ctx.font =
+"11px Arial";
+
+ctx.fillStyle =
+type === "support"
+? "#5ac8fa"
+: "#ff8a80";
+
+ctx.textAlign =
+"left";
+
+ctx.fillText(
+text +
+" " +
+fmt(price),
+8,
+Math.max(
+12,
+yy-5
+)
+);
+
+}
+
+
+drawLevel(
+marketData.levels?.support1,
+"دعم",
+"support"
+);
+
+
+drawLevel(
+marketData.levels?.resistance1,
+"مقاومة",
+"resistance"
+);
+
+
+/* =====================================
+   PRICE LINE
+===================================== */
+
+ctx.beginPath();
+
+bars.forEach(
+(b,i)=>{
+
+const xx =
+x(i);
+
+const yy =
+y(b.close);
+
+if(i===0){
+
+ctx.moveTo(
+xx,
+yy
+);
+
+}
+else{
+
+ctx.lineTo(
+xx,
+yy
+);
+
+}
+
+}
+);
+
+
+ctx.strokeStyle =
+"#f0b90b";
+
+ctx.lineWidth =
+2;
+
+ctx.stroke();
+
+
+/* =====================================
+   CURRENT POINT
+===================================== */
+
+const last =
+bars[bars.length-1];
+
+
+const lx =
+x(bars.length-1);
+
+const ly =
+y(last.close);
+
+
+ctx.beginPath();
+
+ctx.arc(
+lx,
+ly,
+4,
+0,
+Math.PI*2
+);
+
+ctx.fillStyle =
+"#f0b90b";
+
+ctx.fill();
+
+
+document.getElementById(
+"chartCurrent"
+).textContent =
+"$ " +
+fmt(last.close);
+
+}
+
+
+/* =====================================
+   NEWS
+===================================== */
+
+async function updateNews(){
+
+const alertBox =
+document.getElementById(
+"newsAlert"
+);
+
+const nextNews =
+document.getElementById(
+"nextNews"
+);
+
+const countdown =
+document.getElementById(
+"newsCountdown"
+);
+
+const values =
+document.getElementById(
+"newsValues"
+);
+
 
 try{
 
+const data =
+await fetchJSON(
 
-/*
-نجلب كل البيانات
-بشكل متوازي
-*/
+BASE_API +
+"/calendar/upcoming?limit=20&countries=US&importance=high"
+
+);
+
+
+const events =
+Array.isArray(data)
+? data
+: [];
+
+
+if(!events.length){
+
+alertBox.className =
+"newsAlert safe";
+
+nextNews.textContent =
+"لا يوجد خبر أمريكي عالي التأثير متاح حالياً.";
+
+countdown.textContent =
+"--";
+
+values.textContent =
+"سيتم إعادة الفحص تلقائياً.";
+
+return;
+
+}
+
+
+const now =
+Date.now();
+
+
+const future =
+events
+
+.map(e=>({
+
+...e,
+
+timestamp:
+Date.parse(e.time)
+
+}))
+
+.filter(e=>
+Number.isFinite(e.timestamp) &&
+e.timestamp > now
+)
+
+.sort(
+(a,b)=>
+a.timestamp-b.timestamp
+);
+
+
+if(!future.length){
+
+alertBox.className =
+"newsAlert safe";
+
+nextNews.textContent =
+"لا يوجد خبر قوي قادم حالياً.";
+
+countdown.textContent =
+"--";
+
+values.textContent =
+"";
+
+return;
+
+}
+
+
+const event =
+future[0];
+
+
+const diff =
+event.timestamp-now;
+
+
+const minutes =
+Math.floor(
+diff/60000
+);
+
+
+const hours =
+Math.floor(
+minutes/60
+);
+
+
+const remainingMinutes =
+minutes % 60;
+
+
+let timeText;
+
+
+if(hours > 0){
+
+timeText =
+"بعد " +
+hours +
+" س " +
+remainingMinutes +
+" د";
+
+}
+else{
+
+timeText =
+"بعد " +
+Math.max(
+1,
+minutes
+) +
+" دقيقة";
+
+}
+
+
+/* =====================================
+   HIGH IMPACT WARNING
+===================================== */
+
+if(minutes <= 60){
+
+alertBox.className =
+"newsAlert high";
+
+nextNews.textContent =
+"⚠️ خبر أمريكي عالي التأثير قريب";
+
+}
+else{
+
+alertBox.className =
+"newsAlert safe";
+
+nextNews.textContent =
+"الخبر الأمريكي العالي القادم";
+
+}
+
+
+const localTime =
+new Date(
+event.timestamp
+).toLocaleString(
+"ar-IQ",
+{
+hour:"2-digit",
+minute:"2-digit",
+day:"2-digit",
+month:"2-digit"
+}
+);
+
+
+countdown.textContent =
+event.name +
+" • " +
+localTime +
+" • " +
+timeText;
+
+
+let actualText =
+event.actual === null ||
+event.actual === undefined
+? "Actual: لم يصدر بعد"
+: "Actual: " +
+event.actual;
+
+
+let forecastText =
+event.forecast === null ||
+event.forecast === undefined
+? ""
+: " • Forecast: " +
+event.forecast;
+
+
+let previousText =
+event.previous === null ||
+event.previous === undefined
+? ""
+: " • Previous: " +
+event.previous;
+
+
+values.textContent =
+actualText +
+forecastText +
+previousText;
+
+
+}
+catch(error){
+
+console.error(
+"News error:",
+error
+);
+
+alertBox.className =
+"newsAlert";
+
+nextNews.textContent =
+"تعذر تحديث فلتر الأخبار.";
+
+countdown.textContent =
+"سيتم إعادة المحاولة تلقائياً.";
+
+values.textContent =
+"";
+
+}
+
+}
+
+
+/* =====================================
+   MARKET LOAD
+===================================== */
+
+async function loadMarket(){
+
+try{
+
 
 const results =
 await Promise.all([
@@ -1356,11 +2959,11 @@ getSpot(),
 
 getOHLC("5m",200),
 
-getOHLC("15m",100),
+getOHLC("15m",120),
 
-getOHLC("30m",100),
+getOHLC("30m",120),
 
-getOHLC("1h",100)
+getOHLC("1h",120)
 
 ]);
 
@@ -1368,31 +2971,38 @@ getOHLC("1h",100)
 const spot =
 results[0];
 
-const bars5 =
+
+marketData.price =
+spot.price;
+
+marketData.bars5 =
 results[1];
 
-const bars15 =
+marketData.bars15 =
 results[2];
 
-const bars30 =
+marketData.bars30 =
 results[3];
 
-const bars60 =
+marketData.bars60 =
 results[4];
 
+marketData.lastUpdate =
+Date.now();
 
-/* =========================================
-   السعر
-========================================= */
+
+/* =====================================
+   PRICE
+===================================== */
 
 priceEl.textContent =
 "$ " +
 fmt(spot.price);
 
 
-/* =========================================
-   حالة السعر
-========================================= */
+/* =====================================
+   PRICE STATUS
+===================================== */
 
 if(
 spot.marketState === "open" &&
@@ -1418,7 +3028,7 @@ spot.stale
 ){
 
 priceStatus.textContent =
-"🟠 السعر قديم • تحقق من السوق";
+"🟠 السعر قديم • آخر سعر متوفر";
 
 }
 
@@ -1430,32 +3040,20 @@ priceStatus.textContent =
 }
 
 
-/* =========================================
-   التحليل
-========================================= */
+/* =====================================
+   ANALYZE
+===================================== */
 
-analyze(
-spot.price,
-bars5,
-bars15,
-bars30,
-bars60
-);
+analyzeMarket();
 
 
 }
-
 catch(error){
 
 console.error(
-"XAUUSD ERROR:",
+"Market error:",
 error
 );
-
-
-analysisStatus.textContent =
-"تعذر جلب بيانات التحليل. تتم إعادة المحاولة تلقائياً.";
-
 
 priceStatus.textContent =
 "تعذر تحديث بيانات XAUUSD";
@@ -1463,24 +3061,112 @@ priceStatus.textContent =
 
 }
 
+
+/* =====================================
+   NEWS INDEPENDENT
+===================================== */
+
+updateNews();
+
 }
 
 
-/* =========================================
-   تشغيل
-========================================= */
+/* =====================================
+   UPDATE AGE
+===================================== */
 
-updateMarket();
+function updateAge(){
+
+if(!marketData.lastUpdate){
+
+updateAgeEl.textContent =
+"جاري تحديث البيانات...";
+
+return;
+
+}
 
 
-/*
-تحديث كل 30 ثانية
-*/
+const seconds =
+Math.floor(
+(Date.now()-marketData.lastUpdate) /
+1000
+);
+
+
+if(seconds < 2){
+
+updateAgeEl.textContent =
+"🔄 تم التحديث الآن";
+
+}
+
+else{
+
+updateAgeEl.textContent =
+"آخر تحديث منذ " +
+seconds +
+" ثانية";
+
+}
+
+}
+
+
+/* =====================================
+   START
+===================================== */
+
+loadMarket();
+
+
+/* =====================================
+   MARKET EVERY 30 SEC
+===================================== */
 
 setInterval(
-updateMarket,
+loadMarket,
 30000
 );
+
+
+/* =====================================
+   AGE EVERY SECOND
+===================================== */
+
+setInterval(
+updateAge,
+1000
+);
+
+
+/* =====================================
+   NEWS EVERY MINUTE
+===================================== */
+
+setInterval(
+updateNews,
+60000
+);
+
+
+/* =====================================
+   RESIZE CHART
+===================================== */
+
+window.addEventListener(
+"resize",
+()=>{
+
+if(
+marketData.bars5.length
+){
+
+drawChart();
+
+}
+
+});
 
 </script>
 
