@@ -2909,6 +2909,122 @@ drawChart
 );
 
 </script>
+<script>
+const NEWS_API="https://biquote.io/api/calendar";
+let newsImpact={score:0,risk:false};
 
+const newsCard=document.createElement("div");
+newsCard.className="card";
+newsCard.innerHTML=`
+<div class="title">🗓️ أخبار الأسبوع المؤثرة على الذهب</div>
+<div id="weeklyNews">جاري جلب الأخبار...</div>
+<div class="note">عند صدور Actual يتم تحديث تأثير الخبر على تحليل الذهب.</div>`;
+document.querySelector(".wrap").insertBefore(
+newsCard,
+document.querySelector(".wrap").children[3]
+);
+
+function newsType(n){
+n=String(n||"").toLowerCase();
+if(/cpi|pce|inflation|price index|ppi/.test(n))return"inflation";
+if(/nonfarm|payroll|employment|unemployment|jobless|adp|jobs|jolts|wage|hourly/.test(n))return"jobs";
+if(/interest rate|fed|fomc|federal reserve|powell|bowman|waller|rate decision|monetary/.test(n))return"rates";
+if(/retail sales|consumer confidence|ism|pmi|gdp|durable goods|industrial production/.test(n))return"growth";
+return"other";
+}
+
+function newsEffect(e){
+let a=Number(e.actual),f=Number(e.forecast);
+if(!Number.isFinite(a)||!Number.isFinite(f)||a===f)return 0;
+let t=newsType(e.name);
+if(t==="other")return 0;
+return a<f?1:-1;
+}
+
+async function loadGoldNews(){
+try{
+let from=new Date(Date.now()-3600000).toISOString();
+let to=new Date(Date.now()+7*86400000).toISOString();
+let u=NEWS_API+"?from="+encodeURIComponent(from)+"&to="+encodeURIComponent(to)+"&countries=US&importance=medium&type=indicator&limit=200";
+let r=await fetch(u,{cache:"no-store"});
+let data=await r.json();
+
+data=data.filter(e=>{
+let i=String(e.importance||"").toLowerCase();
+return e.countryCode==="US"&&(i==="high"||i==="medium");
+}).sort((a,b)=>new Date(a.time)-new Date(b.time));
+
+let box=document.getElementById("weeklyNews");
+box.innerHTML="";
+
+let score=0,risk=false;
+
+data.forEach(e=>{
+let d=new Date(e.time);
+let mins=(d-Date.now())/60000;
+let actual=e.actual==null||e.actual===""?"--":e.actual;
+let forecast=e.forecast==null||e.forecast===""?"--":e.forecast;
+let previous=e.previous==null||e.previous===""?"--":e.previous;
+let imp=String(e.importance||"").toLowerCase();
+let status="قادم";
+
+if(e.actual!=null&&e.actual!=="")status="صدر";
+else if(Math.abs(mins)<=10)status="🚨 وقت الخبر";
+else if(mins<0)status="بانتظار التحديث";
+
+if(e.actual!=null&&e.actual!==""&&mins<=0&&mins>=-30){
+let ef=newsEffect(e);
+score+=ef*(imp==="high"?15:8);
+}
+
+if(!e.actual&&mins>=-10&&mins<=15)risk=true;
+
+box.innerHTML+=`
+<div style="background:#0c1118;border:1px solid #202733;border-radius:13px;padding:12px;margin:8px 0">
+<div style="font-weight:800">${e.name}</div>
+<div style="font-size:12px;color:#8f9aaa;line-height:1.8">
+📅 ${d.toLocaleString("ar-IQ",{dateStyle:"medium",timeStyle:"short"})}
+<br>
+💵 ${e.currency||"USD"} • ${imp==="high"?"🔴 عالي":"🟠 متوسط"} • ${status}
+<br>
+Actual: <b>${actual}</b> • Forecast: <b>${forecast}</b> • Previous: <b>${previous}</b>
+</div>
+</div>`;
+});
+
+newsImpact.score=Math.max(-30,Math.min(30,score));
+newsImpact.risk=risk;
+
+if(typeof analyze==="function"&&marketData.points.length>=10)analyze();
+
+}catch(err){
+document.getElementById("weeklyNews").innerHTML=
+"❌ تعذر جلب الأخبار حالياً";
+console.error(err);
+}
+}
+
+const oldProbability=probability;
+
+probability=function(a,b,c,d,e,m,s,cd){
+let p=oldProbability(a,b,c,d,e,m,s,cd);
+let score=p.score;
+
+if(newsImpact.risk)score*=0.55;
+score+=newsImpact.score;
+score=Math.max(-100,Math.min(100,score));
+
+let up=Math.round(50+score/2);
+
+return{
+up:up,
+down:100-up,
+score:score
+};
+};
+
+loadGoldNews();
+setInterval(loadGoldNews,60000);
+</script>
 </body>
 </html>
