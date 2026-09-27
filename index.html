@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0f14">
+<title>XAUUSD Gold Analyzer</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+margin:0;
+background:#080b10;
+color:#eef2f7;
+font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial,sans-serif
+}
+
+.wrap{
+max-width:760px;
+margin:auto;
+padding:18px 14px 35px
+}
+
+.head{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:16px
+}
+
+h1{
+font-size:25px;
+margin:0
+}
+
+.sub{
+color:#8f9aaa;
+font-size:13px;
+margin-top:4px
+}
+
+.badge{
+background:#10251a;
+color:#57df91;
+border:1px solid #1b6b3e;
+padding:7px 10px;
+border-radius:20px;
+font-size:12px
+}
+
+.card{
+background:#11161e;
+border:1px solid #202733;
+border-radius:18px;
+padding:16px;
+margin:12px 0;
+box-shadow:0 8px 25px #0003
+}
+
+.title{
+display:flex;
+align-items:center;
+gap:8px;
+font-weight:700;
+font-size:17px;
+margin-bottom:12px
+}
+
+.icon{
+font-size:20px
+}
+
+.row{
+display:flex;
+justify-content:space-between;
+padding:10px 0;
+border-bottom:1px solid #202631
+}
+
+.row:last-child{
+border-bottom:0
+}
+
+.label{
+color:#aab3c0
+}
+
+.value{
+font-weight:600
+}
+
+.levels{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px
+}
+
+.level{
+background:#0c1118;
+border-radius:13px;
+padding:13px
+}
+
+.level b{
+display:block;
+font-size:18px;
+margin-top:5px
+}
+
+.support{
+color:#5ac8fa
+}
+
+.resist{
+color:#ff8a80
+}
+
+.btn{
+width:100%;
+border:0;
+border-radius:13px;
+padding:13px;
+background:#f0b90b;
+color:#111;
+font-weight:800;
+font-size:15px;
+margin-top:8px
+}
+
+.note{
+font-size:12px;
+color:#8f9aaa;
+line-height:1.7;
+margin-top:10px
+}
+
+.news{
+padding:11px 0;
+border-bottom:1px solid #202631
+}
+
+.news:last-child{
+border:0
+}
+
+.time{
+color:#768294;
+font-size:11px;
+margin-top:4px
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrap">
+
+<div class="head">
+
+<div>
+<h1>🥇 XAUUSD Gold Analyzer</h1>
+<div class="sub">تحليل الذهب فقط • دخول يدوي</div>
+</div>
+
+<div class="badge">● LIVE</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="title">
+<span class="icon">📰</span>
+الأخبار المباشرة
+</div>
+
+<div id="news">
+
+<div class="news">
+
+<b>جاهز لاستقبال الأخبار</b>
+
+<div class="time">
+بانتظار مصدر الأخبار المباشر
+</div>
+
+</div>
+
+</div>
+
+<button class="btn" onclick="refreshNews()">
+تحديث الأخبار
+</button>
+
+</div>
+
+
+<div class="card">
+
+<div class="title">
+<span class="icon">💪</span>
+قوة السوق
+</div>
+
+<div class="row">
+<span class="label">اتجاه الذهب</span>
+<span class="value" id="trend">جارٍ التحليل</span>
+</div>
+
+<div class="row">
+<span class="label">قوة الحركة</span>
+<span class="value" id="strength">جارٍ التحليل</span>
+</div>
+
+<div class="row">
+<span class="label">الزخم</span>
+<span class="value" id="momentum">جارٍ التحليل</span>
+</div>
+
+<div class="note">
+هذه النسخة تجهز واجهة التحليل.
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="title">
+<span class="icon">📍</span>
+مناطق الدعم والمقاومة
+</div>
+
+<div class="levels">
+
+<div class="level support">
+أقرب دعم
+<b id="support">--</b>
+</div>
+
+<div class="level resist">
+أقرب مقاومة
+<b id="resistance">--</b>
+</div>
+
+</div>
+
+<div class="note">
+المناطق ستُحسب من بيانات XAUUSD الحية بعد ربط مصدر الأسعار.
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="title">
+<span class="icon">🎯</span>
+النتيجة
+</div>
+
+<div class="row">
+<span class="label">الحالة</span>
+<span class="value" id="signal">WAIT</span>
+</div>
+
+<div class="note">
+لا توجد أوامر تداول داخل التطبيق.
+القرار والتنفيذ يدويان.
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+function refreshNews(){
+
+document.getElementById('news').innerHTML =
+
+'<div class="news">' +
+
+'<b>مصدر الأخبار المباشر غير مربوط بعد</b>' +
+
+'<div class="time">' +
+
+'واجهة التطبيق جاهزة للربط بمصدر أخبار اقتصادي مباشر' +
+
+'</div>' +
+
+'</div>';
+
+}
+
+</script>
+
+</body>
+</html>
