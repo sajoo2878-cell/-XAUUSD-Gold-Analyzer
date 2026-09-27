@@ -3,114 +3,175 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0b0f14">
+<meta name="theme-color" content="#080b10">
+
 <title>XAUUSD Gold Analyzer</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box
+}
+
 body{
-margin:0;
-background:#080b10;
-color:#eef2f7;
-font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial,sans-serif
+  margin:0;
+  background:#080b10;
+  color:#eef2f7;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial,sans-serif
 }
+
 .wrap{
-max-width:760px;
-margin:auto;
-padding:18px 14px 35px
+  max-width:760px;
+  margin:auto;
+  padding:18px 14px 35px
 }
+
 .head{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:16px
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:16px
 }
-h1{font-size:25px;margin:0}
-.sub{color:#8f9aaa;font-size:13px;margin-top:4px}
+
+h1{
+  font-size:25px;
+  margin:0
+}
+
+.sub{
+  color:#8f9aaa;
+  font-size:13px;
+  margin-top:4px
+}
+
 .badge{
-background:#10251a;
-color:#57df91;
-border:1px solid #1b6b3e;
-padding:7px 10px;
-border-radius:20px;
-font-size:12px
+  background:#10251a;
+  color:#57df91;
+  border:1px solid #1b6b3e;
+  padding:7px 10px;
+  border-radius:20px;
+  font-size:12px
 }
+
 .card{
-background:#11161e;
-border:1px solid #202733;
-border-radius:18px;
-padding:16px;
-margin:12px 0;
-box-shadow:0 8px 25px #0003
+  background:#11161e;
+  border:1px solid #202733;
+  border-radius:18px;
+  padding:16px;
+  margin:12px 0;
+  box-shadow:0 8px 25px #0003
 }
+
 .title{
-display:flex;
-align-items:center;
-gap:8px;
-font-weight:700;
-font-size:17px;
-margin-bottom:12px
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-weight:700;
+  font-size:17px;
+  margin-bottom:12px
 }
-.icon{font-size:20px}
+
+.icon{
+  font-size:20px
+}
+
 .row{
-display:flex;
-justify-content:space-between;
-padding:10px 0;
-border-bottom:1px solid #202631
+  display:flex;
+  justify-content:space-between;
+  padding:10px 0;
+  border-bottom:1px solid #202631
 }
-.row:last-child{border-bottom:0}
-.label{color:#aab3c0}
-.value{font-weight:600}
+
+.row:last-child{
+  border-bottom:0
+}
+
+.label{
+  color:#aab3c0
+}
+
+.value{
+  font-weight:600
+}
+
 .levels{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px
 }
+
 .level{
-background:#0c1118;
-border-radius:13px;
-padding:13px
+  background:#0c1118;
+  border-radius:13px;
+  padding:13px
 }
+
 .level b{
-display:block;
-font-size:18px;
-margin-top:5px
+  display:block;
+  font-size:18px;
+  margin-top:5px
 }
-.support{color:#5ac8fa}
-.resist{color:#ff8a80}
+
+.support{
+  color:#5ac8fa
+}
+
+.resist{
+  color:#ff8a80
+}
+
 .btn{
-width:100%;
-border:0;
-border-radius:13px;
-padding:13px;
-background:#f0b90b;
-color:#111;
-font-weight:800;
-font-size:15px;
-margin-top:8px
+  width:100%;
+  border:0;
+  border-radius:13px;
+  padding:13px;
+  background:#f0b90b;
+  color:#111;
+  font-weight:800;
+  font-size:15px;
+  margin-top:8px
 }
+
+.btn:active{
+  transform:scale(.98)
+}
+
 .note{
-font-size:12px;
-color:#8f9aaa;
-line-height:1.7;
-margin-top:10px
+  font-size:12px;
+  color:#8f9aaa;
+  line-height:1.7;
+  margin-top:10px
 }
+
 .news{
-padding:11px 0;
-border-bottom:1px solid #202631
+  padding:11px 0;
+  border-bottom:1px solid #202631
 }
-.news:last-child{border:0}
+
+.news:last-child{
+  border:0
+}
+
 .time{
-color:#768294;
-font-size:11px;
-margin-top:4px
+  color:#768294;
+  font-size:11px;
+  margin-top:4px
 }
-.high{color:#ff6b6b}
-.medium{color:#ffb74d}
-.low{color:#8f9aaa}
+
+.high{
+  color:#ff6b6b
+}
+
+.medium{
+  color:#ffb74d
+}
+
+.low{
+  color:#8f9aaa
+}
+
 .soon{
-border-right:3px solid #ff6b6b;
-padding-right:9px
+  border-right:3px solid #ff6b6b;
+  padding-right:9px
 }
 </style>
 </head>
@@ -119,342 +180,522 @@ padding-right:9px
 
 <div class="wrap">
 
-<div class="head">
-<div>
-<h1>🥇 XAUUSD Gold Analyzer</h1>
-<div class="sub">تحليل الذهب فقط • دخول يدوي</div>
-</div>
-<div class="badge">● LIVE</div>
-</div>
+  <div class="head">
+    <div>
+      <h1>🥇 XAUUSD Gold Analyzer</h1>
+      <div class="sub">تحليل الذهب فقط • دخول يدوي</div>
+    </div>
+
+    <div class="badge">● LIVE</div>
+  </div>
 
 
-<div class="card">
+  <!-- الأخبار -->
 
-<div class="title">
-<span class="icon">📰</span>
-الأخبار المباشرة
-</div>
+  <div class="card">
 
-<div id="news">
+    <div class="title">
+      <span class="icon">📰</span>
+      الأخبار المباشرة
+    </div>
 
-<div class="news">
-<b>جاري جلب الأخبار...</b>
-<div class="time">
-الأحداث الاقتصادية المؤثرة على الذهب والدولار
-</div>
-</div>
+    <div id="news">
 
-</div>
+      <div class="news">
+        <b>جاري جلب الأخبار...</b>
 
-<button class="btn" onclick="refreshNews()">
-تحديث الأخبار
-</button>
+        <div class="time">
+          الأحداث الاقتصادية المؤثرة على الذهب والدولار
+        </div>
+      </div>
 
-<div class="note">
-يتم تحديث الأحداث تلقائياً كل 5 دقائق. يتم عرض الأحداث الأمريكية والأحداث عالية التأثير الأقرب للذهب.
-</div>
+    </div>
 
-</div>
+    <button class="btn" onclick="refreshNews()">
+      تحديث الأخبار
+    </button>
 
+    <div class="note">
+      يتم تحديث الأحداث تلقائياً كل 5 دقائق.
+      يتم عرض الأحداث الأمريكية والأحداث المهمة المؤثرة على الذهب.
+    </div>
 
-<div class="card">
-
-<div class="title">
-<span class="icon">💪</span>
-قوة السوق
-</div>
-
-<div class="row">
-<span class="label">اتجاه الذهب</span>
-<span class="value" id="trend">جارٍ التحليل</span>
-</div>
-
-<div class="row">
-<span class="label">قوة الحركة</span>
-<span class="value" id="strength">جارٍ التحليل</span>
-</div>
-
-<div class="row">
-<span class="label">الزخم</span>
-<span class="value" id="momentum">جارٍ التحليل</span>
-</div>
-
-<div class="note">
-سيتم ربط هذا القسم ببيانات سعر XAUUSD الحية.
-</div>
-
-</div>
+  </div>
 
 
-<div class="card">
+  <!-- قوة السوق -->
 
-<div class="title">
-<span class="icon">📍</span>
-مناطق الدعم والمقاومة
-</div>
+  <div class="card">
 
-<div class="levels">
+    <div class="title">
+      <span class="icon">💪</span>
+      قوة السوق
+    </div>
 
-<div class="level support">
-أقرب دعم
-<b id="support">--</b>
-</div>
+    <div class="row">
+      <span class="label">اتجاه الذهب</span>
+      <span class="value" id="trend">جارٍ التحليل</span>
+    </div>
 
-<div class="level resist">
-أقرب مقاومة
-<b id="resistance">--</b>
-</div>
+    <div class="row">
+      <span class="label">قوة الحركة</span>
+      <span class="value" id="strength">جارٍ التحليل</span>
+    </div>
 
-</div>
+    <div class="row">
+      <span class="label">الزخم</span>
+      <span class="value" id="momentum">جارٍ التحليل</span>
+    </div>
 
-<div class="note">
-سيتم حساب المناطق من بيانات XAUUSD الحية.
-</div>
+    <div class="note">
+      سيتم ربط هذا القسم ببيانات سعر XAUUSD الحية.
+    </div>
 
-</div>
+  </div>
 
 
-<div class="card">
+  <!-- الدعم والمقاومة -->
 
-<div class="title">
-<span class="icon">🎯</span>
-النتيجة
-</div>
+  <div class="card">
 
-<div class="row">
-<span class="label">الحالة</span>
-<span class="value" id="signal">WAIT</span>
-</div>
+    <div class="title">
+      <span class="icon">📍</span>
+      مناطق الدعم والمقاومة
+    </div>
 
-<div class="note">
-لا توجد أوامر تداول داخل التطبيق.
-القرار والتنفيذ يدويان.
-</div>
+    <div class="levels">
 
-</div>
+      <div class="level support">
+        أقرب دعم
+        <b id="support">--</b>
+      </div>
+
+      <div class="level resist">
+        أقرب مقاومة
+        <b id="resistance">--</b>
+      </div>
+
+    </div>
+
+    <div class="note">
+      سيتم حساب المناطق من بيانات XAUUSD الحية.
+    </div>
+
+  </div>
+
+
+  <!-- النتيجة -->
+
+  <div class="card">
+
+    <div class="title">
+      <span class="icon">🎯</span>
+      النتيجة
+    </div>
+
+    <div class="row">
+      <span class="label">الحالة</span>
+      <span class="value" id="signal">WAIT</span>
+    </div>
+
+    <div class="note">
+      لا توجد أوامر تداول داخل التطبيق.
+      القرار والتنفيذ يدويان.
+    </div>
+
+  </div>
 
 </div>
 
 
 <script>
 
-const API='https://www.financecalendar.com/wp-json/fc/v1/calendar';
+/* =========================
+   مصدر الأخبار
+========================= */
 
-const esc=v=>String(v??'').replace(
-/[&<>"']/g,
-m=>({
-'&':'&amp;',
-'<':'&lt;',
-'>':'&gt;',
-'"':'&quot;',
-"'":'&#39;'
-}[m])
-);
+const API =
+  "https://www.financecalendar.com/wp-json/fc/v1/calendar";
 
-const cls=v=>String(v??'').toLowerCase();
 
-function relevant(e){
+/* =========================
+   حماية النصوص
+========================= */
 
-const c=String(
-e.currency||e.country||''
-).toUpperCase();
+function esc(value){
 
-const n=String(
-e.name||e.title||e.event||''
-).toLowerCase();
+  return String(value ?? "").replace(
+    /[&<>"']/g,
 
-return c==='USD' ||
-/gold|xau|fed|fomc|cpi|ppi|nfp|payroll|inflation|interest|rate|powell|treasury|unemployment|pce|gdp|retail sales|ism|jolts|jobless/
-.test(n);
+    function(char){
 
+      const map = {
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#39;"
+      };
+
+      return map[char];
+
+    }
+  );
 }
 
 
-function fmtDate(v){
+/* =========================
+   نوع التأثير
+========================= */
 
-try{
+function impactClass(value){
 
-return new Date(v).toLocaleString(
-'ar-IQ',
-{
-hour:'2-digit',
-minute:'2-digit',
-day:'2-digit',
-month:'2-digit'
+  const v = String(value ?? "").toLowerCase();
+
+  if(
+    v.includes("high") ||
+    v.includes("3")
+  ){
+    return "high";
+  }
+
+  if(
+    v.includes("medium") ||
+    v.includes("2")
+  ){
+    return "medium";
+  }
+
+  return "low";
 }
-);
 
-}catch{
 
-return v;
+/* =========================
+   الأحداث المؤثرة بالذهب
+========================= */
 
+function relevant(event){
+
+  const currency = String(
+    event.currency ||
+    event.country ||
+    ""
+  ).toUpperCase();
+
+
+  const name = String(
+    event.name ||
+    event.title ||
+    event.event ||
+    ""
+  ).toLowerCase();
+
+
+  const importantWords =
+    /gold|xau|fed|fomc|cpi|ppi|nfp|payroll|inflation|interest|rate|powell|treasury|unemployment|pce|gdp|retail sales|ism|jolts|jobless|nonfarm/;
+
+
+  return (
+    currency === "USD" ||
+    importantWords.test(name)
+  );
 }
 
+
+/* =========================
+   التاريخ والوقت
+========================= */
+
+function formatDate(value){
+
+  if(!value){
+    return "";
+  }
+
+  try{
+
+    return new Date(value).toLocaleString(
+      "ar-IQ",
+      {
+        hour:"2-digit",
+        minute:"2-digit",
+        day:"2-digit",
+        month:"2-digit"
+      }
+    );
+
+  }catch{
+
+    return value;
+
+  }
 }
 
+
+/* =========================
+   جلب الأخبار
+========================= */
 
 async function refreshNews(){
 
-const box=document.getElementById('news');
+  const box =
+    document.getElementById("news");
 
-box.innerHTML=
-'<div class="news">'+
-'<b>جاري تحديث الأخبار...</b>'+
-'<div class="time">لحظة واحدة</div>'+
-'</div>';
 
-try{
+  box.innerHTML = `
+    <div class="news">
+      <b>جاري تحديث الأخبار...</b>
+      <div class="time">
+        يتم الاتصال بمصدر الأخبار
+      </div>
+    </div>
+  `;
 
-const d=new Date();
 
-const to=new Date(
-Date.now()+86400000
-);
+  try{
 
-const u=
-API+
-'?from='+
-d.toISOString().slice(0,10)+
-'&to='+
-to.toISOString().slice(0,10)+
-'&limit=100';
+    const today =
+      new Date();
 
-const r=await fetch(
-u,
-{
-cache:'no-store'
+
+    const tomorrow =
+      new Date(
+        Date.now() + 86400000
+      );
+
+
+    const from =
+      today.toISOString().slice(0,10);
+
+
+    const to =
+      tomorrow.toISOString().slice(0,10);
+
+
+    const url =
+      API +
+      "?from=" +
+      encodeURIComponent(from) +
+      "&to=" +
+      encodeURIComponent(to) +
+      "&limit=100";
+
+
+    /*
+      مهم:
+      استخدام url الصحيح هنا
+    */
+
+    const response =
+      await fetch(
+        url,
+        {
+          method:"GET",
+          cache:"no-store"
+        }
+      );
+
+
+    if(!response.ok){
+
+      throw new Error(
+        "HTTP " +
+        response.status
+      );
+
+    }
+
+
+    const raw =
+      await response.json();
+
+
+    let events = [];
+
+
+    if(Array.isArray(raw)){
+
+      events = raw;
+
+    }else if(
+      raw &&
+      Array.isArray(raw.events)
+    ){
+
+      events = raw.events;
+
+    }else if(
+      raw &&
+      Array.isArray(raw.data)
+    ){
+
+      events = raw.data;
+
+    }else if(
+      raw &&
+      Array.isArray(raw.results)
+    ){
+
+      events = raw.results;
+
+    }
+
+
+    events =
+      events
+      .filter(relevant)
+      .sort(
+
+        function(a,b){
+
+          const da =
+            new Date(
+              a.date ||
+              a.datetime ||
+              a.time ||
+              0
+            );
+
+          const db =
+            new Date(
+              b.date ||
+              b.datetime ||
+              b.time ||
+              0
+            );
+
+          return da - db;
+
+        }
+
+      )
+      .slice(0,15);
+
+
+    if(!events.length){
+
+      throw new Error(
+        "No relevant events"
+      );
+
+    }
+
+
+    box.innerHTML =
+      events
+      .map(
+
+        function(event){
+
+          const name =
+            event.name ||
+            event.title ||
+            event.event ||
+            "حدث اقتصادي";
+
+
+          const currency =
+            event.currency ||
+            event.country ||
+            "";
+
+
+          const impact =
+            event.impact ||
+            "";
+
+
+          const date =
+            event.date ||
+            event.datetime ||
+            event.time ||
+            "";
+
+
+          const timeValue =
+            new Date(date).getTime();
+
+
+          const isSoon =
+            timeValue &&
+            (
+              timeValue -
+              Date.now()
+            ) < 3600000;
+
+
+          return `
+            <div class="news ${isSoon ? "soon" : ""}">
+
+              <b>
+                ${esc(currency)}
+                •
+                ${esc(name)}
+              </b>
+
+              <div class="time ${impactClass(impact)}">
+
+                ${esc(
+                  impact ||
+                  "غير محدد"
+                )}
+
+                •
+
+                ${esc(
+                  formatDate(date)
+                )}
+
+              </div>
+
+            </div>
+          `;
+
+        }
+
+      )
+      .join("");
+
+
+  }catch(error){
+
+    console.error(
+      "News error:",
+      error
+    );
+
+
+    box.innerHTML = `
+      <div class="news">
+
+        <b>
+          تعذر جلب الأخبار الآن
+        </b>
+
+        <div class="time">
+          اضغط تحديث الأخبار للمحاولة مرة أخرى.
+        </div>
+
+      </div>
+    `;
+
+  }
+
 }
-);
 
-if(!r.ok)
-throw Error(
-'HTTP '+r.status
-);
 
-const raw=await r.json();
-
-const arr=
-Array.isArray(raw)
-?raw
-:(raw.events||
-raw.data||
-raw.results||
-[]);
-
-const events=
-arr
-.filter(relevant)
-.sort(
-(a,b)=>
-new Date(
-a.date||
-a.datetime||
-a.time
-)
--
-new Date(
-b.date||
-b.datetime||
-b.time
-)
-)
-.slice(0,15);
-
-if(!events.length)
-throw Error('empty');
-
-box.innerHTML=
-
-events.map(e=>{
-
-const name=
-e.name||
-e.title||
-e.event||
-'حدث اقتصادي';
-
-const cur=
-e.currency||
-e.country||
-'';
-
-const impact=
-e.impact||
-'';
-
-const dt=
-e.date||
-e.datetime||
-e.time||
-'';
-
-const im=cls(impact);
-
-const t=
-new Date(dt)-Date.now()
-<3600000;
-
-return
-
-'<div class="news '+
-(t?'soon':'')+
-'">'+
-
-'<b>'+
-esc(cur)+
-' • '+
-esc(name)+
-'</b>'+
-
-'<div class="time '+
-im+
-'">'+
-
-esc(
-impact||
-'غير محدد'
-)+
-
-' • '+
-
-esc(
-fmtDate(dt)
-)+
-
-'</div>'+
-
-'</div>';
-
-}).join('');
-
-}catch(e){
-
-box.innerHTML=
-
-'<div class="news">'+
-
-'<b>تعذر جلب الأخبار الآن</b>'+
-
-'<div class="time">'+
-
-'اضغط تحديث الأخبار للمحاولة مرة أخرى.'+
-
-'</div>'+
-
-'</div>';
-
-console.error(e);
-
-}
-
-}
-
+/* =========================
+   تشغيل الأخبار
+========================= */
 
 refreshNews();
 
+
+/* تحديث كل 5 دقائق */
+
 setInterval(
-refreshNews,
-300000
+  refreshNews,
+  300000
 );
 
 </script>
