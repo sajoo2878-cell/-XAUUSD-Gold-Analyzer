@@ -1,22 +1,13 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
-
 <head>
-
 <meta charset="utf-8">
-
-<meta name="viewport"
-content="width=device-width,initial-scale=1,viewport-fit=cover">
-
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#080b10">
-
 <title>XAUUSD Gold Analyzer</title>
 
 <style>
-
-*{
-box-sizing:border-box
-}
+*{box-sizing:border-box}
 
 body{
 margin:0;
@@ -38,10 +29,7 @@ align-items:center;
 margin-bottom:16px
 }
 
-h1{
-font-size:25px;
-margin:0
-}
+h1{font-size:25px;margin:0}
 
 .sub{
 color:#8f9aaa;
@@ -76,9 +64,7 @@ font-size:18px;
 margin-bottom:14px
 }
 
-.icon{
-font-size:20px
-}
+.icon{font-size:20px}
 
 .row{
 display:flex;
@@ -88,17 +74,10 @@ padding:11px 0;
 border-bottom:1px solid #202631
 }
 
-.row:last-child{
-border-bottom:0
-}
+.row:last-child{border-bottom:0}
 
-.label{
-color:#aab3c0
-}
-
-.value{
-font-weight:700
-}
+.label{color:#aab3c0}
+.value{font-weight:700}
 
 .price{
 font-size:29px;
@@ -115,21 +94,10 @@ color:#7f8998;
 margin-top:4px
 }
 
-.good{
-color:#57df91
-}
-
-.bad{
-color:#ff6b6b
-}
-
-.neutral{
-color:#ffb74d
-}
-
-.blue{
-color:#5ac8fa
-}
+.good{color:#57df91!important}
+.bad{color:#ff6b6b!important}
+.neutral{color:#ffb74d!important}
+.blue{color:#5ac8fa!important}
 
 .liveNews{
 background:#080c12;
@@ -165,9 +133,6 @@ line-height:1.7;
 margin-top:10px
 }
 
-
-/* الفريمات */
-
 .tfGrid{
 display:grid;
 grid-template-columns:repeat(4,1fr);
@@ -193,9 +158,6 @@ font-size:14px;
 font-weight:800
 }
 
-
-/* الحركة */
-
 .moveGrid{
 display:grid;
 grid-template-columns:repeat(3,1fr);
@@ -220,9 +182,6 @@ font-size:16px;
 font-weight:800
 }
 
-
-/* المستويات */
-
 .levels{
 display:grid;
 grid-template-columns:1fr 1fr;
@@ -246,16 +205,8 @@ font-size:18px;
 margin-top:5px
 }
 
-.support{
-color:#5ac8fa
-}
-
-.resist{
-color:#ff8a80
-}
-
-
-/* الشمعة */
+.support{color:#5ac8fa}
+.resist{color:#ff8a80}
 
 .candleBox{
 background:#0c1118;
@@ -274,98 +225,6 @@ font-size:12px;
 color:#8f9aaa;
 line-height:1.8
 }
-
-
-/* الأخبار */
-
-.newsAlert{
-border-radius:14px;
-padding:14px;
-background:#0c1118;
-border:1px solid #242c37
-}
-
-.newsAlert.high{
-border-color:#7b3434;
-background:#1a1012
-}
-
-.newsAlert.safe{
-border-color:#24543a;
-background:#0e1712
-}
-
-.newsTitle{
-font-size:17px;
-font-weight:800;
-margin-bottom:7px
-}
-
-.newsName{
-font-weight:700;
-margin-bottom:5px
-}
-
-.newsTime{
-font-size:12px;
-color:#9aa4b2
-}
-
-.newsValues{
-font-size:12px;
-margin-top:8px;
-color:#b7c0cc
-}
-
-
-/* الشارت */
-
-.chartWrap{
-background:#090e15;
-border:1px solid #202733;
-border-radius:14px;
-padding:8px;
-overflow:hidden
-}
-
-#chart{
-width:100%;
-height:290px;
-display:block
-}
-
-.chartLegend{
-display:flex;
-justify-content:space-between;
-font-size:11px;
-color:#7f8998;
-padding:6px 4px 2px
-}
-
-
-/* النتيجة */
-
-.signalBox{
-text-align:center;
-padding:16px;
-background:#0c1118;
-border-radius:14px
-}
-
-.signal{
-font-size:29px;
-font-weight:900
-}
-
-.reason{
-font-size:13px;
-color:#aab3c0;
-line-height:1.8;
-margin-top:7px
-}
-
-
-/* الاحتمالات */
 
 .probGrid{
 display:grid;
@@ -406,22 +265,14 @@ width:50%;
 transition:width .4s
 }
 
-.upFill{
-background:#57df91
-}
-
-.downFill{
-background:#ff6b6b
-}
-
-
-/* مناطق الدخول */
+.upFill{background:#57df91}
+.downFill{background:#ff6b6b}
 
 .entryBox{
 background:#0c1118;
 border-radius:14px;
 padding:15px;
-margin-bottom:10px;
+margin-top:10px;
 border:1px solid #202733
 }
 
@@ -446,26 +297,16 @@ line-height:1.7;
 margin-top:7px
 }
 
-.buyEntry{
-border-color:#24543a
-}
-
-.sellEntry{
-border-color:#6b3030
-}
-
-.waitEntry{
-border-color:#5b4920
-}
-
-
-/* التوافق */
+.buyEntry{border-color:#24543a}
+.sellEntry{border-color:#6b3030}
+.waitEntry{border-color:#5b4920}
 
 .scoreBox{
 background:#0c1118;
 border-radius:14px;
 padding:14px;
-text-align:center
+text-align:center;
+margin-top:10px
 }
 
 .scoreValue{
@@ -473,8 +314,85 @@ font-size:25px;
 font-weight:900
 }
 
+.signalBox{
+text-align:center;
+padding:16px;
+background:#0c1118;
+border-radius:14px
+}
 
-/* التحديث */
+.signal{
+font-size:29px;
+font-weight:900
+}
+
+.reason{
+font-size:13px;
+color:#aab3c0;
+line-height:1.8;
+margin-top:7px
+}
+
+.chartWrap{
+background:#090e15;
+border:1px solid #202733;
+border-radius:14px;
+padding:8px;
+overflow:hidden
+}
+
+#chart{
+width:100%;
+height:290px;
+display:block
+}
+
+.chartLegend{
+display:flex;
+justify-content:space-between;
+font-size:11px;
+color:#7f8998;
+padding:6px 4px 2px
+}
+
+.newsAlert{
+border-radius:14px;
+padding:14px;
+background:#0c1118;
+border:1px solid #242c37
+}
+
+.newsAlert.high{
+border-color:#7b3434;
+background:#1a1012
+}
+
+.newsAlert.safe{
+border-color:#24543a;
+background:#0e1712
+}
+
+.newsTitle{
+font-size:17px;
+font-weight:800;
+margin-bottom:7px
+}
+
+.newsName{
+font-weight:700;
+margin-bottom:5px
+}
+
+.newsTime{
+font-size:12px;
+color:#9aa4b2
+}
+
+.newsValues{
+font-size:12px;
+margin-top:8px;
+color:#b7c0cc
+}
 
 .updateBox{
 text-align:center;
@@ -483,68 +401,29 @@ color:#7f8998;
 margin-top:8px
 }
 
-
 @media(max-width:520px){
-
-.tfGrid{
-grid-template-columns:repeat(4,1fr)
+.tfGrid{grid-template-columns:repeat(4,1fr)}
+.tfBox{padding:10px 3px}
+.tfValue{font-size:13px}
+.moveGrid{grid-template-columns:repeat(3,1fr)}
+.moveValue{font-size:14px}
+#chart{height:250px}
 }
-
-.tfBox{
-padding:10px 3px
-}
-
-.tfValue{
-font-size:13px
-}
-
-.moveGrid{
-grid-template-columns:repeat(3,1fr)
-}
-
-.moveValue{
-font-size:14px
-}
-
-#chart{
-height:250px
-}
-
-}
-
 </style>
-
 </head>
-
 
 <body>
 
 <div class="wrap">
 
-
-<!-- HEADER -->
-
 <div class="head">
-
 <div>
-
 <h1>🥇 XAUUSD Gold Analyzer</h1>
-
-<div class="sub">
-تحليل الذهب فقط • دخول يدوي
+<div class="sub">تحليل الذهب فقط • دخول يدوي</div>
+</div>
+<div class="badge">● LIVE</div>
 </div>
 
-</div>
-
-<div class="badge">
-● LIVE
-</div>
-
-</div>
-
-
-
-<!-- PRICE -->
 
 <div class="card">
 
@@ -553,27 +432,16 @@ height:250px
 سعر الذهب الحي
 </div>
 
-<div
-class="price"
-id="price">
-
+<div class="price" id="price">
 جاري جلب السعر...
-
 </div>
 
-<div
-class="status"
-id="priceStatus">
-
+<div class="status" id="priceStatus">
 الاتصال بمصدر XAUUSD
-
 </div>
 
 </div>
 
-
-
-<!-- NEWS -->
 
 <div class="card">
 
@@ -594,18 +462,10 @@ marginheight="0">
 </iframe>
 
 <div class="source">
-
 Real Time Economic Calendar provided by
-
-<a
-href="https://www.investing.com/"
-target="_blank"
-rel="nofollow">
-
+<a href="https://www.investing.com/" target="_blank">
 Investing.com
-
 </a>
-
 </div>
 
 </div>
@@ -617,60 +477,6 @@ Investing.com
 </div>
 
 
-
-<!-- NEWS FILTER -->
-
-<div class="card">
-
-<div class="title">
-<span class="icon">🚨</span>
-فلتر الأخبار المهمة
-</div>
-
-<div
-id="newsAlert"
-class="newsAlert">
-
-<div class="newsTitle">
-جاري فحص الأخبار...
-</div>
-
-<div
-class="newsName"
-id="nextNews">
-
-جاري البحث عن أقرب خبر أمريكي قوي
-
-</div>
-
-<div
-class="newsTime"
-id="newsCountdown">
-
---
-
-</div>
-
-<div
-class="newsValues"
-id="newsValues">
-
---
-
-</div>
-
-</div>
-
-<div class="note">
-يتم فحص الأخبار الأمريكية عالية التأثير تلقائياً.
-</div>
-
-</div>
-
-
-
-<!-- MARKET STRENGTH -->
-
 <div class="card">
 
 <div class="title">
@@ -679,58 +485,22 @@ id="newsValues">
 </div>
 
 <div class="row">
-
-<span class="label">
-اتجاه الذهب
-</span>
-
-<span
-class="value"
-id="trend">
-
-جارٍ التحليل
-
-</span>
-
+<span class="label">اتجاه الذهب</span>
+<span class="value" id="trend">جارٍ التحليل</span>
 </div>
 
 <div class="row">
-
-<span class="label">
-قوة الحركة
-</span>
-
-<span
-class="value"
-id="strength">
-
-جارٍ التحليل
-
-</span>
-
+<span class="label">قوة الحركة</span>
+<span class="value" id="strength">جارٍ التحليل</span>
 </div>
 
 <div class="row">
-
-<span class="label">
-الزخم
-</span>
-
-<span
-class="value"
-id="momentum">
-
-جارٍ التحليل
-
-</span>
-
+<span class="label">الزخم</span>
+<span class="value" id="momentum">جارٍ التحليل</span>
 </div>
 
 </div>
 
-
-
-<!-- MULTI TIMEFRAME -->
 
 <div class="card">
 
@@ -742,62 +512,23 @@ id="momentum">
 <div class="tfGrid">
 
 <div class="tfBox">
-
-<div class="tfName">
-5M
+<div class="tfName">5M</div>
+<div class="tfValue" id="tf5">--</div>
 </div>
-
-<div
-class="tfValue"
-id="tf5">
---
-</div>
-
-</div>
-
 
 <div class="tfBox">
-
-<div class="tfName">
-15M
+<div class="tfName">15M</div>
+<div class="tfValue" id="tf15">--</div>
 </div>
-
-<div
-class="tfValue"
-id="tf15">
---
-</div>
-
-</div>
-
 
 <div class="tfBox">
-
-<div class="tfName">
-30M
+<div class="tfName">30M</div>
+<div class="tfValue" id="tf30">--</div>
 </div>
-
-<div
-class="tfValue"
-id="tf30">
---
-</div>
-
-</div>
-
 
 <div class="tfBox">
-
-<div class="tfName">
-1H
-</div>
-
-<div
-class="tfValue"
-id="tf60">
---
-</div>
-
+<div class="tfName">1H</div>
+<div class="tfValue" id="tf60">--</div>
 </div>
 
 </div>
@@ -809,9 +540,6 @@ id="tf60">
 </div>
 
 
-
-<!-- MOVEMENT -->
-
 <div class="card">
 
 <div class="title">
@@ -822,56 +550,24 @@ id="tf60">
 <div class="moveGrid">
 
 <div class="moveBox">
-
-<div class="moveName">
-آخر 5 دقائق
+<div class="moveName">آخر 5 دقائق</div>
+<div class="moveValue" id="move5">--</div>
 </div>
-
-<div
-class="moveValue"
-id="move5">
---
-</div>
-
-</div>
-
 
 <div class="moveBox">
-
-<div class="moveName">
-آخر 15 دقيقة
+<div class="moveName">آخر 15 دقيقة</div>
+<div class="moveValue" id="move15">--</div>
 </div>
-
-<div
-class="moveValue"
-id="move15">
---
-</div>
-
-</div>
-
 
 <div class="moveBox">
-
-<div class="moveName">
-آخر ساعة
-</div>
-
-<div
-class="moveValue"
-id="move60">
---
+<div class="moveName">آخر ساعة</div>
+<div class="moveValue" id="move60">--</div>
 </div>
 
 </div>
 
 </div>
 
-</div>
-
-
-
-<!-- CANDLE -->
 
 <div class="card">
 
@@ -882,15 +578,11 @@ id="move60">
 
 <div class="candleBox">
 
-<div
-class="candleMain"
-id="candleState">
+<div class="candleMain" id="candleState">
 --
 </div>
 
-<div
-class="candleDetails"
-id="candleDetails">
+<div class="candleDetails" id="candleDetails">
 --
 </div>
 
@@ -898,9 +590,6 @@ id="candleDetails">
 
 </div>
 
-
-
-<!-- SUPPORT RESISTANCE -->
 
 <div class="card">
 
@@ -912,54 +601,23 @@ id="candleDetails">
 <div class="levels">
 
 <div class="level support">
-
-<div class="levelTitle">
-أقرب دعم
+<div class="levelTitle">أقرب دعم</div>
+<b id="support1">--</b>
 </div>
-
-<b id="support1">
---
-</b>
-
-</div>
-
 
 <div class="level resist">
-
-<div class="levelTitle">
-أقرب مقاومة
+<div class="levelTitle">أقرب مقاومة</div>
+<b id="resistance1">--</b>
 </div>
-
-<b id="resistance1">
---
-</b>
-
-</div>
-
 
 <div class="level support">
-
-<div class="levelTitle">
-الدعم الثاني
+<div class="levelTitle">الدعم الثاني</div>
+<b id="support2">--</b>
 </div>
-
-<b id="support2">
---
-</b>
-
-</div>
-
 
 <div class="level resist">
-
-<div class="levelTitle">
-المقاومة الثانية
-</div>
-
-<b id="resistance2">
---
-</b>
-
+<div class="levelTitle">المقاومة الثانية</div>
+<b id="resistance2">--</b>
 </div>
 
 </div>
@@ -971,24 +629,17 @@ id="candleDetails">
 </div>
 
 
+<!-- الاحتمالات ومناطق الدخول -->
 
-<!-- PROBABILITIES -->
-
-<div class="card">
+<div class="card" id="entryAnalysis">
 
 <div class="title">
-
-<span class="icon">
-📊
-</span>
-
-احتمالات الحركة
-
+<span class="icon">🎯</span>
+الاحتمالات ومناطق الدخول
 </div>
 
 
 <div class="probGrid">
-
 
 <div class="probBox">
 
@@ -999,19 +650,14 @@ id="candleDetails">
 <div
 class="probValue good"
 id="upProbability">
-
 50%
-
 </div>
 
 <div class="probBar">
-
 <div
 class="probFill upFill"
 id="upBar">
-
 </div>
-
 </div>
 
 </div>
@@ -1026,17 +672,14 @@ id="upBar">
 <div
 class="probValue bad"
 id="downProbability">
-
 50%
-
 </div>
 
 <div class="probBar">
-
 <div
 class="probFill downFill"
 id="downBar">
-
+</div>
 </div>
 
 </div>
@@ -1044,202 +687,116 @@ id="downBar">
 </div>
 
 
-</div>
-
-
-<div class="note">
-
-النسب تمثل قوة توافق المؤشرات داخل النموذج التحليلي، وليست ضماناً لحركة السوق.
-
-</div>
-
-</div>
-
-
-
-<!-- ENTRY ZONES -->
-
-<div class="card">
-
-<div class="title">
-
-<span class="icon">
-🎯
-</span>
-
-مناطق الدخول المحتملة
-
-</div>
-
-
-<div
-id="buyEntry"
-class="entryBox buyEntry">
+<div class="entryBox buyEntry">
 
 <div class="entryHeader">
 
-<span>
-🟢 منطقة شراء
-</span>
+<span>🟢 منطقة شراء</span>
 
 <span
 id="buyStatus"
 class="neutral">
-
---
-
+انتظار
 </span>
 
 </div>
-
 
 <div
 class="entryPrice"
 id="buyZone">
-
 --
-
 </div>
-
 
 <div
 class="entryReason"
 id="buyReason">
-
---
-
+جاري حساب منطقة الشراء من الدعم والنتائج الحالية.
 </div>
 
 </div>
 
 
-
-<div
-id="sellEntry"
-class="entryBox sellEntry">
+<div class="entryBox sellEntry">
 
 <div class="entryHeader">
 
-<span>
-🔴 منطقة بيع
-</span>
+<span>🔴 منطقة بيع</span>
 
 <span
 id="sellStatus"
 class="neutral">
-
---
-
+انتظار
 </span>
 
 </div>
-
 
 <div
 class="entryPrice"
 id="sellZone">
-
 --
-
 </div>
-
 
 <div
 class="entryReason"
 id="sellReason">
-
---
-
+جاري حساب منطقة البيع من المقاومة والنتائج الحالية.
 </div>
 
 </div>
 
 
-<div
-id="entryWait"
-class="entryBox waitEntry">
+<div class="entryBox waitEntry">
 
 <div class="entryHeader">
 
-<span>
-⏳ حالة الدخول
-</span>
+<span>⏳ قرار المنطقة</span>
 
 <span
 id="entryDecision"
 class="neutral">
-
 انتظار
-
 </span>
 
 </div>
-
 
 <div
 class="entryReason"
 id="entryReason">
-
-جاري حساب توافق الاتجاه والزخم والمستويات.
-
+جاري مطابقة الاتجاه والفريمات والزخم والقوة مع الدعم والمقاومة.
 </div>
 
 </div>
 
-</div>
-
-
-
-<!-- AGREEMENT SCORE -->
-
-<div class="card">
-
-<div class="title">
-
-<span class="icon">
-🧠
-</span>
-
-درجة توافق التحليل
-
-</div>
 
 <div class="scoreBox">
 
 <div
 class="scoreValue neutral"
 id="analysisScore">
-
 50 / 100
-
 </div>
 
 <div
 class="note"
 id="scoreReason">
-
-جاري حساب توافق الفريمات والزخم والقوة.
-
+جاري حساب درجة توافق التحليل.
 </div>
 
 </div>
 
+
+<div class="note">
+النسب ومناطق الدخول هي نتائج نموذج تحليلي مبني على بيانات XAUUSD الحالية، وليست ضماناً لحركة السوق.
 </div>
 
+</div>
 
-
-<!-- CHART -->
 
 <div class="card">
 
 <div class="title">
-
-<span class="icon">
-📈
-</span>
-
+<span class="icon">📈</span>
 شارت XAUUSD
-
 </div>
 
 <div class="chartWrap">
@@ -1248,13 +805,9 @@ id="scoreReason">
 
 <div class="chartLegend">
 
-<span>
-5M
-</span>
+<span>5M</span>
 
-<span id="chartCurrent">
---
-</span>
+<span id="chartCurrent">--</span>
 
 </div>
 
@@ -1267,19 +820,11 @@ id="scoreReason">
 </div>
 
 
-
-<!-- RESULT -->
-
 <div class="card">
 
 <div class="title">
-
-<span class="icon">
-🎯
-</span>
-
+<span class="icon">🎯</span>
 النتيجة
-
 </div>
 
 <div class="signalBox">
@@ -1287,216 +832,73 @@ id="scoreReason">
 <div
 class="signal neutral"
 id="signal">
-
 WAIT
-
 </div>
 
 <div
 class="reason"
 id="signalReason">
-
 جاري تحليل جميع العوامل...
-
 </div>
 
 </div>
 
 <div class="note">
-
-التحليل آلي، والتنفيذ يدوي.
-لا توجد أوامر تداول داخل التطبيق.
-
+التحليل آلي، والتنفيذ يدوي. لا توجد أوامر تداول داخل التطبيق.
 </div>
 
 </div>
-
 
 
 <div
 class="updateBox"
 id="updateAge">
-
 جاري تحديث البيانات...
-
 </div>
 
-
 </div>
-
 
 
 <script>
 
+const SPOT_API =
+"https://xaus.com/api/v1/spot?fresh=";
 
-/* =====================================
-   API
-===================================== */
-
-const BASE_API =
-"https://biquote.io/api";
+const INTRADAY_API =
+"https://xaus.com/api/v1/intraday?symbol=xau&hours=24&fresh=";
 
 
-/* =====================================
-   GLOBAL DATA
-===================================== */
-
-let marketData = {
-
+let marketData={
 price:null,
-
-bars5:[],
-bars15:[],
-bars30:[],
-bars60:[],
-
-levels:null,
-
+points:[],
 lastUpdate:null
-
 };
 
 
-/* =====================================
-   ELEMENTS
-===================================== */
-
-const priceEl =
+const priceEl=
 document.getElementById("price");
 
-const priceStatus =
+const priceStatus=
 document.getElementById("priceStatus");
 
-const trendEl =
+const trendEl=
 document.getElementById("trend");
 
-const strengthEl =
+const strengthEl=
 document.getElementById("strength");
 
-const momentumEl =
+const momentumEl=
 document.getElementById("momentum");
-
-const support1El =
-document.getElementById("support1");
-
-const support2El =
-document.getElementById("support2");
-
-const resistance1El =
-document.getElementById("resistance1");
-
-const resistance2El =
-document.getElementById("resistance2");
-
-const signalEl =
-document.getElementById("signal");
-
-const signalReasonEl =
-document.getElementById("signalReason");
-
-const candleStateEl =
-document.getElementById("candleState");
-
-const candleDetailsEl =
-document.getElementById("candleDetails");
-
-const updateAgeEl =
-document.getElementById("updateAge");
-
-
-const tf5El =
-document.getElementById("tf5");
-
-const tf15El =
-document.getElementById("tf15");
-
-const tf30El =
-document.getElementById("tf30");
-
-const tf60El =
-document.getElementById("tf60");
-
-
-const move5El =
-document.getElementById("move5");
-
-const move15El =
-document.getElementById("move15");
-
-const move60El =
-document.getElementById("move60");
-
-
-const upProbabilityEl =
-document.getElementById("upProbability");
-
-const downProbabilityEl =
-document.getElementById("downProbability");
-
-const upBar =
-document.getElementById("upBar");
-
-const downBar =
-document.getElementById("downBar");
-
-
-const buyZoneEl =
-document.getElementById("buyZone");
-
-const sellZoneEl =
-document.getElementById("sellZone");
-
-const buyStatusEl =
-document.getElementById("buyStatus");
-
-const sellStatusEl =
-document.getElementById("sellStatus");
-
-const buyReasonEl =
-document.getElementById("buyReason");
-
-const sellReasonEl =
-document.getElementById("sellReason");
-
-const entryDecisionEl =
-document.getElementById("entryDecision");
-
-const entryReasonEl =
-document.getElementById("entryReason");
-
-const analysisScoreEl =
-document.getElementById("analysisScore");
-
-const scoreReasonEl =
-document.getElementById("scoreReason");
-
-
-/* =====================================
-   HELPERS
-===================================== */
-
-function num(v){
-
-const n =
-Number(v);
-
-return Number.isFinite(n)
-? n
-: null;
-
-}
 
 
 function fmt(v){
 
 if(
-v === null ||
-v === undefined ||
+v===null ||
+v===undefined ||
 !Number.isFinite(Number(v))
 ){
-
 return "--";
-
 }
 
 return Number(v).toLocaleString(
@@ -1510,363 +912,251 @@ maximumFractionDigits:2
 }
 
 
-function fmtPct(v){
+function pct(v){
 
-if(
-v === null ||
-!Number.isFinite(v)
-){
-
+if(!Number.isFinite(v)){
 return "--";
+}
+
+return(
+v>=0?"+":""
+)+v.toFixed(2)+"%";
 
 }
 
-return (
-v > 0 ? "+" : ""
-) +
-v.toFixed(2) +
-"%";
-
-}
-
-
-function setClass(el,cls){
-
-el.className =
-"value " + cls;
-
-}
-
-
-async function fetchJSON(url){
-
-const response =
-await fetch(
-url,
-{
-cache:"no-store"
-}
-);
-
-if(!response.ok){
-
-throw new Error(
-"HTTP " +
-response.status
-);
-
-}
-
-return await response.json();
-
-}
-
-
-/* =====================================
-   SPOT
-===================================== */
 
 async function getSpot(){
 
-const data =
-await fetchJSON(
-BASE_API +
-"/XAUUSD?allowStale=true&fresh=" +
-Date.now()
+const r=
+await fetch(
+SPOT_API+Date.now(),
+{cache:"no-store"}
 );
 
+if(!r.ok){
+throw new Error("Spot "+r.status);
+}
 
-const price =
-num(
-data.mid ??
-data.price ??
-data.last
+const data=
+await r.json();
+
+const price=
+Number(
+data.spot_usd_oz ??
+data.xau?.price ??
+data.price
 );
 
+if(!Number.isFinite(price)){
+throw new Error("No spot price");
+}
 
-if(price === null){
-
-throw new Error(
-"XAUUSD price missing"
-);
+return price;
 
 }
 
 
-return {
+async function getIntraday(){
 
-price,
-
-marketState:
-data.marketState ||
-"unknown",
-
-stale:
-Boolean(data.stale),
-
-age:
-num(data.quoteAgeSeconds)
-
-};
-
-}
-
-
-/* =====================================
-   OHLC
-===================================== */
-
-async function getOHLC(
-interval,
-limit
-){
-
-const data =
-await fetchJSON(
-
-BASE_API +
-"/XAUUSD/ohlc?interval=" +
-encodeURIComponent(interval) +
-"&limit=" +
-limit +
-"&fresh=" +
-Date.now()
-
+const r=
+await fetch(
+INTRADAY_API+Date.now(),
+{cache:"no-store"}
 );
 
-
-if(!Array.isArray(data.bars)){
-
-throw new Error(
-"No bars " +
-interval
-);
-
+if(!r.ok){
+throw new Error("Intraday "+r.status);
 }
 
+const data=
+await r.json();
 
-return data.bars
+if(!Array.isArray(data.points)){
+throw new Error("No points");
+}
 
-.map(b=>({
-
-time:
-Date.parse(b.openTime),
-
-open:
-num(b.open),
-
-high:
-num(b.high),
-
-low:
-num(b.low),
-
-close:
-num(b.close),
-
-isOpen:
-Boolean(b.isOpen)
-
+return data.points
+.map(p=>({
+t:Number(p.t),
+p:Number(p.p)
 }))
-
-.filter(b=>
-Number.isFinite(b.time) &&
-b.open !== null &&
-b.high !== null &&
-b.low !== null &&
-b.close !== null
+.filter(
+p=>
+Number.isFinite(p.t) &&
+Number.isFinite(p.p)
 )
-
 .sort(
-(a,b)=>a.time-b.time
+(a,b)=>a.t-b.t
 );
 
 }
 
 
-/* =====================================
-   CHANGE
-===================================== */
-
-function changeFrom(
-oldPrice,
-newPrice
+function priceAt(
+points,
+minutes
 ){
 
-if(
-oldPrice === null ||
-newPrice === null ||
-oldPrice === 0
-){
-
+if(!points.length){
 return null;
-
 }
 
-return (
-(newPrice-oldPrice) /
-oldPrice
-) * 100;
+const target=
+Date.now()-
+minutes*60*1000;
 
-}
+let best=
+points[0];
 
-
-/* =====================================
-   TIMEFRAME TREND
-===================================== */
-
-function timeframeTrend(
-bars,
-lookback
-){
-
-if(
-!bars ||
-bars.length <= lookback
-){
-
-return "عرضي";
-
-}
-
-
-const last =
-bars[bars.length-1];
-
-const old =
-bars[
-Math.max(
-0,
-bars.length-1-lookback
-)
-];
-
-
-const change =
-changeFrom(
-old.close,
-last.close
+let diff=
+Math.abs(
+best.t-target
 );
 
+for(
+const p of points
+){
 
-if(change === null){
+const d=
+Math.abs(
+p.t-target
+);
 
-return "عرضي";
+if(d<diff){
 
-}
-
-
-if(change > 0.10){
-
-return "صاعد";
-
-}
-
-if(change < -0.10){
-
-return "هابط";
-
-}
-
-return "عرضي";
-
-}
-
-
-/* =====================================
-   TF UI
-===================================== */
-
-function updateTF(el,value){
-
-el.textContent =
-value;
-
-
-if(value === "صاعد"){
-
-el.className =
-"tfValue good";
-
-}
-
-else if(value === "هابط"){
-
-el.className =
-"tfValue bad";
-
-}
-
-else{
-
-el.className =
-"tfValue neutral";
+best=p;
+diff=d;
 
 }
 
 }
 
+return best.p;
 
-/* =====================================
-   LEVELS
-===================================== */
+}
 
-function calculateLevels(
-bars,
+
+function change(
+oldPrice,
 current
 ){
 
-const recent =
-bars.slice(
-Math.max(
-0,
-bars.length-120
-)
+if(
+!Number.isFinite(oldPrice) ||
+!Number.isFinite(current) ||
+oldPrice===0
+){
+return 0;
+}
+
+return(
+(current-oldPrice)/
+oldPrice
+)*100;
+
+}
+
+
+function timeframeTrend(
+minutes
+){
+
+const old=
+priceAt(
+marketData.points,
+minutes
 );
 
+const c=
+change(
+old,
+marketData.price
+);
 
-const lows = [];
-const highs = [];
+if(c>0.10){
+return "صاعد";
+}
+
+if(c<-0.10){
+return "هابط";
+}
+
+return "عرضي";
+
+}
+
+
+function colorValue(
+el,
+value
+){
+
+el.className=
+"value "+
+(
+value==="صاعد" ||
+value==="إيجابي"
+?"good":
+value==="هابط" ||
+value==="سلبي"
+?"bad":
+"neutral"
+);
+
+}
+
+
+function levels(){
+
+const points=
+marketData.points.slice(-360);
+
+if(points.length<10){
+return {
+s1:null,
+s2:null,
+r1:null,
+r2:null
+};
+}
+
+const current=
+marketData.price;
+
+const lows=[];
+const highs=[];
 
 
 for(
 let i=2;
-i<recent.length-2;
+i<points.length-2;
 i++
 ){
 
-const c =
-recent[i];
-
-
-if(
-c.low <= recent[i-1].low &&
-c.low <= recent[i-2].low &&
-c.low <= recent[i+1].low &&
-c.low <= recent[i+2].low
-){
-
-if(c.low < current){
-
-lows.push(c.low);
-
-}
-
-}
-
+const p=
+points[i].p;
 
 if(
-c.high >= recent[i-1].high &&
-c.high >= recent[i-2].high &&
-c.high >= recent[i+1].high &&
-c.high >= recent[i+2].high
+p<=points[i-1].p &&
+p<=points[i-2].p &&
+p<=points[i+1].p &&
+p<=points[i+2].p &&
+p<current
 ){
 
-if(c.high > current){
-
-highs.push(c.high);
+lows.push(p);
 
 }
+
+if(
+p>=points[i-1].p &&
+p>=points[i-2].p &&
+p>=points[i+1].p &&
+p>=points[i+2].p &&
+p>current
+){
+
+highs.push(p);
 
 }
 
@@ -1882,177 +1172,141 @@ highs.sort(
 );
 
 
-function uniqueLevels(
-arr,
-distance
+function unique(
+arr
 ){
 
-const result = [];
+const out=[];
 
-
-for(const value of arr){
+for(
+const v of arr
+){
 
 if(
-!result.some(
-x =>
-Math.abs(x-value) <= distance
+!out.some(
+x=>Math.abs(x-v)<1
 )
 ){
 
-result.push(value);
+out.push(v);
 
 }
 
-if(result.length >= 2){
-
+if(out.length>=2){
 break;
-
 }
 
 }
 
-return result;
+return out;
 
 }
 
 
-const supports =
-uniqueLevels(
-lows,
-1.00
-);
+const L=
+unique(lows);
+
+const H=
+unique(highs);
 
 
-const resistances =
-uniqueLevels(
-highs,
-1.00
-);
-
-
-return {
-
-support1:
-supports[0] ?? null,
-
-support2:
-supports[1] ?? null,
-
-resistance1:
-resistances[0] ?? null,
-
-resistance2:
-resistances[1] ?? null
-
+return{
+s1:L[0]??null,
+s2:L[1]??null,
+r1:H[0]??null,
+r2:H[1]??null
 };
 
 }
 
 
-/* =====================================
-   CANDLE
-===================================== */
+function candle(){
 
-function analyzeCandle(bar){
+const pts=
+marketData.points.slice(-6);
 
-if(!bar){
+if(pts.length<2){
+
+document.getElementById(
+"candleState"
+).textContent="--";
 
 return "عرضي";
 
 }
 
+const open=
+pts[0].p;
 
-const body =
-Math.abs(
-bar.close-bar.open
-);
+const close=
+pts[pts.length-1].p;
 
-const range =
-bar.high-bar.low;
+const high=
+Math.max(...pts.map(x=>x.p));
 
+const low=
+Math.min(...pts.map(x=>x.p));
 
-const bodyPercent =
-range > 0
-? (body/range)*100
-: 0;
+const range=
+high-low;
+
+const body=
+Math.abs(close-open);
+
+const bodyPct=
+range>0?
+(body/range)*100:
+0;
 
 
 let state;
 
+if(close>open){
 
-if(bodyPercent < 20){
-
-state =
-"🟡 شمعة مترددة";
+state="🟢 شمعة صاعدة";
 
 }
 
-else if(bar.close > bar.open){
+else if(close<open){
 
-state =
-"🟢 شمعة صاعدة";
-
-}
-
-else if(bar.close < bar.open){
-
-state =
-"🔴 شمعة هابطة";
+state="🔴 شمعة هابطة";
 
 }
 
 else{
 
-state =
-"🟡 شمعة محايدة";
+state="🟡 شمعة محايدة";
 
 }
 
 
-candleStateEl.textContent =
+document.getElementById(
+"candleState"
+).textContent=
 state;
 
-
-candleDetailsEl.innerHTML =
-
-"Open: <b>" +
-fmt(bar.open) +
-"</b> • " +
-
-"High: <b>" +
-fmt(bar.high) +
-"</b> • " +
-
-"Low: <b>" +
-fmt(bar.low) +
-"</b> • " +
-
-"Close: <b>" +
-fmt(bar.close) +
-"</b>" +
-
-"<br>قوة جسم الشمعة: <b>" +
-bodyPercent.toFixed(0) +
+document.getElementById(
+"candleDetails"
+).innerHTML=
+"Open: <b>"+fmt(open)+
+"</b> • High: <b>"+fmt(high)+
+"</b> • Low: <b>"+fmt(low)+
+"</b> • Close: <b>"+fmt(close)+
+"</b><br>قوة جسم الشمعة: <b>"+
+bodyPct.toFixed(0)+
 "%</b>";
 
 
-return bar.close > bar.open
-? "صاعد"
-: bar.close < bar.open
-? "هابط"
-: "عرضي";
+return close>open?
+"صاعد":
+close<open?
+"هابط":
+"عرضي";
 
 }
 
 
-/* =====================================
-   PROBABILITY ENGINE
-===================================== */
-
-function calculateProbability(data){
-
-const {
-
+function probability(
 trend5,
 trend15,
 trend30,
@@ -2060,166 +1314,58 @@ trend60,
 trend,
 momentum,
 strength,
-candleDirection,
-ch5,
-ch15,
-ch60,
-price,
-levels
-
-} = data;
-
-
-let score = 0;
-
-
-/*
-الفريمات
-*/
-
-const tfScore = {
-
-"صاعد":1,
-"هابط":-1,
-"عرضي":0
-
-};
-
-
-score +=
-(tfScore[trend5] || 0) * 8;
-
-score +=
-(tfScore[trend15] || 0) * 12;
-
-score +=
-(tfScore[trend30] || 0) * 15;
-
-score +=
-(tfScore[trend60] || 0) * 15;
-
-
-/*
-الاتجاه العام
-*/
-
-score +=
-trend === "صاعد"
-? 12
-: trend === "هابط"
-? -12
-: 0;
-
-
-/*
-الزخم
-*/
-
-score +=
-momentum === "إيجابي"
-? 15
-: momentum === "سلبي"
-? -15
-: 0;
-
-
-/*
-القوة
-*/
-
-if(strength === "قوية"){
-
-score +=
-(ch15 || 0) >= 0
-? 8
-: -8;
-
-}
-
-else if(strength === "متوسطة"){
-
-score +=
-(ch15 || 0) >= 0
-? 4
-: -4;
-
-}
-
-
-/*
-الشمعة
-*/
-
-score +=
-candleDirection === "صاعد"
-? 5
-: candleDirection === "هابط"
-? -5
-: 0;
-
-
-/*
-سرعة الحركة
-*/
-
-if(
-ch5 !== null &&
-ch15 !== null
+candleDir
 ){
 
-if(
-ch5 > 0 &&
-ch15 > 0
-){
+let score=0;
 
-score += 5;
-
-}
-
-else if(
-ch5 < 0 &&
-ch15 < 0
-){
-
-score -= 5;
-
-}
-
-}
+const addTrend=
+v=>
+v==="صاعد"?
+1:
+v==="هابط"?
+-1:
+0;
 
 
-/*
-موقع السعر بالنسبة للدعم والمقاومة
-*/
+score+=
+addTrend(trend5)*8;
 
-if(levels){
+score+=
+addTrend(trend15)*12;
 
-if(
-levels.resistance1 &&
-price > levels.resistance1
-){
+score+=
+addTrend(trend30)*15;
 
-score += 4;
+score+=
+addTrend(trend60)*15;
 
-}
+score+=
+addTrend(trend)*12;
 
-if(
-levels.support1 &&
-price < levels.support1
-){
+score+=
+momentum==="إيجابي"?
+15:
+momentum==="سلبي"?
+-15:
+0;
 
-score -= 4;
+score+=
+strength==="قوية"?
+(momentum==="إيجابي"?8:-8):
+strength==="متوسطة"?
+(momentum==="إيجابي"?4:-4):
+0;
 
-}
+score+=
+candleDir==="صاعد"?
+5:
+candleDir==="هابط"?
+-5:
+0;
 
-}
 
-
-/*
-نحصر النتيجة
-*/
-
-score =
+score=
 Math.max(
 -100,
 Math.min(
@@ -2229,1065 +1375,310 @@ score
 );
 
 
-/*
-تحويل إلى احتمال
-*/
-
-const up =
+const up=
 Math.round(
-50 + score/2
+50+score/2
 );
 
-const down =
-100-up;
-
-
-return {
-
-score,
+return{
 up,
-down
-
+down:100-up,
+score
 };
 
 }
 
 
-/* =====================================
-   ENTRY ZONES
-===================================== */
-
-function calculateEntryZones(
-price,
-levels,
-up,
-down,
+function updateEntry(
+prob,
 trend,
 momentum,
-strength
+strength,
+lv
 ){
 
-let buy = null;
-let sell = null;
+const buyZone=
+document.getElementById("buyZone");
 
+const sellZone=
+document.getElementById("sellZone");
 
-/*
-منطقة الشراء
-*/
+const buyStatus=
+document.getElementById("buyStatus");
 
-if(levels){
+const sellStatus=
+document.getElementById("sellStatus");
+
+const buyReason=
+document.getElementById("buyReason");
+
+const sellReason=
+document.getElementById("sellReason");
+
+const decision=
+document.getElementById("entryDecision");
+
+const reason=
+document.getElementById("entryReason");
+
 
 if(
-levels.support1 &&
-levels.support2
+lv.s1!==null &&
+lv.s2!==null
 ){
 
-buy = {
-
-low:
-levels.support2,
-
-high:
-levels.support1
-
-};
+buyZone.textContent=
+fmt(lv.s2)+
+" → "+
+fmt(lv.s1);
 
 }
+else if(lv.s1!==null){
 
-else if(levels.support1){
-
-buy = {
-
-low:
-levels.support1 -
-price*0.0015,
-
-high:
-levels.support1 +
-price*0.0004
-
-};
-
-}
-
-
-/*
-منطقة البيع
-*/
-
-if(
-levels.resistance1 &&
-levels.resistance2
-){
-
-sell = {
-
-low:
-levels.resistance1,
-
-high:
-levels.resistance2
-
-};
-
-}
-
-else if(levels.resistance1){
-
-sell = {
-
-low:
-levels.resistance1 -
-price*0.0004,
-
-high:
-levels.resistance1 +
-price*0.0015
-
-};
-
-}
-
-}
-
-
-/*
-صلاحية المناطق
-*/
-
-const buyValid =
-buy &&
-up >= 58 &&
-trend === "صاعد" &&
-momentum === "إيجابي" &&
-strength !== "ضعيفة";
-
-
-const sellValid =
-sell &&
-down >= 58 &&
-trend === "هابط" &&
-momentum === "سلبي" &&
-strength !== "ضعيفة";
-
-
-return {
-
-buy,
-sell,
-buyValid,
-sellValid
-
-};
-
-}
-
-
-/* =====================================
-   UPDATE ENTRY UI
-===================================== */
-
-function updateEntryZones(
-zones,
-up,
-down,
-trend,
-momentum,
-strength
-){
-
-if(zones.buy){
-
-buyZoneEl.textContent =
-fmt(zones.buy.low) +
-" → " +
-fmt(zones.buy.high);
+buyZone.textContent=
+fmt(lv.s1);
 
 }
 else{
 
-buyZoneEl.textContent =
-"--";
+buyZone.textContent="--";
 
 }
 
 
-if(zones.sell){
+if(
+lv.r1!==null &&
+lv.r2!==null
+){
 
-sellZoneEl.textContent =
-fmt(zones.sell.low) +
-" → " +
-fmt(zones.sell.high);
+sellZone.textContent=
+fmt(lv.r1)+
+" → "+
+fmt(lv.r2);
+
+}
+else if(lv.r1!==null){
+
+sellZone.textContent=
+fmt(lv.r1);
 
 }
 else{
 
-sellZoneEl.textContent =
-"--";
+sellZone.textContent="--";
 
 }
 
 
-if(zones.buyValid){
+const buyOK=
+prob.up>=58 &&
+trend==="صاعد" &&
+momentum==="إيجابي" &&
+strength!=="ضعيفة";
 
-buyStatusEl.textContent =
+
+const sellOK=
+prob.down>=58 &&
+trend==="هابط" &&
+momentum==="سلبي" &&
+strength!=="ضعيفة";
+
+
+if(buyOK){
+
+buyStatus.textContent=
 "صالحة تحليلية";
 
-buyStatusEl.className =
+buyStatus.className=
 "good";
 
-buyReasonEl.textContent =
-"الشراء مشروط ببقاء الاتجاه صاعداً والزخم إيجابياً والحركة ليست ضعيفة.";
+buyReason.textContent=
+"توافق صعودي بين الاتجاه والفريمات والزخم. تتم مراقبة المنطقة قرب الدعم.";
 
 }
 else{
 
-buyStatusEl.textContent =
+buyStatus.textContent=
 "انتظار";
 
-buyStatusEl.className =
+buyStatus.className=
 "neutral";
 
-buyReasonEl.textContent =
+buyReason.textContent=
 "لا يوجد توافق كافٍ حالياً لتفعيل منطقة الشراء.";
 
 }
 
 
-if(zones.sellValid){
+if(sellOK){
 
-sellStatusEl.textContent =
+sellStatus.textContent=
 "صالحة تحليلية";
 
-sellStatusEl.className =
+sellStatus.className=
 "bad";
 
-sellReasonEl.textContent =
-"البيع مشروط ببقاء الاتجاه هابطاً والزخم سلبياً والحركة ليست ضعيفة.";
+sellReason.textContent=
+"توافق هبوطي بين الاتجاه والفريمات والزخم. تتم مراقبة المنطقة قرب المقاومة.";
 
 }
 else{
 
-sellStatusEl.textContent =
+sellStatus.textContent=
 "انتظار";
 
-sellStatusEl.className =
+sellStatus.className=
 "neutral";
 
-sellReasonEl.textContent =
+sellReason.textContent=
 "لا يوجد توافق كافٍ حالياً لتفعيل منطقة البيع.";
 
 }
 
 
-/*
-قرار الدخول
-*/
+if(buyOK){
 
-if(zones.buyValid){
-
-entryDecisionEl.textContent =
+decision.textContent=
 "🟢 شراء محتمل";
 
-entryDecisionEl.className =
+decision.className=
 "good";
 
-entryReasonEl.textContent =
-"النتائج الحالية تميل للصعود، ومنطقة المراقبة هي بين الدعمين الظاهرين.";
+reason.textContent=
+"التحليل يميل للصعود. المنطقة المراقبة هي منطقة الدعم.";
 
 }
+else if(sellOK){
 
-else if(zones.sellValid){
-
-entryDecisionEl.textContent =
+decision.textContent=
 "🔴 بيع محتمل";
 
-entryDecisionEl.className =
+decision.className=
 "bad";
 
-entryReasonEl.textContent =
-"النتائج الحالية تميل للهبوط، ومنطقة المراقبة هي بين المقاومتين الظاهرتين.";
+reason.textContent=
+"التحليل يميل للهبوط. المنطقة المراقبة هي منطقة المقاومة.";
 
 }
-
 else{
 
-entryDecisionEl.textContent =
+decision.textContent=
 "⏳ انتظار";
 
-entryDecisionEl.className =
+decision.className=
 "neutral";
 
-entryReasonEl.textContent =
-"لا توجد حالياً موافقة كافية بين الاتجاه والفريمات والزخم والقوة لتفعيل منطقة دخول.";
+reason.textContent=
+"لا يوجد توافق كافٍ بين الاتجاه والفريمات والزخم والقوة.";
 
 }
 
 }
 
-
-/* =====================================
-   MARKET ANALYSIS
-===================================== */
-
-function analyzeMarket(){
-
-const price =
-marketData.price;
-
-const b5 =
-marketData.bars5;
-
-const b15 =
-marketData.bars15;
-
-const b30 =
-marketData.bars30;
-
-const b60 =
-marketData.bars60;
-
-
-if(
-!price ||
-!b5.length ||
-!b15.length ||
-!b30.length ||
-!b60.length
-){
-
-return;
-
-}
-
-
-/* الفريمات */
-
-const trend5 =
-timeframeTrend(
-b5,
-3
-);
-
-const trend15 =
-timeframeTrend(
-b15,
-3
-);
-
-const trend30 =
-timeframeTrend(
-b30,
-2
-);
-
-const trend60 =
-timeframeTrend(
-b60,
-2
-);
-
-
-updateTF(
-tf5El,
-trend5
-);
-
-updateTF(
-tf15El,
-trend15
-);
-
-updateTF(
-tf30El,
-trend30
-);
-
-updateTF(
-tf60El,
-trend60
-);
-
-
-/* الحركة */
-
-const old5 =
-b5[
-Math.max(
-0,
-b5.length-2
-)
-];
-
-const old15 =
-b5[
-Math.max(
-0,
-b5.length-4
-)
-];
-
-const old60 =
-b5[
-Math.max(
-0,
-b5.length-13
-)
-];
-
-
-const ch5 =
-changeFrom(
-old5?.close ?? null,
-price
-);
-
-const ch15 =
-changeFrom(
-old15?.close ?? null,
-price
-);
-
-const ch60 =
-changeFrom(
-old60?.close ?? null,
-price
-);
-
-
-move5El.textContent =
-fmtPct(ch5);
-
-move15El.textContent =
-fmtPct(ch15);
-
-move60El.textContent =
-fmtPct(ch60);
-
-
-move5El.className =
-"moveValue " +
-(
-ch5 > 0
-? "good"
-: ch5 < 0
-? "bad"
-: "neutral"
-);
-
-
-move15El.className =
-"moveValue " +
-(
-ch15 > 0
-? "good"
-: ch15 < 0
-? "bad"
-: "neutral"
-);
-
-
-move60El.className =
-"moveValue " +
-(
-ch60 > 0
-? "good"
-: ch60 < 0
-? "bad"
-: "neutral"
-);
-
-
-/* الاتجاه */
-
-const positive =
-[
-trend5,
-trend15,
-trend30,
-trend60
-]
-.filter(
-x => x === "صاعد"
-).length;
-
-
-const negative =
-[
-trend5,
-trend15,
-trend30,
-trend60
-]
-.filter(
-x => x === "هابط"
-).length;
-
-
-let trend =
-"عرضي";
-
-
-if(positive >= 3){
-
-trend =
-"صاعد";
-
-}
-
-else if(negative >= 3){
-
-trend =
-"هابط";
-
-}
-
-
-trendEl.textContent =
-trend;
-
-
-if(trend === "صاعد"){
-
-setClass(
-trendEl,
-"good"
-);
-
-}
-
-else if(trend === "هابط"){
-
-setClass(
-trendEl,
-"bad"
-);
-
-}
-
-else{
-
-setClass(
-trendEl,
-"neutral"
-);
-
-}
-
-
-/* القوة */
-
-const abs15 =
-Math.abs(
-ch15 || 0
-);
-
-
-let strength =
-"ضعيفة";
-
-
-if(abs15 >= 0.30){
-
-strength =
-"قوية";
-
-}
-else if(abs15 >= 0.12){
-
-strength =
-"متوسطة";
-
-}
-
-
-strengthEl.textContent =
-strength;
-
-
-setClass(
-strengthEl,
-strength === "قوية"
-? "good"
-: "neutral"
-);
-
-
-/* الزخم */
-
-let momentum =
-"محايد";
-
-
-if(
-(ch5 || 0) > 0.05 &&
-(ch15 || 0) > 0.08
-){
-
-momentum =
-"إيجابي";
-
-}
-
-else if(
-(ch5 || 0) < -0.05 &&
-(ch15 || 0) < -0.08
-){
-
-momentum =
-"سلبي";
-
-}
-
-
-momentumEl.textContent =
-momentum;
-
-
-if(momentum === "إيجابي"){
-
-setClass(
-momentumEl,
-"good"
-);
-
-}
-
-else if(momentum === "سلبي"){
-
-setClass(
-momentumEl,
-"bad"
-);
-
-}
-
-else{
-
-setClass(
-momentumEl,
-"neutral"
-);
-
-}
-
-
-/* المستويات */
-
-const levels =
-calculateLevels(
-b5,
-price
-);
-
-
-marketData.levels =
-levels;
-
-
-support1El.textContent =
-fmt(levels.support1);
-
-support2El.textContent =
-fmt(levels.support2);
-
-resistance1El.textContent =
-fmt(levels.resistance1);
-
-resistance2El.textContent =
-fmt(levels.resistance2);
-
-
-/* الشمعة */
-
-const candleDirection =
-analyzeCandle(
-b5[b5.length-1]
-);
-
-
-/* الاحتمالات */
-
-const probability =
-calculateProbability({
-
-trend5,
-trend15,
-trend30,
-trend60,
-
-trend,
-momentum,
-strength,
-
-candleDirection,
-
-ch5,
-ch15,
-ch60,
-
-price,
-levels
-
-});
-
-
-upProbabilityEl.textContent =
-probability.up +
-"%";
-
-downProbabilityEl.textContent =
-probability.down +
-"%";
-
-
-upBar.style.width =
-probability.up +
-"%";
-
-downBar.style.width =
-probability.down +
-"%";
-
-
-/* درجة التوافق */
-
-const score =
-Math.abs(
-probability.score
-);
-
-
-analysisScoreEl.textContent =
-score +
-" / 100";
-
-
-if(score >= 60){
-
-analysisScoreEl.className =
-"scoreValue " +
-(
-probability.score >= 0
-? "good"
-: "bad"
-);
-
-}
-
-else{
-
-analysisScoreEl.className =
-"scoreValue neutral";
-
-}
-
-
-if(
-probability.score > 0
-){
-
-scoreReasonEl.textContent =
-"ميل النموذج الحالي صعودي، بدرجة توافق " +
-score +
-"/100 بين العوامل.";
-
-}
-
-else if(
-probability.score < 0
-){
-
-scoreReasonEl.textContent =
-"ميل النموذج الحالي هبوطي، بدرجة توافق " +
-score +
-"/100 بين العوامل.";
-
-}
-
-else{
-
-scoreReasonEl.textContent =
-"العوامل متوازنة تقريباً ولا يوجد اتجاه واضح.";
-
-}
-
-
-/* مناطق الدخول */
-
-const zones =
-calculateEntryZones(
-price,
-levels,
-probability.up,
-probability.down,
-trend,
-momentum,
-strength
-);
-
-
-updateEntryZones(
-zones,
-probability.up,
-probability.down,
-trend,
-momentum,
-strength
-);
-
-
-/* النتيجة */
-
-let signal =
-"WAIT";
-
-let reason =
-"";
-
-
-if(
-trend === "صاعد" &&
-momentum === "إيجابي" &&
-strength !== "ضعيفة" &&
-probability.up >= 58
-){
-
-signal =
-"UP";
-
-reason =
-"الفريمات تميل للصعود + الزخم إيجابي + قوة الحركة مناسبة.";
-
-}
-
-else if(
-trend === "هابط" &&
-momentum === "سلبي" &&
-strength !== "ضعيفة" &&
-probability.down >= 58
-){
-
-signal =
-"DOWN";
-
-reason =
-"الفريمات تميل للهبوط + الزخم سلبي + قوة الحركة مناسبة.";
-
-}
-
-else{
-
-signal =
-"WAIT";
-
-reason =
-"التحليل الحالي لا يعطي توافقاً كافياً لتفعيل اتجاه واحد.";
-
-}
-
-
-signalEl.textContent =
-signal;
-
-
-if(signal === "UP"){
-
-signalEl.className =
-"signal good";
-
-}
-
-else if(signal === "DOWN"){
-
-signalEl.className =
-"signal bad";
-
-}
-
-else{
-
-signalEl.className =
-"signal neutral";
-
-}
-
-
-signalReasonEl.textContent =
-reason;
-
-
-/* الشارت */
-
-drawChart();
-
-}
-
-
-/* =====================================
-   CHART
-===================================== */
 
 function drawChart(){
 
-const canvas =
+const canvas=
 document.getElementById("chart");
 
-if(!canvas){
-
-return;
-
-}
-
-
-const rect =
+const rect=
 canvas.getBoundingClientRect();
 
-const ratio =
-window.devicePixelRatio || 1;
+const ratio=
+window.devicePixelRatio||1;
 
+canvas.width=
+rect.width*ratio;
 
-canvas.width =
-rect.width * ratio;
+canvas.height=
+rect.height*ratio;
 
-canvas.height =
-rect.height * ratio;
-
-
-const ctx =
+const ctx=
 canvas.getContext("2d");
-
 
 ctx.scale(
 ratio,
 ratio
 );
 
-
-const width =
-rect.width;
-
-const height =
-rect.height;
-
+const w=rect.width;
+const h=rect.height;
 
 ctx.clearRect(
-0,
-0,
-width,
-height
+0,0,w,h
 );
 
 
-const bars =
-marketData.bars5.slice(-80);
+const pts=
+marketData.points.slice(-80);
 
-
-if(bars.length < 2){
-
+if(pts.length<2){
 return;
-
 }
 
 
-const prices = [];
+const values=
+pts.map(x=>x.p);
 
+const min=
+Math.min(...values);
 
-for(const b of bars){
+const max=
+Math.max(...values);
 
-prices.push(
-b.high,
-b.low
-);
+const pad=
+(max-min)*0.1||1;
 
-}
+const lo=
+min-pad;
 
-
-if(marketData.levels){
-
-if(marketData.levels.support1){
-
-prices.push(
-marketData.levels.support1
-);
-
-}
-
-if(marketData.levels.resistance1){
-
-prices.push(
-marketData.levels.resistance1
-);
-
-}
-
-}
-
-
-let min =
-Math.min(...prices);
-
-let max =
-Math.max(...prices);
-
-
-const padding =
-(max-min)*0.08 || 1;
-
-
-min -= padding;
-max += padding;
+const hi=
+max+pad;
 
 
 function x(i){
 
-return (
-i/(bars.length-1)
-) *
-(width-20) +
-10;
+return(
+i/(pts.length-1)
+)*(w-20)+10;
 
 }
 
 
-function y(price){
+function y(v){
 
-return (
-height-10
-) -
+return(
+h-10
+)-
 (
-(price-min)/
-(max-min)
-) *
-(height-20);
+(v-lo)/(hi-lo)
+)*(h-20);
 
 }
 
 
-/* grid */
-
-ctx.strokeStyle =
+ctx.strokeStyle=
 "#1b222c";
 
-ctx.lineWidth =
-1;
+ctx.lineWidth=1;
 
+for(
+let i=1;
+i<5;
+i++
+){
 
-for(let i=1;i<5;i++){
-
-const yy =
-(i/5)*height;
+const yy=
+(i/5)*h;
 
 ctx.beginPath();
 
 ctx.moveTo(
-0,
-yy
+0,yy
 );
 
 ctx.lineTo(
-width,
-yy
+w,yy
 );
 
 ctx.stroke();
@@ -3295,123 +1686,97 @@ ctx.stroke();
 }
 
 
-/* levels */
-
-function drawLevel(
-price,
-text,
-type
+function level(
+v,
+label,
+support
 ){
 
-if(
-price === null ||
-price === undefined
-){
-
+if(v===null){
 return;
-
 }
 
-
-const yy =
-y(price);
-
+const yy=
+y(v);
 
 ctx.setLineDash(
 [5,5]
 );
 
-ctx.strokeStyle =
-type === "support"
-? "#5ac8fa"
-: "#ff8a80";
-
+ctx.strokeStyle=
+support?
+"#5ac8fa":
+"#ff8a80";
 
 ctx.beginPath();
 
 ctx.moveTo(
-0,
-yy
+0,yy
 );
 
 ctx.lineTo(
-width,
-yy
+w,yy
 );
 
 ctx.stroke();
 
 ctx.setLineDash([]);
 
-
-ctx.font =
+ctx.font=
 "11px Arial";
 
-ctx.fillStyle =
-type === "support"
-? "#5ac8fa"
-: "#ff8a80";
+ctx.fillStyle=
+support?
+"#5ac8fa":
+"#ff8a80";
 
-ctx.textAlign =
+ctx.textAlign=
 "left";
 
-
 ctx.fillText(
-text +
-" " +
-fmt(price),
+label+" "+fmt(v),
 8,
-Math.max(
-12,
-yy-5
-)
+Math.max(12,yy-5)
 );
 
 }
 
 
-drawLevel(
-marketData.levels?.support1,
+const lv=
+levels();
+
+level(
+lv.s1,
 "دعم",
-"support"
+true
 );
 
-
-drawLevel(
-marketData.levels?.resistance1,
+level(
+lv.r1,
 "مقاومة",
-"resistance"
+false
 );
 
-
-/* السعر */
 
 ctx.beginPath();
 
+pts.forEach(
+(p,i)=>{
 
-bars.forEach(
-(b,i)=>{
+const xx=x(i);
+const yy=y(p.p);
 
-const xx =
-x(i);
-
-const yy =
-y(b.close);
-
-
-if(i === 0){
+if(i===0){
 
 ctx.moveTo(
-xx,
-yy
+xx,yy
 );
 
 }
 else{
 
 ctx.lineTo(
-xx,
-yy
+xx,yy
 );
 
 }
@@ -3419,28 +1784,22 @@ yy
 }
 );
 
-
-ctx.strokeStyle =
+ctx.strokeStyle=
 "#f0b90b";
 
-ctx.lineWidth =
-2;
+ctx.lineWidth=2;
 
 ctx.stroke();
 
 
-/* النقطة الحالية */
+const last=
+pts[pts.length-1];
 
-const last =
-bars[bars.length-1];
+const lx=
+x(pts.length-1);
 
-
-const lx =
-x(bars.length-1);
-
-const ly =
-y(last.close);
-
+const ly=
+y(last.p);
 
 ctx.beginPath();
 
@@ -3452,7 +1811,7 @@ ly,
 Math.PI*2
 );
 
-ctx.fillStyle =
+ctx.fillStyle=
 "#f0b90b";
 
 ctx.fill();
@@ -3460,440 +1819,453 @@ ctx.fill();
 
 document.getElementById(
 "chartCurrent"
-).textContent =
-"$ " +
-fmt(last.close);
+).textContent=
+"$ "+fmt(last.p);
 
 }
 
 
-/* =====================================
-   NEWS
-===================================== */
+function analyze(){
 
-async function updateNews(){
-
-const alertBox =
-document.getElementById("newsAlert");
-
-const nextNews =
-document.getElementById("nextNews");
-
-const countdown =
-document.getElementById("newsCountdown");
-
-const values =
-document.getElementById("newsValues");
-
-
-try{
-
-const data =
-await fetchJSON(
-
-BASE_API +
-"/calendar/upcoming?limit=20&countries=US&importance=high"
-
-);
-
-
-const events =
-Array.isArray(data)
-? data
-: [];
-
-
-if(!events.length){
-
-alertBox.className =
-"newsAlert safe";
-
-nextNews.textContent =
-"لا يوجد خبر أمريكي عالي التأثير متاح حالياً.";
-
-countdown.textContent =
-"--";
-
-values.textContent =
-"سيتم إعادة الفحص تلقائياً.";
+if(
+!marketData.price ||
+marketData.points.length<10
+){
 
 return;
 
 }
 
 
-const now =
-Date.now();
+const trend5=
+timeframeTrend(5);
+
+const trend15=
+timeframeTrend(15);
+
+const trend30=
+timeframeTrend(30);
+
+const trend60=
+timeframeTrend(60);
 
 
-const future =
-events
+document.getElementById(
+"tf5"
+).textContent=
+trend5;
 
-.map(e=>({
+document.getElementById(
+"tf15"
+).textContent=
+trend15;
 
-...e,
+document.getElementById(
+"tf30"
+).textContent=
+trend30;
 
-timestamp:
-Date.parse(e.time)
+document.getElementById(
+"tf60"
+).textContent=
+trend60;
 
-}))
 
-.filter(e=>
-Number.isFinite(e.timestamp) &&
-e.timestamp > now
-)
+for(
+const id of
+["tf5","tf15","tf30","tf60"]
+){
 
-.sort(
-(a,b)=>
-a.timestamp-b.timestamp
+const el=
+document.getElementById(id);
+
+el.className=
+"tfValue "+
+(
+el.textContent==="صاعد"?
+"good":
+el.textContent==="هابط"?
+"bad":
+"neutral"
+);
+
+}
+
+
+const ch5=
+change(
+priceAt(
+marketData.points,
+5
+),
+marketData.price
+);
+
+const ch15=
+change(
+priceAt(
+marketData.points,
+15
+),
+marketData.price
+);
+
+const ch60=
+change(
+priceAt(
+marketData.points,
+60
+),
+marketData.price
 );
 
 
-if(!future.length){
+document.getElementById(
+"move5"
+).textContent=
+pct(ch5);
 
-alertBox.className =
-"newsAlert safe";
+document.getElementById(
+"move15"
+).textContent=
+pct(ch15);
 
-nextNews.textContent =
-"لا يوجد خبر قوي قادم حالياً.";
+document.getElementById(
+"move60"
+).textContent=
+pct(ch60);
 
-countdown.textContent =
-"--";
 
-values.textContent =
-"";
+const positives=
+[trend5,trend15,trend30,trend60]
+.filter(x=>x==="صاعد").length;
 
-return;
+const negatives=
+[trend5,trend15,trend30,trend60]
+.filter(x=>x==="هابط").length;
 
+
+let trend="عرضي";
+
+if(positives>=3){
+trend="صاعد";
+}
+else if(negatives>=3){
+trend="هابط";
 }
 
 
-const event =
-future[0];
+trendEl.textContent=
+trend;
 
-
-const diff =
-event.timestamp-now;
-
-
-const minutes =
-Math.floor(
-diff/60000
+colorValue(
+trendEl,
+trend
 );
 
 
-const hours =
-Math.floor(
-minutes/60
+const abs15=
+Math.abs(ch15);
+
+let strength="ضعيفة";
+
+if(abs15>=0.30){
+strength="قوية";
+}
+else if(abs15>=0.12){
+strength="متوسطة";
+}
+
+
+strengthEl.textContent=
+strength;
+
+strengthEl.className=
+"value "+
+(
+strength==="قوية"?
+"good":
+"neutral"
 );
 
 
-const remainingMinutes =
-minutes % 60;
+let momentum="محايد";
 
+if(
+ch5>0.05 &&
+ch15>0.08
+){
 
-let timeText;
-
-
-if(hours > 0){
-
-timeText =
-"بعد " +
-hours +
-" س " +
-remainingMinutes +
-" د";
+momentum="إيجابي";
 
 }
+else if(
+ch5<-0.05 &&
+ch15<-0.08
+){
 
-else{
-
-timeText =
-"بعد " +
-Math.max(
-1,
-minutes
-) +
-" دقيقة";
+momentum="سلبي";
 
 }
 
 
-if(minutes <= 60){
+momentumEl.textContent=
+momentum;
 
-alertBox.className =
-"newsAlert high";
-
-nextNews.textContent =
-"⚠️ خبر أمريكي عالي التأثير قريب";
-
-}
-
-else{
-
-alertBox.className =
-"newsAlert safe";
-
-nextNews.textContent =
-"الخبر الأمريكي العالي القادم";
-
-}
-
-
-const localTime =
-new Date(
-event.timestamp
-).toLocaleString(
-"ar-IQ",
-{
-hour:"2-digit",
-minute:"2-digit",
-day:"2-digit",
-month:"2-digit"
-}
+colorValue(
+momentumEl,
+momentum
 );
 
 
-countdown.textContent =
-event.name +
-" • " +
-localTime +
-" • " +
-timeText;
+const lv=
+levels();
 
 
-values.textContent =
+document.getElementById(
+"support1"
+).textContent=
+fmt(lv.s1);
 
-(event.actual == null
-? "Actual: لم يصدر بعد"
-: "Actual: " +
-event.actual) +
+document.getElementById(
+"support2"
+).textContent=
+fmt(lv.s2);
 
-(event.forecast == null
-? ""
-: " • Forecast: " +
-event.forecast) +
+document.getElementById(
+"resistance1"
+).textContent=
+fmt(lv.r1);
 
-(event.previous == null
-? ""
-: " • Previous: " +
-event.previous);
+document.getElementById(
+"resistance2"
+).textContent=
+fmt(lv.r2);
 
 
-}
-catch(error){
+const candleDir=
+candle();
 
-console.error(
-"News error:",
-error
+
+const prob=
+probability(
+trend5,
+trend15,
+trend30,
+trend60,
+trend,
+momentum,
+strength,
+candleDir
 );
 
-alertBox.className =
-"newsAlert";
 
-nextNews.textContent =
-"تعذر تحديث فلتر الأخبار.";
+document.getElementById(
+"upProbability"
+).textContent=
+prob.up+"%";
 
-countdown.textContent =
-"سيتم إعادة المحاولة تلقائياً.";
-
-values.textContent =
-"";
-
-}
-
-}
+document.getElementById(
+"downProbability"
+).textContent=
+prob.down+"%";
 
 
-/* =====================================
-   LOAD MARKET
-===================================== */
+document.getElementById(
+"upBar"
+).style.width=
+prob.up+"%";
 
-async function loadMarket(){
-
-try{
-
-const results =
-await Promise.all([
-
-getSpot(),
-
-getOHLC("5m",200),
-
-getOHLC("15m",120),
-
-getOHLC("30m",120),
-
-getOHLC("1h",120)
-
-]);
+document.getElementById(
+"downBar"
+).style.width=
+prob.down+"%";
 
 
-const spot =
-results[0];
+const score=
+Math.abs(prob.score);
 
 
-marketData.price =
-spot.price;
-
-marketData.bars5 =
-results[1];
-
-marketData.bars15 =
-results[2];
-
-marketData.bars30 =
-results[3];
-
-marketData.bars60 =
-results[4];
-
-marketData.lastUpdate =
-Date.now();
+document.getElementById(
+"analysisScore"
+).textContent=
+score+" / 100";
 
 
-priceEl.textContent =
-"$ " +
-fmt(spot.price);
+const scoreEl=
+document.getElementById(
+"analysisScore"
+);
+
+scoreEl.className=
+"scoreValue "+
+(
+score>=60?
+(prob.score>=0?"good":"bad"):
+"neutral"
+);
+
+
+document.getElementById(
+"scoreReason"
+).textContent=
+prob.score>0?
+"ميل النموذج الحالي صعودي، بدرجة توافق "+score+"/100.":
+prob.score<0?
+"ميل النموذج الحالي هبوطي، بدرجة توافق "+score+"/100.":
+"العوامل متوازنة تقريباً.";
+
+
+updateEntry(
+prob,
+trend,
+momentum,
+strength,
+lv
+);
+
+
+let signal="WAIT";
+
+let reason=
+"التحليل الحالي لا يعطي توافقاً كافياً.";
 
 
 if(
-spot.marketState === "open" &&
-!spot.stale
+trend==="صاعد" &&
+momentum==="إيجابي" &&
+strength!=="ضعيفة" &&
+prob.up>=58
 ){
 
-priceStatus.textContent =
+signal="UP";
+
+reason=
+"الفريمات تميل للصعود + الزخم إيجابي + قوة الحركة مناسبة.";
+
+}
+else if(
+trend==="هابط" &&
+momentum==="سلبي" &&
+strength!=="ضعيفة" &&
+prob.down>=58
+){
+
+signal="DOWN";
+
+reason=
+"الفريمات تميل للهبوط + الزخم سلبي + قوة الحركة مناسبة.";
+
+}
+
+
+signalEl.textContent=
+signal;
+
+signalEl.className=
+"signal "+
+(
+signal==="UP"?
+"good":
+signal==="DOWN"?
+"bad":
+"neutral"
+);
+
+
+signalReasonEl.textContent=
+reason;
+
+
+drawChart();
+
+}
+
+
+async function updateMarket(){
+
+try{
+
+const price=
+await getSpot();
+
+const points=
+await getIntraday();
+
+marketData.price=
+price;
+
+marketData.points=
+points;
+
+marketData.lastUpdate=
+Date.now();
+
+
+priceEl.textContent=
+"$ "+fmt(price);
+
+priceStatus.textContent=
 "🟢 السعر حي • XAU/USD";
 
-}
 
-else if(
-spot.marketState === "closed"
-){
-
-priceStatus.textContent =
-"🟡 السوق مغلق • آخر سعر متوفر";
-
-}
-
-else if(spot.stale){
-
-priceStatus.textContent =
-"🟠 السعر قديم • آخر سعر متوفر";
-
-}
-
-else{
-
-priceStatus.textContent =
-"السعر متوفر • XAU/USD";
-
-}
-
-
-analyzeMarket();
+analyze();
 
 }
 catch(error){
 
-console.error(
-"Market error:",
-error
-);
+console.error(error);
 
-priceStatus.textContent =
-"تعذر تحديث بيانات XAUUSD";
+priceStatus.textContent=
+"🟠 تعذر تحديث بيانات التحليل";
 
 }
 
-
-updateNews();
-
 }
 
-
-/* =====================================
-   UPDATE AGE
-===================================== */
 
 function updateAge(){
 
 if(!marketData.lastUpdate){
 
-updateAgeEl.textContent =
+updateAgeEl.textContent=
 "جاري تحديث البيانات...";
 
 return;
 
 }
 
-
-const seconds =
+const sec=
 Math.floor(
 (Date.now()-marketData.lastUpdate)/1000
 );
 
-
-if(seconds < 2){
-
-updateAgeEl.textContent =
-"🔄 تم التحديث الآن";
-
-}
-
-else{
-
-updateAgeEl.textContent =
-"آخر تحديث منذ " +
-seconds +
-" ثانية";
-
-}
+updateAgeEl.textContent=
+sec<2?
+"🔄 تم التحديث الآن":
+"آخر تحديث منذ "+sec+" ثانية";
 
 }
 
 
-/* =====================================
-   START
-===================================== */
-
-loadMarket();
-
+updateMarket();
 
 setInterval(
-loadMarket,
+updateMarket,
 30000
 );
-
 
 setInterval(
 updateAge,
 1000
 );
 
-
-setInterval(
-updateNews,
-60000
-);
-
-
 window.addEventListener(
 "resize",
-()=>{
-
-if(
-marketData.bars5.length
-){
-
-drawChart();
-
-}
-
-});
+drawChart
+);
 
 </script>
 
 </body>
-
 </html>
