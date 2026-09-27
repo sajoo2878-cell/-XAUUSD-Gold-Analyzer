@@ -1,348 +1,1239 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
+
 <head>
+
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#080b10">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1,viewport-fit=cover">
+
+<meta name="theme-color"
+content="#080b10">
 
 <title>XAUUSD Gold Analyzer</title>
 
 <style>
+
 *{
-  box-sizing:border-box
+box-sizing:border-box
 }
 
 body{
-  margin:0;
-  background:#080b10;
-  color:#eef2f7;
-  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial,sans-serif
+margin:0;
+background:#080b10;
+color:#eef2f7;
+font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial,sans-serif
 }
 
 .wrap{
-  max-width:760px;
-  margin:auto;
-  padding:18px 14px 35px
+max-width:760px;
+margin:auto;
+padding:18px 14px 35px
 }
 
 .head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:16px
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:16px
 }
 
 h1{
-  font-size:25px;
-  margin:0
+font-size:25px;
+margin:0
 }
 
 .sub{
-  color:#8f9aaa;
-  font-size:13px;
-  margin-top:4px
+color:#8f9aaa;
+font-size:13px;
+margin-top:4px
 }
 
 .badge{
-  background:#10251a;
-  color:#57df91;
-  border:1px solid #1b6b3e;
-  padding:7px 10px;
-  border-radius:20px;
-  font-size:12px
+background:#10251a;
+color:#57df91;
+border:1px solid #1b6b3e;
+padding:7px 10px;
+border-radius:20px;
+font-size:12px
 }
 
 .card{
-  background:#11161e;
-  border:1px solid #202733;
-  border-radius:18px;
-  padding:16px;
-  margin:12px 0;
-  box-shadow:0 8px 25px #0003
+background:#11161e;
+border:1px solid #202733;
+border-radius:18px;
+padding:16px;
+margin:12px 0;
+box-shadow:0 8px 25px #0003
 }
 
 .title{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  font-weight:700;
-  font-size:18px;
-  margin-bottom:14px
+display:flex;
+align-items:center;
+gap:8px;
+font-weight:700;
+font-size:18px;
+margin-bottom:14px
 }
 
 .icon{
-  font-size:20px
-}
-
-.liveNews{
-  background:#080c12;
-  border:1px solid #252d38;
-  border-radius:14px;
-  overflow:hidden;
-  width:100%
-}
-
-.calendar{
-  width:100%;
-  height:620px;
-  border:0;
-  display:block;
-  background:#080c12
-}
-
-.source{
-  text-align:center;
-  font-size:11px;
-  color:#707b8b;
-  padding:9px
-}
-
-.source a{
-  color:#8da8c7;
-  text-decoration:none
+font-size:20px
 }
 
 .row{
-  display:flex;
-  justify-content:space-between;
-  padding:10px 0;
-  border-bottom:1px solid #202631
+display:flex;
+justify-content:space-between;
+padding:11px 0;
+border-bottom:1px solid #202631
 }
 
 .row:last-child{
-  border-bottom:0
+border-bottom:0
 }
 
 .label{
-  color:#aab3c0
+color:#aab3c0
 }
 
 .value{
-  font-weight:600
+font-weight:700
+}
+
+.price{
+font-size:25px;
+font-weight:800;
+text-align:center;
+padding:12px;
+color:#f0b90b
+}
+
+.status{
+text-align:center;
+font-size:11px;
+color:#7f8998;
+margin-top:4px
 }
 
 .levels{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px
 }
 
 .level{
-  background:#0c1118;
-  border-radius:13px;
-  padding:13px
+background:#0c1118;
+border-radius:13px;
+padding:13px
 }
 
 .level b{
-  display:block;
-  font-size:18px;
-  margin-top:5px
+display:block;
+font-size:18px;
+margin-top:5px
 }
 
 .support{
-  color:#5ac8fa
+color:#5ac8fa
 }
 
 .resist{
-  color:#ff8a80
+color:#ff8a80
+}
+
+.good{
+color:#57df91
+}
+
+.bad{
+color:#ff6b6b
+}
+
+.neutral{
+color:#ffb74d
 }
 
 .note{
-  font-size:12px;
-  color:#8f9aaa;
-  line-height:1.7;
-  margin-top:10px
+font-size:12px;
+color:#8f9aaa;
+line-height:1.7;
+margin-top:10px
 }
+
+.liveNews{
+background:#080c12;
+border:1px solid #252d38;
+border-radius:14px;
+overflow:hidden;
+width:100%
+}
+
+.calendar{
+width:100%;
+height:620px;
+border:0;
+display:block
+}
+
+.source{
+text-align:center;
+font-size:11px;
+color:#707b8b;
+padding:9px
+}
+
+.source a{
+color:#8da8c7;
+text-decoration:none
+}
+
 </style>
+
 </head>
 
 <body>
 
 <div class="wrap">
 
-<!-- الرأس -->
+
+<!-- HEADER -->
 
 <div class="head">
 
-  <div>
-    <h1>🥇 XAUUSD Gold Analyzer</h1>
+<div>
 
-    <div class="sub">
-      تحليل الذهب فقط • دخول يدوي
-    </div>
-  </div>
+<h1>
+🥇 XAUUSD Gold Analyzer
+</h1>
 
-  <div class="badge">
-    ● LIVE
-  </div>
+<div class="sub">
+تحليل الذهب فقط • دخول يدوي
+</div>
+
+</div>
+
+<div class="badge">
+● LIVE
+</div>
 
 </div>
 
 
-<!-- الأخبار المباشرة -->
+<!-- PRICE -->
 
 <div class="card">
 
-  <div class="title">
-    <span class="icon">📰</span>
-    الأخبار المباشرة للذهب
-  </div>
+<div class="title">
+<span class="icon">💰</span>
+سعر الذهب الحي
+</div>
 
-  <div class="liveNews">
+<div
+class="price"
+id="price">
 
-    <iframe
-      class="calendar"
-      src="https://sslecal2.investing.com/?columns=exc_flags,exc_currency,exc_importance,exc_actual,exc_forecast,exc_previous&importance=2,3&features=datepicker,timezone&countries=5&calType=week"
-      frameborder="0"
-      allowtransparency="true"
-      marginwidth="0"
-      marginheight="0">
-    </iframe>
+جاري جلب السعر...
 
-    <div class="source">
-      Real Time Economic Calendar provided by
-      <a
-        href="https://www.investing.com/"
-        target="_blank"
-        rel="nofollow">
-        Investing.com
-      </a>
-    </div>
+</div>
 
-  </div>
+<div
+class="status"
+id="priceStatus">
 
-  <div class="note">
-    🟢 الأخبار تتحدث مباشرة من المصدر.
-    يتم عرض أخبار الولايات المتحدة ذات التأثير المتوسط والعالي على الأسواق.
-    عند صدور Actual يظهر داخل التقويم مباشرة.
-  </div>
+الاتصال بمصدر XAUUSD
+
+</div>
 
 </div>
 
 
-<!-- قوة السوق -->
+<!-- NEWS -->
 
 <div class="card">
 
-  <div class="title">
-    <span class="icon">💪</span>
-    قوة السوق
-  </div>
+<div class="title">
 
-  <div class="row">
-    <span class="label">
-      اتجاه الذهب
-    </span>
+<span class="icon">
+📰
+</span>
 
-    <span
-      class="value"
-      id="trend">
-      جارٍ التحليل
-    </span>
-  </div>
-
-  <div class="row">
-    <span class="label">
-      قوة الحركة
-    </span>
-
-    <span
-      class="value"
-      id="strength">
-      جارٍ التحليل
-    </span>
-  </div>
-
-  <div class="row">
-    <span class="label">
-      الزخم
-    </span>
-
-    <span
-      class="value"
-      id="momentum">
-      جارٍ التحليل
-    </span>
-  </div>
-
-  <div class="note">
-    سيتم ربط هذا القسم ببيانات سعر XAUUSD الحية.
-  </div>
+الأخبار المباشرة للذهب
 
 </div>
 
 
-<!-- الدعم والمقاومة -->
+<div class="liveNews">
+
+<iframe
+class="calendar"
+
+src="https://sslecal2.investing.com/?columns=exc_flags,exc_currency,exc_importance,exc_actual,exc_forecast,exc_previous&importance=2,3&features=datepicker,timezone&countries=5&calType=week"
+
+frameborder="0"
+allowtransparency="true"
+marginwidth="0"
+marginheight="0">
+
+</iframe>
+
+<div class="source">
+
+Real Time Economic Calendar provided by
+
+<a
+href="https://www.investing.com/"
+target="_blank"
+rel="nofollow">
+
+Investing.com
+
+</a>
+
+</div>
+
+</div>
+
+<div class="note">
+
+🟢 الأخبار تتحدث من المصدر المباشر.
+عند صدور Actual يظهر داخل التقويم.
+
+</div>
+
+</div>
+
+
+<!-- MARKET STRENGTH -->
 
 <div class="card">
 
-  <div class="title">
-    <span class="icon">📍</span>
-    مناطق الدعم والمقاومة
-  </div>
+<div class="title">
 
-  <div class="levels">
+<span class="icon">
+💪
+</span>
 
-    <div class="level support">
-
-      أقرب دعم
-
-      <b id="support">
-        --
-      </b>
-
-    </div>
-
-    <div class="level resist">
-
-      أقرب مقاومة
-
-      <b id="resistance">
-        --
-      </b>
-
-    </div>
-
-  </div>
-
-  <div class="note">
-    سيتم حساب المناطق من بيانات XAUUSD الحية.
-  </div>
+قوة السوق
 
 </div>
 
 
-<!-- النتيجة -->
+<div class="row">
+
+<span class="label">
+اتجاه الذهب
+</span>
+
+<span
+class="value"
+id="trend">
+
+جارٍ التحليل
+
+</span>
+
+</div>
+
+
+<div class="row">
+
+<span class="label">
+قوة الحركة
+</span>
+
+<span
+class="value"
+id="strength">
+
+جارٍ التحليل
+
+</span>
+
+</div>
+
+
+<div class="row">
+
+<span class="label">
+الزخم
+</span>
+
+<span
+class="value"
+id="momentum">
+
+جارٍ التحليل
+
+</span>
+
+</div>
+
+
+<div class="note"
+id="analysisStatus">
+
+جاري تحليل بيانات XAUUSD...
+
+</div>
+
+</div>
+
+
+<!-- SUPPORT RESISTANCE -->
 
 <div class="card">
 
-  <div class="title">
-    <span class="icon">🎯</span>
-    النتيجة
-  </div>
+<div class="title">
 
-  <div class="row">
+<span class="icon">
+📍
+</span>
 
-    <span class="label">
-      الحالة
-    </span>
+مناطق الدعم والمقاومة
 
-    <span
-      class="value"
-      id="signal">
-      WAIT
-    </span>
+</div>
 
-  </div>
 
-  <div class="note">
-    لا توجد أوامر تداول داخل التطبيق.
-    القرار والتنفيذ يدويان.
-  </div>
+<div class="levels">
+
+
+<div class="level support">
+
+أقرب دعم
+
+<b id="support">
+--
+</b>
+
+</div>
+
+
+<div class="level resist">
+
+أقرب مقاومة
+
+<b id="resistance">
+--
+</b>
+
+</div>
+
+
+</div>
+
+
+<div class="note">
+
+يتم حساب المستويات من بيانات حركة XAUUSD الأخيرة.
 
 </div>
 
 </div>
+
+
+<!-- RESULT -->
+
+<div class="card">
+
+<div class="title">
+
+<span class="icon">
+🎯
+</span>
+
+النتيجة
+
+</div>
+
+
+<div class="row">
+
+<span class="label">
+الحالة
+</span>
+
+<span
+class="value"
+id="signal">
+
+WAIT
+
+</span>
+
+</div>
+
+
+<div class="note">
+
+التحليل آلي، والتنفيذ يدوي.
+لا توجد أوامر تداول داخل التطبيق.
+
+</div>
+
+</div>
+
+
+</div>
+
+
+<script>
+
+
+/* =====================================
+   XAUS
+===================================== */
+
+const SPOT_API =
+"https://xaus.com/api/v1/spot?fresh=";
+
+const INTRADAY_API =
+"https://xaus.com/api/v1/intraday?symbol=xau&hours=24&fresh=";
+
+
+/* =====================================
+   عناصر الصفحة
+===================================== */
+
+const priceEl =
+document.getElementById("price");
+
+const priceStatus =
+document.getElementById("priceStatus");
+
+const trendEl =
+document.getElementById("trend");
+
+const strengthEl =
+document.getElementById("strength");
+
+const momentumEl =
+document.getElementById("momentum");
+
+const supportEl =
+document.getElementById("support");
+
+const resistanceEl =
+document.getElementById("resistance");
+
+const signalEl =
+document.getElementById("signal");
+
+const analysisStatus =
+document.getElementById("analysisStatus");
+
+
+/* =====================================
+   رقم
+===================================== */
+
+function num(v){
+
+const n =
+Number(v);
+
+return Number.isFinite(n)
+? n
+: null;
+
+}
+
+
+/* =====================================
+   تنسيق السعر
+===================================== */
+
+function fmt(v){
+
+return Number(v).toLocaleString(
+"en-US",
+{
+minimumFractionDigits:2,
+maximumFractionDigits:2
+}
+);
+
+}
+
+
+/* =====================================
+   لون
+===================================== */
+
+function setClass(el,cls){
+
+el.className =
+"value " + cls;
+
+}
+
+
+/* =====================================
+   جلب السعر الحالي
+===================================== */
+
+async function getSpot(){
+
+const url =
+SPOT_API +
+Date.now();
+
+
+const response =
+await fetch(
+url,
+{
+cache:"no-store"
+}
+);
+
+
+if(!response.ok){
+
+throw new Error(
+"SPOT HTTP " +
+response.status
+);
+
+}
+
+
+const data =
+await response.json();
+
+
+const price =
+num(
+data.spot_usd_oz ??
+data.xau?.price
+);
+
+
+if(price===null){
+
+throw new Error(
+"Invalid price"
+);
+
+}
+
+
+return {
+price:price,
+state:data.data_state?.status ||
+"unknown",
+updated:data.updated_at ||
+data.price_as_of ||
+null
+};
+
+}
+
+
+/* =====================================
+   جلب intraday
+===================================== */
+
+async function getIntraday(){
+
+const url =
+INTRADAY_API +
+Date.now();
+
+
+const response =
+await fetch(
+url,
+{
+cache:"no-store"
+}
+);
+
+
+if(!response.ok){
+
+throw new Error(
+"INTRADAY HTTP " +
+response.status
+);
+
+}
+
+
+const data =
+await response.json();
+
+
+let points =
+Array.isArray(data.points)
+? data.points
+: [];
+
+
+points =
+points
+.map(
+p=>({
+t:new Date(p.t).getTime(),
+p:num(p.p)
+})
+)
+.filter(
+p=>
+Number.isFinite(p.t) &&
+p.p!==null
+)
+.sort(
+(a,b)=>a.t-b.t
+);
+
+
+return points;
+
+}
+
+
+/* =====================================
+   أقرب سعر حسب الوقت
+===================================== */
+
+function priceAt(
+points,
+minutesAgo
+){
+
+if(!points.length)
+return null;
+
+
+const target =
+Date.now() -
+minutesAgo*60*1000;
+
+
+let best =
+points[0];
+
+
+let distance =
+Math.abs(
+best.t-target
+);
+
+
+for(
+const p of points
+){
+
+const d =
+Math.abs(
+p.t-target
+);
+
+
+if(d<distance){
+
+best=p;
+distance=d;
+
+}
+
+}
+
+
+return best.p;
+
+}
+
+
+/* =====================================
+   دعم ومقاومة
+===================================== */
+
+function levels(
+points,
+current
+){
+
+if(!points.length)
+return {
+support:null,
+resistance:null
+};
+
+
+const recent =
+points.slice(
+Math.max(
+0,
+points.length-360
+)
+);
+
+
+const lows=[];
+const highs=[];
+
+
+/*
+360 نقطة تقريبًا =
+12 ساعة إذا كانت
+البيانات كل دقيقتين
+*/
+
+
+for(
+let i=2;
+i<recent.length-2;
+i++
+){
+
+const p =
+recent[i].p;
+
+
+if(
+p<=recent[i-1].p &&
+p<=recent[i-2].p &&
+p<=recent[i+1].p &&
+p<=recent[i+2].p
+){
+
+lows.push(p);
+
+}
+
+
+if(
+p>=recent[i-1].p &&
+p>=recent[i-2].p &&
+p>=recent[i+1].p &&
+p>=recent[i+2].p
+){
+
+highs.push(p);
+
+}
+
+}
+
+
+/* دعم */
+
+const supports =
+lows
+.filter(
+p=>p<current
+)
+.sort(
+(a,b)=>b-a
+);
+
+
+/* مقاومة */
+
+const resistances =
+highs
+.filter(
+p=>p>current
+)
+.sort(
+(a,b)=>a-b
+);
+
+
+return {
+
+support:
+supports.length
+?supports[0]
+:null,
+
+resistance:
+resistances.length
+?resistances[0]
+:null
+
+};
+
+}
+
+
+/* =====================================
+   التحليل
+===================================== */
+
+function analyze(
+current,
+points
+){
+
+const p5 =
+priceAt(points,5);
+
+const p15 =
+priceAt(points,15);
+
+const p30 =
+priceAt(points,30);
+
+const p60 =
+priceAt(points,60);
+
+
+if(
+p15===null ||
+p30===null
+){
+
+return;
+
+}
+
+
+/* =================
+   التغيرات
+================= */
+
+const change15 =
+((current-p15)/p15)*100;
+
+const change30 =
+((current-p30)/p30)*100;
+
+const change60 =
+p60!==null
+?((current-p60)/p60)*100
+:change30;
+
+
+/* =================
+   الاتجاه
+================= */
+
+let trend;
+
+if(
+change30>0.12 &&
+change60>0.20
+){
+
+trend =
+"صاعد";
+
+setClass(
+trendEl,
+"good"
+);
+
+}
+else if(
+change30<-0.12 &&
+change60<-0.20
+){
+
+trend =
+"هابط";
+
+setClass(
+trendEl,
+"bad"
+);
+
+}
+else{
+
+trend =
+"عرضي";
+
+setClass(
+trendEl,
+"neutral"
+);
+
+}
+
+trendEl.textContent =
+trend;
+
+
+/* =================
+   قوة الحركة
+================= */
+
+const absMove =
+Math.abs(change15);
+
+
+let strength;
+
+if(absMove>=0.30){
+
+strength =
+"قوية";
+
+setClass(
+strengthEl,
+"good"
+);
+
+}
+else if(absMove>=0.12){
+
+strength =
+"متوسطة";
+
+setClass(
+strengthEl,
+"neutral"
+);
+
+}
+else{
+
+strength =
+"ضعيفة";
+
+setClass(
+strengthEl,
+"neutral"
+);
+
+}
+
+strengthEl.textContent =
+strength;
+
+
+/* =================
+   الزخم
+================= */
+
+let momentum;
+
+if(
+change15>0.06 &&
+change30>change15*0.6
+){
+
+momentum =
+"إيجابي";
+
+setClass(
+momentumEl,
+"good"
+);
+
+}
+else if(
+change15<-0.06 &&
+change30<change15*0.6
+){
+
+momentum =
+"سلبي";
+
+setClass(
+momentumEl,
+"bad"
+);
+
+}
+else{
+
+momentum =
+"محايد";
+
+setClass(
+momentumEl,
+"neutral"
+);
+
+}
+
+momentumEl.textContent =
+momentum;
+
+
+/* =================
+   الدعم والمقاومة
+================= */
+
+const lr =
+levels(
+points,
+current
+);
+
+
+if(lr.support!==null){
+
+supportEl.textContent =
+fmt(lr.support);
+
+}
+else{
+
+supportEl.textContent =
+"--";
+
+}
+
+
+if(lr.resistance!==null){
+
+resistanceEl.textContent =
+fmt(lr.resistance);
+
+}
+else{
+
+resistanceEl.textContent =
+"--";
+
+}
+
+
+/* =================
+   النتيجة
+================= */
+
+let signal =
+"WAIT";
+
+
+if(
+trend==="صاعد" &&
+momentum==="إيجابي" &&
+strength!=="ضعيفة"
+){
+
+signal =
+"UP";
+
+}
+else if(
+trend==="هابط" &&
+momentum==="سلبي" &&
+strength!=="ضعيفة"
+){
+
+signal =
+"DOWN";
+
+}
+
+
+signalEl.textContent =
+signal;
+
+
+if(signal==="UP"){
+
+setClass(
+signalEl,
+"good"
+);
+
+}
+else if(signal==="DOWN"){
+
+setClass(
+signalEl,
+"bad"
+);
+
+}
+else{
+
+setClass(
+signalEl,
+"neutral"
+);
+
+}
+
+
+analysisStatus.textContent =
+"آخر تحديث: " +
+new Date().toLocaleTimeString(
+"ar-IQ"
+);
+
+}
+
+
+/* =====================================
+   تحديث كامل
+===================================== */
+
+async function updateMarket(){
+
+try{
+
+const spot =
+await getSpot();
+
+
+priceEl.textContent =
+"$ " +
+fmt(spot.price);
+
+
+priceStatus.textContent =
+spot.state==="fresh"
+? "السعر حي • XAU/USD"
+: "السعر متوفر لكن تحقق من حداثة البيانات";
+
+
+const points =
+await getIntraday();
+
+
+analyze(
+spot.price,
+points
+);
+
+
+}catch(error){
+
+console.error(
+"Market error:",
+error
+);
+
+
+priceEl.textContent =
+"تعذر جلب السعر";
+
+
+priceStatus.textContent =
+"تعذر الاتصال بمصدر XAUUSD";
+
+}
+
+}
+
+
+/* =====================================
+   تشغيل
+===================================== */
+
+updateMarket();
+
+
+/*
+السعر يتحدث كل 30 ثانية تقريبًا.
+نطلب البيانات كل 30 ثانية.
+*/
+
+setInterval(
+updateMarket,
+30000
+);
+
+</script>
 
 </body>
+
 </html>
