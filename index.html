@@ -358,45 +358,6 @@ color:#7f8998;
 padding:6px 4px 2px
 }
 
-.newsAlert{
-border-radius:14px;
-padding:14px;
-background:#0c1118;
-border:1px solid #242c37
-}
-
-.newsAlert.high{
-border-color:#7b3434;
-background:#1a1012
-}
-
-.newsAlert.safe{
-border-color:#24543a;
-background:#0e1712
-}
-
-.newsTitle{
-font-size:17px;
-font-weight:800;
-margin-bottom:7px
-}
-
-.newsName{
-font-weight:700;
-margin-bottom:5px
-}
-
-.newsTime{
-font-size:12px;
-color:#9aa4b2
-}
-
-.newsValues{
-font-size:12px;
-margin-top:8px;
-color:#b7c0cc
-}
-
 .updateBox{
 text-align:center;
 font-size:11px;
@@ -691,7 +652,6 @@ id="downBar">
 <div class="entryBox buyEntry">
 
 <div class="entryHeader">
-
 <span>🟢 منطقة شراء</span>
 
 <span
@@ -699,7 +659,6 @@ id="buyStatus"
 class="neutral">
 انتظار
 </span>
-
 </div>
 
 <div
@@ -720,7 +679,6 @@ id="buyReason">
 <div class="entryBox sellEntry">
 
 <div class="entryHeader">
-
 <span>🔴 منطقة بيع</span>
 
 <span
@@ -728,7 +686,6 @@ id="sellStatus"
 class="neutral">
 انتظار
 </span>
-
 </div>
 
 <div
@@ -749,7 +706,6 @@ id="sellReason">
 <div class="entryBox waitEntry">
 
 <div class="entryHeader">
-
 <span>⏳ قرار المنطقة</span>
 
 <span
@@ -757,7 +713,6 @@ id="entryDecision"
 class="neutral">
 انتظار
 </span>
-
 </div>
 
 <div
@@ -803,15 +758,11 @@ id="scoreReason">
 </div>
 
 <div class="chartWrap">
-
 <canvas id="chart"></canvas>
 
 <div class="chartLegend">
-
 <span>5M</span>
-
 <span id="chartCurrent">--</span>
-
 </div>
 
 </div>
@@ -864,11 +815,15 @@ id="updateAge">
 
 <script>
 
-const SPOT_API =
-"https://xaus.com/api/v1/spot?fresh=";
+/* ================================
+   مصدر بيانات XAUUSD الجديد
+================================ */
 
-const INTRADAY_API =
-"https://xaus.com/api/v1/intraday?symbol=xau&hours=24&fresh=";
+const SPOT_API =
+"https://biquote.io/api/XAUUSD";
+
+const OHLC_API =
+"https://biquote.io/api/XAUUSD/ohlc";
 
 
 let marketData={
@@ -937,16 +892,26 @@ v>=0?"+":""
 }
 
 
+/* ================================
+   جلب السعر المباشر
+================================ */
+
 async function getSpot(){
 
 const r=
 await fetch(
-SPOT_API+Date.now(),
-{cache:"no-store"}
+SPOT_API+
+"?allowStale=true&fresh="+
+Date.now(),
+{
+cache:"no-store"
+}
 );
 
 if(!r.ok){
-throw new Error("Spot "+r.status);
+throw new Error(
+"Spot "+r.status
+);
 }
 
 const data=
@@ -954,44 +919,89 @@ await r.json();
 
 const price=
 Number(
-data.spot_usd_oz ??
-data.xau?.price ??
-data.price
+data.mid ??
+data.bid ??
+data.ask ??
+data.last
 );
 
 if(!Number.isFinite(price)){
-throw new Error("No spot price");
+throw new Error(
+"No XAUUSD price"
+);
 }
 
-return price;
+return{
+price:price,
+marketState:
+data.marketState ??
+"open",
+stale:
+Boolean(data.stale),
+quoteAge:
+Number(
+data.quoteAgeSeconds ??
+0
+)
+};
 
 }
 
+
+/* ================================
+   جلب شموع 5M
+================================ */
 
 async function getIntraday(){
 
 const r=
 await fetch(
-INTRADAY_API+Date.now(),
-{cache:"no-store"}
+OHLC_API+
+"?interval=5m&limit=300&fresh="+
+Date.now(),
+{
+cache:"no-store"
+}
 );
 
 if(!r.ok){
-throw new Error("Intraday "+r.status);
+throw new Error(
+"OHLC "+r.status
+);
 }
 
 const data=
 await r.json();
 
-if(!Array.isArray(data.points)){
-throw new Error("No points");
+if(!Array.isArray(data.bars)){
+throw new Error(
+"No OHLC bars"
+);
 }
 
-return data.points
-.map(p=>({
-t:Number(p.t),
-p:Number(p.p)
-}))
+return data.bars
+.map(
+b=>({
+t:Date.parse(
+b.openTime
+),
+p:Number(
+b.close
+),
+open:Number(
+b.open
+),
+high:Number(
+b.high
+),
+low:Number(
+b.low
+),
+isOpen:Boolean(
+b.isOpen
+)
+})
+)
 .filter(
 p=>
 Number.isFinite(p.t) &&
@@ -1121,15 +1131,17 @@ value==="سلبي"
 function levels(){
 
 const points=
-marketData.points.slice(-360);
+marketData.points.slice(-300);
 
 if(points.length<10){
-return {
+
+return{
 s1:null,
 s2:null,
 r1:null,
 r2:null
 };
+
 }
 
 const current=
@@ -1148,6 +1160,7 @@ i++
 const p=
 points[i].p;
 
+
 if(
 p<=points[i-1].p &&
 p<=points[i-2].p &&
@@ -1159,6 +1172,7 @@ p<current
 lows.push(p);
 
 }
+
 
 if(
 p>=points[i-1].p &&
@@ -1184,9 +1198,7 @@ highs.sort(
 );
 
 
-function unique(
-arr
-){
+function unique(arr){
 
 const out=[];
 
@@ -1204,8 +1216,12 @@ out.push(v);
 
 }
 
-if(out.length>=2){
+if(
+out.length>=2
+){
+
 break;
+
 }
 
 }
@@ -1241,29 +1257,43 @@ if(pts.length<2){
 
 document.getElementById(
 "candleState"
-).textContent="--";
+).textContent=
+"--";
 
 return "عرضي";
 
 }
 
 const open=
+pts[0].open ??
 pts[0].p;
 
 const close=
 pts[pts.length-1].p;
 
 const high=
-Math.max(...pts.map(x=>x.p));
+Math.max(
+...pts.map(
+x=>x.high ??
+x.p
+)
+);
 
 const low=
-Math.min(...pts.map(x=>x.p));
+Math.min(
+...pts.map(
+x=>x.low ??
+x.p
+)
+);
 
 const range=
 high-low;
 
 const body=
-Math.abs(close-open);
+Math.abs(
+close-open
+);
 
 const bodyPct=
 range>0?
@@ -1275,17 +1305,20 @@ let state;
 
 if(close>open){
 
-state="🟢 شمعة صاعدة";
+state=
+"🟢 شمعة صاعدة";
 
 }
 else if(close<open){
 
-state="🔴 شمعة هابطة";
+state=
+"🔴 شمعة هابطة";
 
 }
 else{
 
-state="🟡 شمعة محايدة";
+state=
+"🟡 شمعة محايدة";
 
 }
 
@@ -1295,13 +1328,18 @@ document.getElementById(
 ).textContent=
 state;
 
+
 document.getElementById(
 "candleDetails"
 ).innerHTML=
-"Open: <b>"+fmt(open)+
-"</b> • High: <b>"+fmt(high)+
-"</b> • Low: <b>"+fmt(low)+
-"</b> • Close: <b>"+fmt(close)+
+"Open: <b>"+
+fmt(open)+
+"</b> • High: <b>"+
+fmt(high)+
+"</b> • Low: <b>"+
+fmt(low)+
+"</b> • Close: <b>"+
+fmt(close)+
 "</b><br>قوة جسم الشمعة: <b>"+
 bodyPct.toFixed(0)+
 "%</b>";
@@ -1329,6 +1367,7 @@ candleDir
 
 let score=0;
 
+
 const addTrend=
 v=>
 v==="صاعد"?
@@ -1353,6 +1392,7 @@ addTrend(trend60)*15;
 score+=
 addTrend(trend)*12;
 
+
 score+=
 momentum==="إيجابي"?
 15:
@@ -1360,12 +1400,22 @@ momentum==="سلبي"?
 -15:
 0;
 
+
 score+=
 strength==="قوية"?
-(momentum==="إيجابي"?8:-8):
+(
+momentum==="إيجابي"?
+8:
+-8
+):
 strength==="متوسطة"?
-(momentum==="إيجابي"?4:-4):
+(
+momentum==="إيجابي"?
+4:
+-4
+):
 0;
+
 
 score+=
 candleDir==="صاعد"?
@@ -1390,6 +1440,7 @@ Math.round(
 50+score/2
 );
 
+
 return{
 up,
 down:100-up,
@@ -1408,28 +1459,44 @@ lv
 ){
 
 const buyZone=
-document.getElementById("buyZone");
+document.getElementById(
+"buyZone"
+);
 
 const sellZone=
-document.getElementById("sellZone");
+document.getElementById(
+"sellZone"
+);
 
 const buyStatus=
-document.getElementById("buyStatus");
+document.getElementById(
+"buyStatus"
+);
 
 const sellStatus=
-document.getElementById("sellStatus");
+document.getElementById(
+"sellStatus"
+);
 
 const buyReason=
-document.getElementById("buyReason");
+document.getElementById(
+"buyReason"
+);
 
 const sellReason=
-document.getElementById("sellReason");
+document.getElementById(
+"sellReason"
+);
 
 const decision=
-document.getElementById("entryDecision");
+document.getElementById(
+"entryDecision"
+);
 
 const reason=
-document.getElementById("entryReason");
+document.getElementById(
+"entryReason"
+);
 
 
 if(
@@ -1443,7 +1510,9 @@ fmt(lv.s2)+
 fmt(lv.s1);
 
 }
-else if(lv.s1!==null){
+else if(
+lv.s1!==null
+){
 
 buyZone.textContent=
 fmt(lv.s1);
@@ -1451,7 +1520,8 @@ fmt(lv.s1);
 }
 else{
 
-buyZone.textContent="--";
+buyZone.textContent=
+"--";
 
 }
 
@@ -1467,7 +1537,9 @@ fmt(lv.r1)+
 fmt(lv.r2);
 
 }
-else if(lv.r1!==null){
+else if(
+lv.r1!==null
+){
 
 sellZone.textContent=
 fmt(lv.r1);
@@ -1475,7 +1547,8 @@ fmt(lv.r1);
 }
 else{
 
-sellZone.textContent="--";
+sellZone.textContent=
+"--";
 
 }
 
@@ -1589,7 +1662,9 @@ reason.textContent=
 function drawChart(){
 
 const canvas=
-document.getElementById("chart");
+document.getElementById(
+"chart"
+);
 
 const rect=
 canvas.getBoundingClientRect();
@@ -1604,23 +1679,37 @@ canvas.height=
 rect.height*ratio;
 
 const ctx=
-canvas.getContext("2d");
-
-ctx.scale(
-ratio,
-ratio
+canvas.getContext(
+"2d"
 );
 
-const w=rect.width;
-const h=rect.height;
+ctx.setTransform(
+ratio,
+0,
+0,
+ratio,
+0,
+0
+);
+
+const w=
+rect.width;
+
+const h=
+rect.height;
 
 ctx.clearRect(
-0,0,w,h
+0,
+0,
+w,
+h
 );
 
 
 const pts=
-marketData.points.slice(-80);
+marketData.points.slice(
+-80
+);
 
 if(pts.length<2){
 return;
@@ -1628,13 +1717,19 @@ return;
 
 
 const values=
-pts.map(x=>x.p);
+pts.map(
+x=>x.p
+);
 
 const min=
-Math.min(...values);
+Math.min(
+...values
+);
 
 const max=
-Math.max(...values);
+Math.max(
+...values
+);
 
 const pad=
 (max-min)*0.1||1;
@@ -1672,6 +1767,7 @@ ctx.strokeStyle=
 
 ctx.lineWidth=1;
 
+
 for(
 let i=1;
 i<5;
@@ -1684,11 +1780,13 @@ const yy=
 ctx.beginPath();
 
 ctx.moveTo(
-0,yy
+0,
+yy
 );
 
 ctx.lineTo(
-w,yy
+w,
+yy
 );
 
 ctx.stroke();
@@ -1721,11 +1819,13 @@ support?
 ctx.beginPath();
 
 ctx.moveTo(
-0,yy
+0,
+yy
 );
 
 ctx.lineTo(
-w,yy
+w,
+yy
 );
 
 ctx.stroke();
@@ -1744,9 +1844,14 @@ ctx.textAlign=
 "left";
 
 ctx.fillText(
-label+" "+fmt(v),
+label+
+" "+
+fmt(v),
 8,
-Math.max(12,yy-5)
+Math.max(
+12,
+yy-5
+)
 );
 
 }
@@ -1754,6 +1859,7 @@ Math.max(12,yy-5)
 
 const lv=
 levels();
+
 
 level(
 lv.s1,
@@ -1770,29 +1876,36 @@ false
 
 ctx.beginPath();
 
+
 pts.forEach(
 (p,i)=>{
 
-const xx=x(i);
-const yy=y(p.p);
+const xx=
+x(i);
+
+const yy=
+y(p.p);
 
 if(i===0){
 
 ctx.moveTo(
-xx,yy
+xx,
+yy
 );
 
 }
 else{
 
 ctx.lineTo(
-xx,yy
+xx,
+yy
 );
 
 }
 
 }
 );
+
 
 ctx.strokeStyle=
 "#f0b90b";
@@ -1810,6 +1923,7 @@ x(pts.length-1);
 
 const ly=
 y(last.p);
+
 
 ctx.beginPath();
 
@@ -1830,7 +1944,8 @@ ctx.fill();
 document.getElementById(
 "chartCurrent"
 ).textContent=
-"$ "+fmt(last.p);
+"$ "+
+fmt(last.p);
 
 }
 
@@ -1883,11 +1998,18 @@ trend60;
 
 for(
 const id of
-["tf5","tf15","tf30","tf60"]
+[
+"tf5",
+"tf15",
+"tf30",
+"tf60"
+]
 ){
 
 const el=
-document.getElementById(id);
+document.getElementById(
+id
+);
 
 el.className=
 "tfValue "+
@@ -1947,15 +2069,34 @@ pct(ch60);
 
 
 const positives=
-[trend5,trend15,trend30,trend60]
-.filter(x=>x==="صاعد").length;
+[
+trend5,
+trend15,
+trend30,
+trend60
+]
+.filter(
+x=>x==="صاعد"
+)
+.length;
+
 
 const negatives=
-[trend5,trend15,trend30,trend60]
-.filter(x=>x==="هابط").length;
+[
+trend5,
+trend15,
+trend30,
+trend60
+]
+.filter(
+x=>x==="هابط"
+)
+.length;
 
 
-let trend="عرضي";
+let trend=
+"عرضي";
+
 
 if(positives>=3){
 trend="صاعد";
@@ -1975,15 +2116,25 @@ trend
 
 
 const abs15=
-Math.abs(ch15);
+Math.abs(
+ch15
+);
 
-let strength="ضعيفة";
+let strength=
+"ضعيفة";
+
 
 if(abs15>=0.30){
-strength="قوية";
+
+strength=
+"قوية";
+
 }
 else if(abs15>=0.12){
-strength="متوسطة";
+
+strength=
+"متوسطة";
+
 }
 
 
@@ -1999,14 +2150,17 @@ strength==="قوية"?
 );
 
 
-let momentum="محايد";
+let momentum=
+"محايد";
+
 
 if(
 ch5>0.05 &&
 ch15>0.08
 ){
 
-momentum="إيجابي";
+momentum=
+"إيجابي";
 
 }
 else if(
@@ -2014,7 +2168,8 @@ ch5<-0.05 &&
 ch15<-0.08
 ){
 
-momentum="سلبي";
+momentum=
+"سلبي";
 
 }
 
@@ -2073,37 +2228,45 @@ candleDir
 document.getElementById(
 "upProbability"
 ).textContent=
-prob.up+"%";
+prob.up+
+"%";
 
 document.getElementById(
 "downProbability"
 ).textContent=
-prob.down+"%";
+prob.down+
+"%";
 
 
 document.getElementById(
 "upBar"
 ).style.width=
-prob.up+"%";
+prob.up+
+"%";
 
 document.getElementById(
 "downBar"
 ).style.width=
-prob.down+"%";
+prob.down+
+"%";
 
 
 const score=
-Math.abs(prob.score);
+Math.abs(
+prob.score
+);
 
 
-/* إصلاح اتجاه عرض الدرجة */
 const scoreEl=
 document.getElementById(
 "analysisScore"
 );
 
+
 scoreEl.textContent=
-String(score)+" / 100";
+String(score)+
+" / 100";
+
 
 scoreEl.setAttribute(
 "dir",
@@ -2124,7 +2287,11 @@ scoreEl.className=
 "scoreValue "+
 (
 score>=60?
-(prob.score>=0?"good":"bad"):
+(
+prob.score>=0?
+"good":
+"bad"
+):
 "neutral"
 );
 
@@ -2133,9 +2300,13 @@ document.getElementById(
 "scoreReason"
 ).textContent=
 prob.score>0?
-"ميل النموذج الحالي صعودي، بدرجة توافق "+score+"/100.":
+"ميل النموذج الحالي صعودي، بدرجة توافق "+
+score+
+"/100.":
 prob.score<0?
-"ميل النموذج الحالي هبوطي، بدرجة توافق "+score+"/100.":
+"ميل النموذج الحالي هبوطي، بدرجة توافق "+
+score+
+"/100.":
 "العوامل متوازنة تقريباً.";
 
 
@@ -2148,7 +2319,9 @@ lv
 );
 
 
-let signal="WAIT";
+let signal=
+"WAIT";
+
 
 let reason=
 "التحليل الحالي لا يعطي توافقاً كافياً.";
@@ -2161,7 +2334,8 @@ strength!=="ضعيفة" &&
 prob.up>=58
 ){
 
-signal="UP";
+signal=
+"UP";
 
 reason=
 "الفريمات تميل للصعود + الزخم إيجابي + قوة الحركة مناسبة.";
@@ -2174,7 +2348,8 @@ strength!=="ضعيفة" &&
 prob.down>=58
 ){
 
-signal="DOWN";
+signal=
+"DOWN";
 
 reason=
 "الفريمات تميل للهبوط + الزخم سلبي + قوة الحركة مناسبة.";
@@ -2205,15 +2380,23 @@ drawChart();
 }
 
 
+/* ================================
+   تحديث السوق
+================================ */
+
 async function updateMarket(){
 
 try{
 
-const price=
+const spot=
 await getSpot();
+
+const price=
+spot.price;
 
 const points=
 await getIntraday();
+
 
 marketData.price=
 price;
@@ -2226,9 +2409,18 @@ Date.now();
 
 
 priceEl.textContent=
-"$ "+fmt(price);
+"$ "+
+fmt(price);
+
 
 priceStatus.textContent=
+(
+spot.marketState==="closed" ||
+spot.stale
+)
+?
+"🟡 آخر سعر معروف • XAU/USD"
+:
 "🟢 السعر حي • XAU/USD";
 
 
@@ -2237,10 +2429,13 @@ analyze();
 }
 catch(error){
 
-console.error(error);
+console.error(
+"XAUUSD DATA ERROR:",
+error
+);
 
 priceStatus.textContent=
-"🟠 تعذر تحديث بيانات التحليل";
+"🔴 تعذر جلب بيانات XAUUSD";
 
 }
 
@@ -2258,30 +2453,50 @@ return;
 
 }
 
+
 const sec=
 Math.floor(
-(Date.now()-marketData.lastUpdate)/1000
+(
+Date.now()-
+marketData.lastUpdate
+)/1000
 );
 
+
 updateAgeEl.textContent=
-sec<2?
-"🔄 تم التحديث الآن":
-"آخر تحديث منذ "+sec+" ثانية";
+sec<2
+?
+"🔄 تم التحديث الآن"
+:
+"آخر تحديث منذ "+
+sec+
+" ثانية";
 
 }
 
 
+/* أول تشغيل */
+
 updateMarket();
+
+
+/* تحديث كل 30 ثانية */
 
 setInterval(
 updateMarket,
 30000
 );
 
+
+/* عداد آخر تحديث */
+
 setInterval(
 updateAge,
 1000
 );
+
+
+/* إعادة رسم الشارت عند تغيير حجم الشاشة */
 
 window.addEventListener(
 "resize",
