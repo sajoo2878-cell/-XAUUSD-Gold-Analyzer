@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>XAUUSD Auto Bot</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+margin:0;
+background:#080c11;
+color:#f1f5f9;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif
+}
+
+.container{
+max-width:520px;
+margin:auto;
+padding:18px 14px 35px
+}
+
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:18px
+}
+
+h1{
+font-size:22px;
+margin:0
+}
+
+.sub{
+color:#8b98a8;
+font-size:12px;
+margin-top:4px
+}
+
+.status{
+background:#102019;
+color:#65e59a;
+border:1px solid #244634;
+padding:8px 11px;
+border-radius:20px;
+font-size:12px
+}
+
+.card{
+background:#111820;
+border:1px solid #202b36;
+border-radius:18px;
+padding:16px;
+margin:12px 0
+}
+
+.title{
+font-size:13px;
+color:#9aa6b5;
+margin-bottom:12px
+}
+
+.price{
+font-size:36px;
+font-weight:800
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px
+}
+
+.box{
+background:#0b1117;
+border:1px solid #202a34;
+border-radius:13px;
+padding:12px
+}
+
+.label{
+font-size:11px;
+color:#8995a5
+}
+
+.value{
+font-size:18px;
+font-weight:700;
+margin-top:5px
+}
+
+.wait{
+color:#f0c66b
+}
+
+.row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:11px 0;
+border-bottom:1px solid #202a34
+}
+
+.row:last-child{
+border-bottom:0
+}
+
+.badge{
+padding:5px 9px;
+border-radius:9px;
+background:#17212a;
+font-size:12px
+}
+
+.switch{
+display:flex;
+justify-content:space-between;
+align-items:center
+}
+
+.toggle{
+width:54px;
+height:31px;
+border-radius:20px;
+background:#2d8cff;
+position:relative
+}
+
+.toggle:after{
+content:"";
+position:absolute;
+width:25px;
+height:25px;
+border-radius:50%;
+background:white;
+top:3px;
+right:3px
+}
+
+button{
+width:100%;
+border:0;
+border-radius:13px;
+padding:14px;
+font-size:16px;
+font-weight:800
+}
+
+.stop{
+background:#35171a;
+color:#ff8e94;
+border:1px solid #60262b
+}
+
+.link{
+display:block;
+text-align:center;
+text-decoration:none;
+background:#172331;
+color:#7db7ff;
+padding:13px;
+border-radius:13px;
+margin-top:10px
+}
+
+.footer{
+text-align:center;
+color:#687585;
+font-size:11px;
+margin-top:18px
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+<div>
+<h1>🥇 XAUUSD Auto Bot</h1>
+<div class="sub">لوحة التحكم الآلية</div>
+</div>
+
+<div class="status">● متصل</div>
+</div>
+
+
+<div class="card">
+
+<div class="title">السعر الحالي</div>
+
+<div class="price" id="price">---</div>
+
+<div class="sub">مصدر التنفيذ: MT5</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="switch">
+
+<div>
+<b>🤖 التنفيذ التلقائي</b>
+<div class="sub">تحليل وتنفيذ الصفقات تلقائياً</div>
+</div>
+
+<div class="toggle"></div>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="title">قرار البوت</div>
+
+<div class="grid">
+
+<div class="box">
+<div class="label">الإشارة</div>
+<div class="value wait" id="signal">WAIT</div>
+</div>
+
+<div class="box">
+<div class="label">الثقة</div>
+<div class="value" id="confidence">0%</div>
+</div>
+
+<div class="box">
+<div class="label">Stop Loss</div>
+<div class="value">---</div>
+</div>
+
+<div class="box">
+<div class="label">Take Profit</div>
+<div class="value">---</div>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="title">تحليل السوق</div>
+
+<div class="row">
+<span>الاتجاه</span>
+<span class="badge">WAIT</span>
+</div>
+
+<div class="row">
+<span>الأخبار</span>
+<span class="badge">---</span>
+</div>
+
+<div class="row">
+<span>المخاطرة</span>
+<span class="badge">NORMAL</span>
+</div>
+
+<div class="row">
+<span>حالة البوت</span>
+<span class="badge">جاهز</span>
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="title">حساب MT5</div>
+
+<div class="grid">
+
+<div class="box">
+<div class="label">Balance</div>
+<div class="value">---</div>
+</div>
+
+<div class="box">
+<div class="label">Equity</div>
+<div class="value">---</div>
+</div>
+
+<div class="box">
+<div class="label">الصفقات المفتوحة</div>
+<div class="value">0</div>
+</div>
+
+<div class="box">
+<div class="label">ربح/خسارة اليوم</div>
+<div class="value">---</div>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="title">التحكم</div>
+
+<button class="stop"
+onclick="emergencyStop()">
+⛔ إيقاف البوت فوراً
+</button>
+
+<a class="link"
+href="https://sajoo2878-cell.github.io/-XAUUSD-Gold-Analyzer/">
+📊 فتح Gold Analyzer
+</a>
+
+</div>
+
+
+<div class="footer">
+XAUUSD • MT5 • Auto Trading
+</div>
+
+</div>
+
+
+<script>
+
+function emergencyStop(){
+
+if(confirm("هل تريد إيقاف البوت فوراً؟")){
+
+alert("سيتم إرسال أمر الإيقاف إلى MT5 بعد ربط السيرفر.");
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
