@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>XAUUSD Auto Bot</title>
+
+<title>XAUUSD Signal Bot</title>
 
 <style>
 *{box-sizing:border-box}
@@ -95,6 +96,14 @@ margin-top:5px
 color:#f0c66b
 }
 
+.buy{
+color:#65e59a
+}
+
+.sell{
+color:#ff777f
+}
+
 .row{
 display:flex;
 justify-content:space-between;
@@ -114,29 +123,29 @@ background:#17212a;
 font-size:12px
 }
 
-.switch{
-display:flex;
-justify-content:space-between;
-align-items:center
+.signal-box{
+text-align:center;
+padding:18px;
+background:#0b1117;
+border:1px solid #202a34;
+border-radius:15px;
+margin-bottom:12px
 }
 
-.toggle{
-width:54px;
-height:31px;
-border-radius:20px;
-background:#2d8cff;
-position:relative
+.signal{
+font-size:32px;
+font-weight:900
 }
 
-.toggle:after{
-content:"";
-position:absolute;
-width:25px;
-height:25px;
-border-radius:50%;
-background:white;
-top:3px;
-right:3px
+.manual{
+background:#172331;
+color:#7db7ff;
+border:1px solid #29445f;
+text-align:center;
+padding:12px;
+border-radius:12px;
+font-size:13px;
+margin-top:12px
 }
 
 button{
@@ -145,13 +154,14 @@ border:0;
 border-radius:13px;
 padding:14px;
 font-size:16px;
-font-weight:800
+font-weight:800;
+cursor:pointer
 }
 
-.stop{
-background:#35171a;
-color:#ff8e94;
-border:1px solid #60262b
+.refresh{
+background:#1d5fbd;
+color:white;
+margin-top:12px
 }
 
 .link{
@@ -179,14 +189,18 @@ margin-top:18px
 <div class="container">
 
 <div class="header">
+
 <div>
-<h1>🥇 XAUUSD Auto Bot</h1>
-<div class="sub">لوحة التحكم الآلية</div>
+<h1>🥇 XAUUSD Signal Bot</h1>
+<div class="sub">نظام تحليل وإشارات التداول</div>
 </div>
 
 <div class="status">● متصل</div>
+
 </div>
 
+
+<!-- السعر -->
 
 <div class="card">
 
@@ -194,51 +208,79 @@ margin-top:18px
 
 <div class="price" id="price">---</div>
 
-<div class="sub">مصدر التنفيذ: MT5</div>
+<div class="sub">
+XAUUSD • الذهب
+</div>
 
 </div>
 
+
+<!-- القرار -->
 
 <div class="card">
 
-<div class="switch">
+<div class="title">📡 إشارة البوت</div>
 
-<div>
-<b>🤖 التنفيذ التلقائي</b>
-<div class="sub">تحليل وتنفيذ الصفقات تلقائياً</div>
+<div class="signal-box">
+
+<div class="label">القرار الحالي</div>
+
+<div class="signal wait" id="signal">
+WAIT
 </div>
 
-<div class="toggle"></div>
-
 </div>
 
-</div>
-
-
-<div class="card">
-
-<div class="title">قرار البوت</div>
 
 <div class="grid">
 
 <div class="box">
-<div class="label">الإشارة</div>
-<div class="value wait" id="signal">WAIT</div>
+
+<div class="label">
+نقطة الدخول
 </div>
+
+<div class="value" id="entry">
+---
+</div>
+
+</div>
+
 
 <div class="box">
-<div class="label">الثقة</div>
-<div class="value" id="confidence">0%</div>
+
+<div class="label">
+الثقة
 </div>
+
+<div class="value" id="confidence">
+0%
+</div>
+
+</div>
+
 
 <div class="box">
-<div class="label">Stop Loss</div>
-<div class="value">---</div>
+
+<div class="label">
+Stop Loss
 </div>
+
+<div class="value" id="sl">
+---
+</div>
+
+</div>
+
 
 <div class="box">
-<div class="label">Take Profit</div>
-<div class="value">---</div>
+
+<div class="label">
+Take Profit
+</div>
+
+<div class="value" id="tp">
+---
 </div>
 
 </div>
@@ -246,83 +288,190 @@ margin-top:18px
 </div>
 
 
-<div class="card">
-
-<div class="title">تحليل السوق</div>
-
-<div class="row">
-<span>الاتجاه</span>
-<span class="badge">WAIT</span>
-</div>
-
-<div class="row">
-<span>الأخبار</span>
-<span class="badge">---</span>
-</div>
-
-<div class="row">
-<span>المخاطرة</span>
-<span class="badge">NORMAL</span>
-</div>
-
-<div class="row">
-<span>حالة البوت</span>
-<span class="badge">جاهز</span>
-</div>
-
+<div class="manual">
+✋ التنفيذ يدوي من MT5
+<br>
+<span class="sub">
+البوت يعطي الإشارة فقط ولا يفتح أي صفقة تلقائياً.
+</span>
 </div>
 
 
-<div class="card">
-
-<div class="title">حساب MT5</div>
-
-<div class="grid">
-
-<div class="box">
-<div class="label">Balance</div>
-<div class="value">---</div>
-</div>
-
-<div class="box">
-<div class="label">Equity</div>
-<div class="value">---</div>
-</div>
-
-<div class="box">
-<div class="label">الصفقات المفتوحة</div>
-<div class="value">0</div>
-</div>
-
-<div class="box">
-<div class="label">ربح/خسارة اليوم</div>
-<div class="value">---</div>
-</div>
-
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="title">التحكم</div>
-
-<button class="stop"
-onclick="emergencyStop()">
-⛔ إيقاف البوت فوراً
+<button class="refresh" onclick="analyzeMarket()">
+🔄 تحديث الإشارة
 </button>
+
+</div>
+
+
+<!-- تحليل السوق -->
+
+<div class="card">
+
+<div class="title">
+📊 تحليل السوق
+</div>
+
+<div class="row">
+
+<span>الاتجاه</span>
+
+<span class="badge" id="trend">
+WAIT
+</span>
+
+</div>
+
+
+<div class="row">
+
+<span>الأخبار</span>
+
+<span class="badge" id="news">
+---
+</span>
+
+</div>
+
+
+<div class="row">
+
+<span>المخاطرة</span>
+
+<span class="badge" id="risk">
+NORMAL
+</span>
+
+</div>
+
+
+<div class="row">
+
+<span>الفريم</span>
+
+<span class="badge">
+M5
+</span>
+
+</div>
+
+
+<div class="row">
+
+<span>حالة النظام</span>
+
+<span class="badge" id="systemStatus">
+جاهز
+</span>
+
+</div>
+
+</div>
+
+
+<!-- حساب MT5 -->
+
+<div class="card">
+
+<div class="title">
+💻 حساب MT5
+</div>
+
+<div class="grid">
+
+<div class="box">
+
+<div class="label">
+Balance
+</div>
+
+<div class="value">
+---
+</div>
+
+</div>
+
+
+<div class="box">
+
+<div class="label">
+Equity
+</div>
+
+<div class="value">
+---
+</div>
+
+</div>
+
+
+<div class="box">
+
+<div class="label">
+الصفقات المفتوحة
+</div>
+
+<div class="value">
+يدوي
+</div>
+
+</div>
+
+
+<div class="box">
+
+<div class="label">
+ربح/خسارة اليوم
+</div>
+
+<div class="value">
+---
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- التحكم -->
+
+<div class="card">
+
+<div class="title">
+⚙️ التحكم
+</div>
+
+<div class="manual">
+
+🚫 التنفيذ التلقائي متوقف
+
+<br><br>
+
+البوت لا يستطيع فتح أو إغلاق الصفقات.
+
+<br>
+
+أنت تنفذ الإشارة يدوياً من MT5.
+
+</div>
+
 
 <a class="link"
 href="https://sajoo2878-cell.github.io/-XAUUSD-Gold-Analyzer/">
+
 📊 فتح Gold Analyzer
+
 </a>
 
 </div>
 
 
 <div class="footer">
-XAUUSD • MT5 • Auto Trading
+
+XAUUSD • MT5 • Manual Signals
+
 </div>
 
 </div>
@@ -330,15 +479,151 @@ XAUUSD • MT5 • Auto Trading
 
 <script>
 
-function emergencyStop(){
+const PRICE_API =
+"https://biquote.io/api/XAUUSD";
 
-if(confirm("هل تريد إيقاف البوت فوراً؟")){
 
-alert("سيتم إرسال أمر الإيقاف إلى MT5 بعد ربط السيرفر.");
+async function getPrice(){
+
+try{
+
+const response = await fetch(PRICE_API);
+
+const data = await response.json();
+
+let price =
+data.price ??
+data.close ??
+data.last ??
+data.bid ??
+data.ask;
+
+if(price){
+
+price = Number(price);
+
+document.getElementById("price").textContent =
+price.toFixed(2);
+
+return price;
+
+}
+
+throw new Error("Price unavailable");
+
+}
+
+catch(error){
+
+console.log(error);
+
+document.getElementById("price").textContent =
+"---";
+
+return null;
 
 }
 
 }
+
+
+function setSignal(
+signal,
+entry,
+sl,
+tp,
+confidence
+){
+
+const signalEl =
+document.getElementById("signal");
+
+signalEl.textContent = signal;
+
+signalEl.className =
+"signal " +
+(
+signal === "BUY"
+? "buy"
+: signal === "SELL"
+? "sell"
+: "wait"
+);
+
+document.getElementById("entry").textContent =
+entry ? entry.toFixed(2) : "---";
+
+document.getElementById("sl").textContent =
+sl ? sl.toFixed(2) : "---";
+
+document.getElementById("tp").textContent =
+tp ? tp.toFixed(2) : "---";
+
+document.getElementById("confidence").textContent =
+confidence + "%";
+
+document.getElementById("trend").textContent =
+signal;
+
+}
+
+
+async function analyzeMarket(){
+
+document.getElementById("systemStatus").textContent =
+"جاري التحليل...";
+
+const price =
+await getPrice();
+
+if(!price){
+
+setSignal(
+"WAIT",
+null,
+null,
+null,
+0
+);
+
+document.getElementById("systemStatus").textContent =
+"فشل قراءة السعر";
+
+return;
+
+}
+
+
+/*
+حالياً هذه مرحلة ربط السعر.
+الاستراتيجية الكاملة راح نربطها بعدين
+مع تحليل المؤشرات والفريمات والأخبار.
+*/
+
+setSignal(
+"WAIT",
+price,
+null,
+null,
+0
+);
+
+
+document.getElementById("trend").textContent =
+"WAIT";
+
+document.getElementById("systemStatus").textContent =
+"جاهز";
+
+}
+
+
+analyzeMarket();
+
+setInterval(
+getPrice,
+10000
+);
 
 </script>
 
