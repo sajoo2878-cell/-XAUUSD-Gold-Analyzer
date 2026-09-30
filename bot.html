@@ -161,6 +161,10 @@ color:white;
 margin-top:12px
 }
 
+.notifyButton{
+background:#16834b
+}
+
 .link{
 display:block;
 text-align:center;
@@ -302,9 +306,28 @@ id="tp">
 
 </div>
 
+
 <button onclick="updateMarket()">
 🔄 تحديث التحليل
 </button>
+
+
+<button
+class="notifyButton"
+onclick="enableNotifications()">
+
+🔔 تفعيل إشعارات الإشارة
+
+</button>
+
+
+<div
+id="notificationStatus"
+class="manual">
+
+جاري تجهيز نظام الإشعارات...
+
+</div>
 
 </div>
 
@@ -519,7 +542,9 @@ id="downProbability">
 <div
 id="newsStatus"
 class="manual">
+
 جاري فحص الأخبار...
+
 </div>
 
 </div>
@@ -538,10 +563,13 @@ class="manual">
 <span
 class="badge"
 id="systemStatus">
+
 جاري التحليل
+
 </span>
 
 </div>
+
 
 <div class="row">
 
@@ -552,6 +580,7 @@ id="systemStatus">
 </span>
 
 </div>
+
 
 <div class="row">
 
@@ -603,6 +632,17 @@ const NEWS_API =
 
 
 /* =====================================================
+   PATHS
+===================================================== */
+
+const SW_PATH =
+"/-XAUUSD-Gold-Analyzer/service-worker.js";
+
+const APP_PATH =
+"/-XAUUSD-Gold-Analyzer/bot.html";
+
+
+/* =====================================================
    DATA
 ===================================================== */
 
@@ -614,6 +654,352 @@ let newsImpact={
 score:0,
 risk:false
 };
+
+let lastSignal="WAIT";
+
+let notificationRegistration=null;
+
+
+/* =====================================================
+   SERVICE WORKER
+===================================================== */
+
+async function registerNotifications(){
+
+try{
+
+if(
+!("serviceWorker" in navigator)
+){
+
+console.log(
+"Service Worker غير مدعوم"
+);
+
+return;
+
+}
+
+
+notificationRegistration =
+await navigator.serviceWorker.register(
+SW_PATH,
+{
+scope:
+"/-XAUUSD-Gold-Analyzer/"
+}
+);
+
+
+await navigator.serviceWorker.ready;
+
+
+console.log(
+"✅ Service Worker جاهز"
+);
+
+
+document.getElementById(
+"notificationStatus"
+).textContent =
+"🟡 اضغط على زر تفعيل الإشعارات";
+
+
+}
+catch(error){
+
+console.error(
+"Service Worker Error:",
+error
+);
+
+
+document.getElementById(
+"notificationStatus"
+).textContent =
+"🔴 تعذر تشغيل نظام الإشعارات";
+
+}
+
+}
+
+
+/* =====================================================
+   ENABLE NOTIFICATIONS
+===================================================== */
+
+async function enableNotifications(){
+
+const status =
+document.getElementById(
+"notificationStatus"
+);
+
+
+try{
+
+
+if(
+!("serviceWorker" in navigator)
+){
+
+status.textContent =
+"❌ المتصفح لا يدعم Service Worker";
+
+return;
+
+}
+
+
+if(
+!("Notification" in window)
+){
+
+status.textContent =
+"❌ الإشعارات غير مدعومة";
+
+return;
+
+}
+
+
+notificationRegistration =
+await navigator.serviceWorker.register(
+SW_PATH,
+{
+scope:
+"/-XAUUSD-Gold-Analyzer/"
+}
+);
+
+
+await navigator.serviceWorker.ready;
+
+
+const permission =
+await Notification.requestPermission();
+
+
+if(
+permission==="granted"
+){
+
+status.textContent =
+"🟢 تم تفعيل الإشعارات";
+
+
+await sendTestNotification();
+
+
+}
+else if(
+permission==="denied"
+){
+
+status.textContent =
+"🔴 الإشعارات مرفوضة. فعّلها من إعدادات الآيفون.";
+
+}
+else{
+
+status.textContent =
+"🟡 لم يتم تفعيل الإشعارات";
+
+}
+
+
+}
+catch(error){
+
+console.error(
+"NOTIFICATION ERROR:",
+error
+);
+
+
+status.textContent =
+"🔴 حدث خطأ في نظام الإشعارات";
+
+}
+
+}
+
+
+/* =====================================================
+   TEST NOTIFICATION
+===================================================== */
+
+async function sendTestNotification(){
+
+try{
+
+
+if(
+!notificationRegistration
+){
+
+return;
+
+}
+
+
+if(
+Notification.permission!=="granted"
+){
+
+return;
+
+}
+
+
+await notificationRegistration.showNotification(
+
+"🥇 XAUUSD Signal Bot",
+
+{
+
+body:
+"تم تفعيل إشعارات إشارات الذهب بنجاح.",
+
+icon:
+"/-XAUUSD-Gold-Analyzer/icon-192.png",
+
+badge:
+"/-XAUUSD-Gold-Analyzer/icon-192.png",
+
+tag:
+"xauusd-test",
+
+data:{
+url:APP_PATH
+}
+
+}
+
+);
+
+
+}
+catch(error){
+
+console.error(
+"TEST NOTIFICATION ERROR:",
+error
+);
+
+}
+
+}
+
+
+/* =====================================================
+   SIGNAL NOTIFICATION
+===================================================== */
+
+async function sendSignalNotification(
+
+signal,
+entry,
+sl,
+tp,
+confidence
+
+){
+
+try{
+
+
+if(
+signal==="WAIT"
+){
+
+return;
+
+}
+
+
+if(
+!notificationRegistration
+){
+
+return;
+
+}
+
+
+if(
+Notification.permission!=="granted"
+){
+
+return;
+
+}
+
+
+const title =
+signal==="BUY"
+?
+"🟢 XAUUSD BUY"
+:
+"🔴 XAUUSD SELL";
+
+
+const body =
+
+"Entry: "+
+fmt(entry)+
+
+"\nSL: "+
+fmt(sl)+
+
+"\nTP: "+
+fmt(tp)+
+
+"\nConfidence: "+
+confidence+"%";
+
+
+await notificationRegistration.showNotification(
+
+title,
+
+{
+
+body:body,
+
+icon:
+"/-XAUUSD-Gold-Analyzer/icon-192.png",
+
+badge:
+"/-XAUUSD-Gold-Analyzer/icon-192.png",
+
+tag:
+"xauusd-signal",
+
+renotify:true,
+
+requireInteraction:true,
+
+data:{
+url:APP_PATH
+}
+
+}
+
+);
+
+
+}
+catch(error){
+
+console.error(
+"SIGNAL NOTIFICATION ERROR:",
+error
+);
+
+}
+
+}
 
 
 /* =====================================================
@@ -639,8 +1025,11 @@ return Number(v).toFixed(2);
 
 function pct(v){
 
-if(!Number.isFinite(v))
+if(
+!Number.isFinite(v)
+)
 return "---";
+
 
 return(
 v>=0?"+":""
@@ -657,31 +1046,51 @@ async function getSpot(){
 
 const response =
 await fetch(
+
 SPOT_API+
 "?allowStale=true&fresh="+
 Date.now(),
+
 {
 cache:"no-store"
 }
+
 );
 
+
 if(!response.ok)
-throw new Error("SPOT HTTP "+response.status);
+throw new Error(
+"SPOT HTTP "+
+response.status
+);
+
 
 const data =
 await response.json();
 
+
 const p =
 Number(
+
 data.mid ??
 data.price ??
 data.last ??
 data.bid ??
 data.ask
+
 );
 
-if(!Number.isFinite(p))
-throw new Error("PRICE NOT FOUND");
+
+if(
+!Number.isFinite(p)
+){
+
+throw new Error(
+"PRICE NOT FOUND"
+);
+
+}
+
 
 return p;
 
@@ -696,32 +1105,50 @@ async function getOHLC(){
 
 const response =
 await fetch(
+
 OHLC_API+
 "?interval=5m&limit=300",
+
 {
 cache:"no-store"
 }
+
 );
 
+
 if(!response.ok)
-throw new Error("OHLC HTTP "+response.status);
+throw new Error(
+"OHLC HTTP "+
+response.status
+);
+
 
 const data =
 await response.json();
 
+
 if(
 !data ||
 !Array.isArray(data.bars)
-)
-throw new Error("NO BARS");
+){
+
+throw new Error(
+"NO BARS"
+);
+
+}
+
 
 return data.bars
+
 .map(b=>({
 
 t:Date.parse(
+
 b.openTime ??
 b.timestamp ??
 ""
+
 ),
 
 open:Number(b.open),
@@ -733,14 +1160,24 @@ low:Number(b.low),
 close:Number(b.close)
 
 }))
+
 .filter(b=>
+
 Number.isFinite(b.t) &&
+
 Number.isFinite(b.open) &&
+
 Number.isFinite(b.high) &&
+
 Number.isFinite(b.low) &&
+
 Number.isFinite(b.close)
+
 )
-.sort((a,b)=>a.t-b.t);
+
+.sort(
+(a,b)=>a.t-b.t
+);
 
 }
 
@@ -755,16 +1192,25 @@ const target =
 Date.now()-
 minutes*60000;
 
+
 let best=null;
 
 let diff=Infinity;
 
-for(const p of points){
+
+for(
+const p of points
+){
 
 const d =
-Math.abs(p.t-target);
+Math.abs(
+p.t-target
+);
 
-if(d<diff){
+
+if(
+d<diff
+){
 
 diff=d;
 
@@ -774,7 +1220,12 @@ best=p;
 
 }
 
-return best ? best.close : null;
+
+return best
+?
+best.close
+:
+null;
 
 }
 
@@ -783,14 +1234,25 @@ return best ? best.close : null;
    CHANGE
 ===================================================== */
 
-function change(old,current){
+function change(
+old,
+current
+){
 
 if(
+
 !Number.isFinite(old) ||
+
 !Number.isFinite(current) ||
+
 old===0
-)
+
+){
+
 return 0;
+
+}
+
 
 return(
 (current-old)/old
@@ -803,19 +1265,32 @@ return(
    TREND
 ===================================================== */
 
-function timeframeTrend(minutes){
+function timeframeTrend(
+minutes
+){
 
 const old =
 priceAt(minutes);
 
-const move =
-change(old,price);
 
-if(move>0.10)
+const move =
+change(
+old,
+price
+);
+
+
+if(
+move>0.10
+)
 return "صاعد";
 
-if(move<-0.10)
+
+if(
+move<-0.10
+)
 return "هابط";
+
 
 return "عرضي";
 
@@ -831,7 +1306,9 @@ function getLevels(){
 const p =
 points.slice(-300);
 
+
 const lows=[];
+
 const highs=[];
 
 
@@ -841,14 +1318,22 @@ i<p.length-2;
 i++
 ){
 
-const x=p[i].close;
+const x =
+p[i].close;
+
 
 if(
+
 x<=p[i-1].close &&
+
 x<=p[i-2].close &&
+
 x<=p[i+1].close &&
+
 x<=p[i+2].close &&
+
 x<price
+
 ){
 
 lows.push(x);
@@ -857,11 +1342,17 @@ lows.push(x);
 
 
 if(
+
 x>=p[i-1].close &&
+
 x>=p[i-2].close &&
+
 x>=p[i+1].close &&
+
 x>=p[i+2].close &&
+
 x>price
+
 ){
 
 highs.push(x);
@@ -871,48 +1362,65 @@ highs.push(x);
 }
 
 
-lows.sort((a,b)=>b-a);
+lows.sort(
+(a,b)=>b-a
+);
 
-highs.sort((a,b)=>a-b);
+highs.sort(
+(a,b)=>a-b
+);
 
 
 function unique(arr){
 
 const result=[];
 
-for(const x of arr){
+
+for(
+const x of arr
+){
 
 if(
+
 !result.some(
 v=>Math.abs(v-x)<1
 )
+
 ){
 
 result.push(x);
 
 }
 
-if(result.length>=2)
+
+if(
+result.length>=2
+)
 break;
 
 }
+
 
 return result;
 
 }
 
 
-const L=unique(lows);
+const L =
+unique(lows);
 
-const H=unique(highs);
+const H =
+unique(highs);
 
 
 return{
 
 s1:L[0] ?? null,
+
 s2:L[1] ?? null,
 
 r1:H[0] ?? null,
+
 r2:H[1] ?? null
 
 };
@@ -926,17 +1434,27 @@ r2:H[1] ?? null
 
 function candleDirection(){
 
-const c=
-points[points.length-1];
+const c =
+points[
+points.length-1
+];
+
 
 if(!c)
 return "عرضي";
 
-if(c.close>c.open)
+
+if(
+c.close>c.open
+)
 return "صاعد";
 
-if(c.close<c.open)
+
+if(
+c.close<c.open
+)
 return "هابط";
+
 
 return "عرضي";
 
@@ -949,27 +1467,34 @@ return "عرضي";
 
 function newsType(n){
 
-n=String(n||"").toLowerCase();
+n =
+String(n||"")
+.toLowerCase();
+
 
 if(
 /cpi|pce|inflation|price index|ppi/.test(n)
 )
 return "inflation";
 
+
 if(
 /nonfarm|payroll|employment|unemployment|jobless|adp|jobs|jolts|wage|hourly/.test(n)
 )
 return "jobs";
+
 
 if(
 /interest rate|fed|fomc|federal reserve|powell|bowman|waller|rate decision|monetary/.test(n)
 )
 return "rates";
 
+
 if(
 /retail sales|consumer confidence|ism|pmi|gdp|durable goods|industrial production/.test(n)
 )
 return "growth";
+
 
 return "other";
 
@@ -978,24 +1503,40 @@ return "other";
 
 function newsEffect(e){
 
-const a=Number(e.actual);
+const a =
+Number(e.actual);
 
-const f=Number(e.forecast);
+const f =
+Number(e.forecast);
+
 
 if(
+
 !Number.isFinite(a) ||
+
 !Number.isFinite(f) ||
+
 a===f
+
 )
 return 0;
 
-const type=
+
+const type =
 newsType(e.name);
 
-if(type==="other")
+
+if(
+type==="other"
+)
 return 0;
 
-return a<f ? 1 : -1;
+
+return a<f
+?
+1
+:
+-1;
 
 }
 
@@ -1007,19 +1548,28 @@ try{
 const from =
 new Date(
 Date.now()-3600000
-).toISOString();
+)
+.toISOString();
+
 
 const to =
 new Date(
-Date.now()+7*86400000
-).toISOString();
+Date.now()+
+7*86400000
+)
+.toISOString();
+
 
 const url =
+
 NEWS_API+
+
 "?from="+
 encodeURIComponent(from)+
+
 "&to="+
 encodeURIComponent(to)+
+
 "&countries=US&importance=medium&type=indicator&limit=200";
 
 
@@ -1031,23 +1581,31 @@ cache:"no-store"
 }
 );
 
+
 let data =
 await response.json();
 
 
-data=data.filter(e=>{
+data =
+data.filter(e=>{
 
 const importance =
+
 String(
 e.importance||""
-).toLowerCase();
+)
+.toLowerCase();
+
 
 return(
+
 e.countryCode==="US" &&
+
 (
 importance==="high" ||
 importance==="medium"
 )
+
 );
 
 });
@@ -1057,40 +1615,61 @@ let score=0;
 
 let risk=false;
 
+
 data.forEach(e=>{
 
 const time =
 new Date(e.time);
 
+
 const mins =
-(time-Date.now())/60000;
+(time-Date.now())/
+60000;
+
 
 const imp =
+
 String(
 e.importance||""
-).toLowerCase();
+)
+.toLowerCase();
+
 
 if(
+
 e.actual!=null &&
+
 e.actual!=="" &&
+
 mins<=0 &&
+
 mins>=-30
+
 ){
 
 score +=
+
 newsEffect(e)*
+
 (
 imp==="high"
-?15
-:8
+?
+15
+:
+8
 );
 
 }
 
+
 if(
+
 !e.actual &&
+
 mins>=-10 &&
+
 mins<=15
+
 ){
 
 risk=true;
@@ -1109,7 +1688,9 @@ score
 )
 );
 
-newsImpact.risk=risk;
+
+newsImpact.risk =
+risk;
 
 
 const box =
@@ -1124,24 +1705,32 @@ box.textContent =
 "🚨 يوجد خبر قريب جداً، الإشارة تحتاج حذر";
 
 }
+
 else if(
 Math.abs(score)>=15
 ){
 
 box.textContent =
+
 score>0
+
 ?
+
 "🟢 تأثير الأخبار يميل للإيجابية"
+
 :
+
 "🔴 تأثير الأخبار يميل للسلبية";
 
 }
+
 else{
 
 box.textContent =
 "🟡 لا يوجد تأثير إخباري قوي حالياً";
 
 }
+
 
 }
 catch(error){
@@ -1151,9 +1740,11 @@ console.log(
 error
 );
 
+
 document.getElementById(
 "newsStatus"
 ).textContent =
+
 "🟡 تعذر قراءة الأخبار حالياً";
 
 }
@@ -1187,36 +1778,62 @@ const t60 =
 timeframeTrend(60);
 
 
-document.getElementById("tf5").textContent=t5;
+document.getElementById(
+"tf5"
+).textContent=t5;
 
-document.getElementById("tf15").textContent=t15;
 
-document.getElementById("tf30").textContent=t30;
+document.getElementById(
+"tf15"
+).textContent=t15;
 
-document.getElementById("tf60").textContent=t60;
+
+document.getElementById(
+"tf30"
+).textContent=t30;
+
+
+document.getElementById(
+"tf60"
+).textContent=t60;
 
 
 const positive =
+
 [t5,t15,t30,t60]
-.filter(x=>x==="صاعد")
+.filter(
+x=>x==="صاعد"
+)
 .length;
 
+
 const negative =
+
 [t5,t15,t30,t60]
-.filter(x=>x==="هابط")
+.filter(
+x=>x==="هابط"
+)
 .length;
 
 
 let trend="عرضي";
 
-if(positive>=3)
+
+if(
+positive>=3
+)
 trend="صاعد";
 
-else if(negative>=3)
+
+else if(
+negative>=3
+)
 trend="هابط";
 
 
-document.getElementById("trend").textContent=
+document.getElementById(
+"trend"
+).textContent =
 trend;
 
 
@@ -1226,35 +1843,38 @@ priceAt(5),
 price
 );
 
+
 const ch15 =
 change(
 priceAt(15),
 price
 );
 
-const ch60 =
-change(
-priceAt(60),
-price
-);
-
 
 let strength="ضعيفة";
 
-if(Math.abs(ch15)>=0.30)
+
+if(
+Math.abs(ch15)>=0.30
+)
 strength="قوية";
 
-else if(Math.abs(ch15)>=0.12)
+
+else if(
+Math.abs(ch15)>=0.12
+)
 strength="متوسطة";
 
 
 let momentum="محايد";
+
 
 if(
 ch5>0.05 &&
 ch15>0.08
 )
 momentum="إيجابي";
+
 
 else if(
 ch5<-0.05 &&
@@ -1265,12 +1885,13 @@ momentum="سلبي";
 
 document.getElementById(
 "momentum"
-).textContent=
+).textContent =
 momentum;
+
 
 document.getElementById(
 "strength"
-).textContent=
+).textContent =
 strength;
 
 
@@ -1284,53 +1905,84 @@ let score=0;
 function add(v){
 
 return(
+
 v==="صاعد"
-?1
-:v==="هابط"
-?-1
-:0
+?
+1
+:
+v==="هابط"
+?
+-1
+:
+0
+
 );
 
 }
 
 
-score+=add(t5)*8;
+score +=
+add(t5)*8;
 
-score+=add(t15)*12;
+score +=
+add(t15)*12;
 
-score+=add(t30)*15;
+score +=
+add(t30)*15;
 
-score+=add(t60)*15;
+score +=
+add(t60)*15;
 
-score+=add(trend)*12;
+score +=
+add(trend)*12;
 
 
-score+=
+score +=
+
 momentum==="إيجابي"
-?15
-:momentum==="سلبي"
-?-15
-:0;
+?
+15
+:
+momentum==="سلبي"
+?
+-15
+:
+0;
 
 
-if(strength==="قوية"){
+if(
+strength==="قوية"
+){
 
-score+=
+score +=
+
 momentum==="إيجابي"
-?8
-:momentum==="سلبي"
-?-8
-:0;
+?
+8
+:
+momentum==="سلبي"
+?
+-8
+:
+0;
 
 }
-else if(strength==="متوسطة"){
 
-score+=
+else if(
+strength==="متوسطة"
+){
+
+score +=
+
 momentum==="إيجابي"
-?4
-:momentum==="سلبي"
-?-4
-:0;
+?
+4
+:
+momentum==="سلبي"
+?
+-4
+:
+0;
 
 }
 
@@ -1338,22 +1990,32 @@ momentum==="إيجابي"
 const candle =
 candleDirection();
 
-score+=
+
+score +=
+
 candle==="صاعد"
-?5
-:candle==="هابط"
-?-5
-:0;
+?
+5
+:
+candle==="هابط"
+?
+-5
+:
+0;
 
 
-/* NEWS */
+if(
+newsImpact.risk
+)
+score *= 0.55;
 
-if(newsImpact.risk)
-score*=0.55;
 
-score+=newsImpact.score;
+score +=
+newsImpact.score;
 
-score=Math.max(
+
+score =
+Math.max(
 -100,
 Math.min(
 100,
@@ -1367,19 +2029,20 @@ Math.round(
 50+score/2
 );
 
+
 const down =
 100-up;
 
 
 document.getElementById(
 "upProbability"
-).textContent=
+).textContent =
 up+"%";
 
 
 document.getElementById(
 "downProbability"
-).textContent=
+).textContent =
 down+"%";
 
 
@@ -1393,25 +2056,25 @@ getLevels();
 
 document.getElementById(
 "support1"
-).textContent=
+).textContent =
 fmt(lv.s1);
 
 
 document.getElementById(
 "support2"
-).textContent=
+).textContent =
 fmt(lv.s2);
 
 
 document.getElementById(
 "resistance1"
-).textContent=
+).textContent =
 fmt(lv.r1);
 
 
 document.getElementById(
 "resistance2"
-).textContent=
+).textContent =
 fmt(lv.r2);
 
 
@@ -1419,36 +2082,36 @@ fmt(lv.r2);
    SIGNAL
 ===================================================== */
 
-let signal="WAIT";
+let signal =
+"WAIT";
 
-
-/*
-   BUY
-   لم نعد نشترط قوة الحركة
-*/
 
 if(
+
 trend==="صاعد" &&
+
 momentum==="إيجابي" &&
+
 up>=58 &&
+
 !newsImpact.risk
+
 ){
 
 signal="BUY";
 
 }
 
-
-/*
-   SELL
-   لم نعد نشترط قوة الحركة
-*/
-
 else if(
+
 trend==="هابط" &&
+
 momentum==="سلبي" &&
+
 down>=58 &&
+
 !newsImpact.risk
+
 ){
 
 signal="SELL";
@@ -1457,73 +2120,74 @@ signal="SELL";
 
 
 /* =====================================================
-   ENTRY / SL / TP
+   ENTRY SL TP
 ===================================================== */
 
-let entry=price;
+let entry =
+price;
 
 let sl=null;
 
 let tp=null;
 
 
-if(signal==="BUY"){
+if(
+signal==="BUY"
+){
 
-/*
-   Entry = السعر الحالي
-   SL = أسفل الدعم الأول
-   TP = المقاومة الأولى
-*/
+if(
+lv.s1!==null
+){
 
-if(lv.s1!==null){
-
-sl=
+sl =
 lv.s1-0.20;
 
 }
 else{
 
-sl=
+sl =
 price-5.00;
 
 }
 
 
 if(
+
 lv.r1!==null &&
+
 lv.r1>price
+
 ){
 
-tp=
+tp =
 lv.r1;
 
 }
 else{
 
-tp=
+tp =
 price+10.00;
 
 }
 
 
-/*
-   Risk / Reward
-   الحد الأدنى 1 : 1.5
-*/
-
-const risk=
+const risk =
 entry-sl;
 
-const reward=
+
+const reward =
 tp-entry;
 
 
 if(
+
 risk>0 &&
+
 reward/risk<1.5
+
 ){
 
-tp=
+tp =
 entry+
 risk*1.5;
 
@@ -1532,63 +2196,63 @@ risk*1.5;
 }
 
 
-else if(signal==="SELL"){
+else if(
+signal==="SELL"
+){
 
-/*
-   Entry = السعر الحالي
-   SL = فوق المقاومة الأولى
-   TP = الدعم الأول
-*/
+if(
+lv.r1!==null
+){
 
-if(lv.r1!==null){
-
-sl=
+sl =
 lv.r1+0.20;
 
 }
 else{
 
-sl=
+sl =
 price+5.00;
 
 }
 
 
 if(
+
 lv.s1!==null &&
+
 lv.s1<price
+
 ){
 
-tp=
+tp =
 lv.s1;
 
 }
 else{
 
-tp=
+tp =
 price-10.00;
 
 }
 
 
-/*
-   Risk / Reward
-   الحد الأدنى 1 : 1.5
-*/
-
-const risk=
+const risk =
 sl-entry;
 
-const reward=
+
+const reward =
 entry-tp;
 
 
 if(
+
 risk>0 &&
+
 reward/risk<1.5
+
 ){
 
-tp=
+tp =
 entry-
 risk*1.5;
 
@@ -1603,38 +2267,61 @@ risk*1.5;
 
 document.getElementById(
 "entry"
-).textContent=
+).textContent =
+
 signal==="WAIT"
+
 ?
+
 "---"
+
 :
+
 fmt(entry);
 
 
 document.getElementById(
 "sl"
-).textContent=
+).textContent =
+
 signal==="WAIT"
+
 ?
+
 "---"
+
 :
+
 fmt(sl);
 
 
 document.getElementById(
 "tp"
-).textContent=
+).textContent =
+
 signal==="WAIT"
+
 ?
+
 "---"
+
 :
+
 fmt(tp);
+
+
+const confidence =
+Math.max(
+up,
+down
+);
 
 
 document.getElementById(
 "confidence"
-).textContent=
-Math.max(up,down)+"%";
+).textContent =
+
+confidence+"%";
 
 
 const signalEl =
@@ -1643,22 +2330,34 @@ document.getElementById(
 );
 
 
-signalEl.textContent=
+signalEl.textContent =
 signal;
 
 
-signalEl.className=
+signalEl.className =
+
 "signal "+
+
 (
+
 signal==="BUY"
+
 ?
+
 "buy"
+
 :
+
 signal==="SELL"
+
 ?
+
 "sell"
+
 :
+
 "wait"
+
 );
 
 
@@ -1666,41 +2365,56 @@ signal==="SELL"
    REASON
 ===================================================== */
 
-let reason=
+let reason =
 "لا يوجد توافق كافٍ حالياً.";
 
 
-if(signal==="BUY"){
+if(
+signal==="BUY"
+){
 
-reason=
+reason =
+
 "الاتجاه صاعد + الزخم إيجابي + احتمال الصعود متوافق مع شروط الدخول.";
 
 }
-else if(signal==="SELL"){
 
-reason=
+else if(
+signal==="SELL"
+){
+
+reason =
+
 "الاتجاه هابط + الزخم سلبي + احتمال الهبوط متوافق مع شروط الدخول.";
 
 }
-else if(newsImpact.risk){
 
-reason=
+else if(
+newsImpact.risk
+){
+
+reason =
+
 "يوجد خبر قريب، لذلك النظام يمنع إعطاء إشارة دخول حالياً.";
 
 }
+
 else if(
 trend==="عرضي"
 ){
 
-reason=
+reason =
+
 "الاتجاه العام عرضي حالياً، لذلك ننتظر توافقاً أقوى.";
 
 }
+
 else if(
 momentum==="محايد"
 ){
 
-reason=
+reason =
+
 "الزخم غير واضح حالياً، لذلك ننتظر تأكيداً إضافياً.";
 
 }
@@ -1708,14 +2422,47 @@ reason=
 
 document.getElementById(
 "signalReason"
-).textContent=
+).textContent =
 reason;
 
 
 document.getElementById(
 "systemStatus"
-).textContent=
+).textContent =
 "تم التحديث";
+
+
+/* =====================================================
+   NEW SIGNAL
+===================================================== */
+
+if(
+
+signal!=="WAIT" &&
+
+signal!==lastSignal
+
+){
+
+sendSignalNotification(
+
+signal,
+
+entry,
+
+sl,
+
+tp,
+
+confidence
+
+);
+
+}
+
+
+lastSignal =
+signal;
 
 }
 
@@ -1728,28 +2475,32 @@ async function updateMarket(){
 
 document.getElementById(
 "systemStatus"
-).textContent=
+).textContent =
 "جاري التحليل...";
 
 
 try{
 
-price=
+price =
 await getSpot();
 
 
 document.getElementById(
 "price"
-).textContent=
-"$ "+fmt(price);
+).textContent =
+
+"$ "+
+fmt(price);
 
 
 document.getElementById(
 "priceStatus"
-).textContent=
+).textContent =
+
 "🟢 السعر حي";
 
 }
+
 catch(error){
 
 console.log(error);
@@ -1757,13 +2508,14 @@ console.log(error);
 
 document.getElementById(
 "price"
-).textContent=
+).textContent =
 "---";
 
 
 document.getElementById(
 "priceStatus"
-).textContent=
+).textContent =
+
 "🔴 فشل قراءة السعر";
 
 
@@ -1774,13 +2526,14 @@ return;
 
 try{
 
-points=
+points =
 await getOHLC();
 
 
 analyze();
 
 }
+
 catch(error){
 
 console.log(error);
@@ -1788,7 +2541,8 @@ console.log(error);
 
 document.getElementById(
 "systemStatus"
-).textContent=
+).textContent =
+
 "فشل قراءة الشموع";
 
 }
@@ -1799,6 +2553,8 @@ document.getElementById(
 /* =====================================================
    START
 ===================================================== */
+
+registerNotifications();
 
 updateMarket();
 
