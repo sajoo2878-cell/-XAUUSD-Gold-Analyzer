@@ -1057,9 +1057,6 @@ let score=0;
 
 let risk=false;
 
-let active=[];
-
-
 data.forEach(e=>{
 
 const time =
@@ -1097,8 +1094,6 @@ mins<=15
 ){
 
 risk=true;
-
-active.push(e.name);
 
 }
 
@@ -1279,9 +1274,12 @@ document.getElementById(
 strength;
 
 
-/* probability */
+/* =====================================================
+   PROBABILITY
+===================================================== */
 
 let score=0;
+
 
 function add(v){
 
@@ -1385,7 +1383,9 @@ document.getElementById(
 down+"%";
 
 
-/* levels */
+/* =====================================================
+   LEVELS
+===================================================== */
 
 const lv =
 getLevels();
@@ -1415,14 +1415,21 @@ document.getElementById(
 fmt(lv.r2);
 
 
-/* signal */
+/* =====================================================
+   SIGNAL
+===================================================== */
 
 let signal="WAIT";
+
+
+/*
+   BUY
+   لم نعد نشترط قوة الحركة
+*/
 
 if(
 trend==="صاعد" &&
 momentum==="إيجابي" &&
-strength!=="ضعيفة" &&
 up>=58 &&
 !newsImpact.risk
 ){
@@ -1430,10 +1437,16 @@ up>=58 &&
 signal="BUY";
 
 }
+
+
+/*
+   SELL
+   لم نعد نشترط قوة الحركة
+*/
+
 else if(
 trend==="هابط" &&
 momentum==="سلبي" &&
-strength!=="ضعيفة" &&
 down>=58 &&
 !newsImpact.risk
 ){
@@ -1457,30 +1470,53 @@ let tp=null;
 if(signal==="BUY"){
 
 /*
-الدخول من السعر الحالي.
-الـSL أسفل الدعم الأول.
-الـTP عند المقاومة الأولى.
+   Entry = السعر الحالي
+   SL = أسفل الدعم الأول
+   TP = المقاومة الأولى
 */
 
-if(lv.s1!==null)
-sl=lv.s1-0.20;
-else
-sl=price-5.00;
+if(lv.s1!==null){
+
+sl=
+lv.s1-0.20;
+
+}
+else{
+
+sl=
+price-5.00;
+
+}
 
 
-if(lv.r1!==null && lv.r1>price)
-tp=lv.r1;
-else
-tp=price+10.00;
+if(
+lv.r1!==null &&
+lv.r1>price
+){
+
+tp=
+lv.r1;
+
+}
+else{
+
+tp=
+price+10.00;
+
+}
 
 
-/* التأكد أن RR منطقي */
+/*
+   Risk / Reward
+   الحد الأدنى 1 : 1.5
+*/
 
-const risk =
+const risk=
 entry-sl;
 
-const reward =
+const reward=
 tp-entry;
+
 
 if(
 risk>0 &&
@@ -1498,23 +1534,54 @@ risk*1.5;
 
 else if(signal==="SELL"){
 
-if(lv.r1!==null)
-sl=lv.r1+0.20;
-else
-sl=price+5.00;
+/*
+   Entry = السعر الحالي
+   SL = فوق المقاومة الأولى
+   TP = الدعم الأول
+*/
+
+if(lv.r1!==null){
+
+sl=
+lv.r1+0.20;
+
+}
+else{
+
+sl=
+price+5.00;
+
+}
 
 
-if(lv.s1!==null && lv.s1<price)
-tp=lv.s1;
-else
-tp=price-10.00;
+if(
+lv.s1!==null &&
+lv.s1<price
+){
+
+tp=
+lv.s1;
+
+}
+else{
+
+tp=
+price-10.00;
+
+}
 
 
-const risk =
+/*
+   Risk / Reward
+   الحد الأدنى 1 : 1.5
+*/
+
+const risk=
 sl-entry;
 
-const reward =
+const reward=
 entry-tp;
+
 
 if(
 risk>0 &&
@@ -1530,7 +1597,9 @@ risk*1.5;
 }
 
 
-/* display */
+/* =====================================================
+   DISPLAY
+===================================================== */
 
 document.getElementById(
 "entry"
@@ -1565,10 +1634,7 @@ fmt(tp);
 document.getElementById(
 "confidence"
 ).textContent=
-Math.max(
-up,
-down
-)+"%";
+Math.max(up,down)+"%";
 
 
 const signalEl =
@@ -1596,26 +1662,46 @@ signal==="SELL"
 );
 
 
-/* reason */
+/* =====================================================
+   REASON
+===================================================== */
 
-let reason="لا يوجد توافق كافٍ حالياً.";
+let reason=
+"لا يوجد توافق كافٍ حالياً.";
+
 
 if(signal==="BUY"){
 
 reason=
-"الاتجاه صاعد، الزخم إيجابي، والاحتمال الصعودي متوافق مع شروط الإشارة.";
+"الاتجاه صاعد + الزخم إيجابي + احتمال الصعود متوافق مع شروط الدخول.";
 
 }
 else if(signal==="SELL"){
 
 reason=
-"الاتجاه هابط، الزخم سلبي، والاحتمال الهبوطي متوافق مع شروط الإشارة.";
+"الاتجاه هابط + الزخم سلبي + احتمال الهبوط متوافق مع شروط الدخول.";
 
 }
 else if(newsImpact.risk){
 
 reason=
 "يوجد خبر قريب، لذلك النظام يمنع إعطاء إشارة دخول حالياً.";
+
+}
+else if(
+trend==="عرضي"
+){
+
+reason=
+"الاتجاه العام عرضي حالياً، لذلك ننتظر توافقاً أقوى.";
+
+}
+else if(
+momentum==="محايد"
+){
+
+reason=
+"الزخم غير واضح حالياً، لذلك ننتظر تأكيداً إضافياً.";
 
 }
 
@@ -1635,7 +1721,7 @@ document.getElementById(
 
 
 /* =====================================================
-   UPDATE
+   UPDATE MARKET
 ===================================================== */
 
 async function updateMarket(){
@@ -1648,13 +1734,15 @@ document.getElementById(
 
 try{
 
-price =
+price=
 await getSpot();
+
 
 document.getElementById(
 "price"
 ).textContent=
 "$ "+fmt(price);
+
 
 document.getElementById(
 "priceStatus"
@@ -1666,15 +1754,18 @@ catch(error){
 
 console.log(error);
 
+
 document.getElementById(
 "price"
 ).textContent=
 "---";
 
+
 document.getElementById(
 "priceStatus"
 ).textContent=
 "🔴 فشل قراءة السعر";
+
 
 return;
 
@@ -1683,8 +1774,9 @@ return;
 
 try{
 
-points =
+points=
 await getOHLC();
+
 
 analyze();
 
@@ -1692,6 +1784,7 @@ analyze();
 catch(error){
 
 console.log(error);
+
 
 document.getElementById(
 "systemStatus"
