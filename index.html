@@ -376,6 +376,15 @@ word-break:break-word
 #chart{height:250px}
 }
 </style>
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.init({
+      appId: "092fc306-c2ab-4a85-a3f9-ff8b50dd8833",
+    });
+  });
+</script>
 </head>
 
 <body>
