@@ -11,10 +11,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Start XAUUSD Signal Bot
+      - name: Send test notification
+        env:
+          ONESIGNAL_REST_API_KEY: ${{ secrets.ONESIGNAL_REST_API_KEY }}
         run: |
-          echo "================================"
-          echo "XAUUSD SIGNAL BOT"
-          echo "Bot is running successfully"
-          echo "================================"
-          date
+          curl --fail-with-body --request POST \
+            --url https://api.onesignal.com/notifications \
+            --header "Authorization: Key $ONESIGNAL_REST_API_KEY" \
+            --header "Content-Type: application/json" \
+            --data '{
+              "app_id": "092fc306-c2ab-4a85-a3f9-ff8b50dd8833",
+              "included_segments": ["Subscribed Users"],
+              "headings": {"en": "🟢 XAUUSD Signal Bot"},
+              "contents": {"en": "🔔 إشعار تجريبي ناجح. البوت متصل بـ OneSignal."}
+            }'
