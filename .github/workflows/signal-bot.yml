@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
   schedule:
-    - cron: "1/5 * * * *"
+    - cron: "*/5 * * * *"
 
 permissions:
   contents: read
@@ -117,7 +117,6 @@ jobs:
 
               if (change > 0)
                 gain += change;
-
               else
                 loss += Math.abs(change);
             }
@@ -133,10 +132,7 @@ jobs:
           }
 
 
-          function getSignal(
-            closes,
-            price
-          ) {
+          function getSignal(closes) {
 
             let score = 0;
 
@@ -211,7 +207,7 @@ jobs:
           }
 
 
-          function levels(
+          function getLevels(
             bars,
             price,
             signal
@@ -253,29 +249,33 @@ jobs:
                 ? support - 1.5
                 : price - 5;
 
+
               const risk =
                 price - sl;
+
 
               tp1 =
                 price + risk * 1.5;
 
+
               tp2 =
                 price + risk * 2.2;
-            }
 
-
-            else {
+            } else {
 
               sl =
                 resistance > price
                 ? resistance + 1.5
                 : price + 5;
 
+
               const risk =
                 sl - price;
 
+
               tp1 =
                 price - risk * 1.5;
+
 
               tp2 =
                 price - risk * 2.2;
@@ -290,9 +290,7 @@ jobs:
           }
 
 
-          async function sendNotification(
-            message
-          ) {
+          async function sendNotification(message) {
 
             if (!API_KEY) {
 
@@ -341,13 +339,13 @@ jobs:
               );
 
 
-            const text =
+            const responseText =
               await r.text();
 
 
             console.log(
               "OneSignal:",
-              text
+              responseText
             );
 
 
@@ -364,7 +362,15 @@ jobs:
           async function main() {
 
             console.log(
-              "Starting XAUUSD analyzer..."
+              "================================"
+            );
+
+            console.log(
+              "XAUUSD SIGNAL BOT"
+            );
+
+            console.log(
+              "================================"
             );
 
 
@@ -386,7 +392,7 @@ jobs:
             if (!Number.isFinite(price)) {
 
               throw new Error(
-                "Price not found"
+                "XAUUSD price not found"
               );
             }
 
@@ -416,7 +422,7 @@ jobs:
             }
 
 
-            let bars =
+            const bars =
               data.bars
                 .filter(
                   x => !x.isOpen
@@ -455,8 +461,7 @@ jobs:
 
             const current =
               getSignal(
-                closes,
-                price
+                closes
               );
 
 
@@ -469,8 +474,7 @@ jobs:
 
             const previous =
               getSignal(
-                previousCloses,
-                price
+                previousCloses
               );
 
 
@@ -479,15 +483,18 @@ jobs:
               current.score
             );
 
+
             console.log(
               "Previous score:",
               previous.score
             );
 
+
             console.log(
               "Current signal:",
               current.signal
             );
+
 
             console.log(
               "Previous signal:",
@@ -521,7 +528,7 @@ jobs:
 
 
             const trade =
-              levels(
+              getLevels(
                 bars,
                 price,
                 current.signal
@@ -599,6 +606,7 @@ jobs:
               error => {
 
                 console.error(
+                  "BOT ERROR:",
                   error
                 );
 
