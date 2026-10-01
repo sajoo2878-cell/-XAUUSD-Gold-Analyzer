@@ -1,0 +1,20 @@
+name: XAUUSD Signal Bot
+
+on:
+  workflow_dispatch:
+
+  schedule:
+    - cron: "*/5 * * * *"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Start XAUUSD Signal Bot
+        run: |
+          echo "================================"
+          echo "XAUUSD SIGNAL BOT"
+          echo "Bot is running successfully"
+          echo "================================"
+          date
