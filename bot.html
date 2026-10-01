@@ -3,623 +3,298 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-
 <title>XAUUSD Signal Bot</title>
+
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+window.OneSignalDeferred = window.OneSignalDeferred || [];
+OneSignalDeferred.push(async function(OneSignal) {
+  await OneSignal.init({
+    appId: "092fc306-c2ab-4a85-a3f9-ff8b50dd8833"
+  });
+});
+</script>
 
 <style>
 *{box-sizing:border-box}
-
-body{
-margin:0;
-background:#080c11;
-color:#f1f5f9;
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif
-}
-
-.container{
-max-width:520px;
-margin:auto;
-padding:18px 14px 35px
-}
-
-.header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:18px
-}
-
-h1{
-font-size:22px;
-margin:0
-}
-
-.sub{
-color:#8b98a8;
-font-size:12px;
-margin-top:4px
-}
-
-.status{
-background:#102019;
-color:#65e59a;
-border:1px solid #244634;
-padding:8px 11px;
-border-radius:20px;
-font-size:12px
-}
-
-.card{
-background:#111820;
-border:1px solid #202b36;
-border-radius:18px;
-padding:16px;
-margin:12px 0
-}
-
-.title{
-font-size:13px;
-color:#9aa6b5;
-margin-bottom:12px
-}
-
-.price{
-font-size:36px;
-font-weight:800
-}
-
-.grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px
-}
-
-.box{
-background:#0b1117;
-border:1px solid #202a34;
-border-radius:13px;
-padding:12px
-}
-
-.label{
-font-size:11px;
-color:#8995a5
-}
-
-.value{
-font-size:18px;
-font-weight:700;
-margin-top:5px
-}
-
-.signalBox{
-text-align:center;
-padding:20px;
-background:#0b1117;
-border-radius:15px;
-border:1px solid #202a34
-}
-
-.signal{
-font-size:34px;
-font-weight:900
-}
-
-.buy{
-color:#65e59a!important
-}
-
-.sell{
-color:#ff777f!important
-}
-
-.wait{
-color:#f0c66b!important
-}
-
-.row{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:11px 0;
-border-bottom:1px solid #202a34
-}
-
-.row:last-child{
-border-bottom:0
-}
-
-.badge{
-padding:5px 9px;
-border-radius:9px;
-background:#17212a;
-font-size:12px
-}
-
-.manual{
-background:#172331;
-color:#7db7ff;
-border:1px solid #29445f;
-text-align:center;
-padding:12px;
-border-radius:12px;
-font-size:13px;
-margin-top:12px;
-line-height:1.7
-}
-
-button{
-width:100%;
-border:0;
-border-radius:13px;
-padding:14px;
-font-size:16px;
-font-weight:800;
-cursor:pointer;
-background:#1d5fbd;
-color:white;
-margin-top:12px
-}
-
-.notifyButton{
-background:#16834b
-}
-
-.link{
-display:block;
-text-align:center;
-text-decoration:none;
-background:#172331;
-color:#7db7ff;
-padding:13px;
-border-radius:13px;
-margin-top:10px
-}
-
-.footer{
-text-align:center;
-color:#687585;
-font-size:11px;
-margin-top:18px
-}
+body{margin:0;background:#080c11;color:#f1f5f9;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+.container{max-width:520px;margin:auto;padding:18px 14px 35px}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+h1{font-size:22px;margin:0}
+.sub{color:#8b98a8;font-size:12px;margin-top:4px}
+.status{background:#102019;color:#65e59a;border:1px solid #244634;padding:8px 11px;border-radius:20px;font-size:12px}
+.card{background:#111820;border:1px solid #202b36;border-radius:18px;padding:16px;margin:12px 0}
+.title{font-size:13px;color:#9aa6b5;margin-bottom:12px}
+.price{font-size:36px;font-weight:800}
+.signalBox{text-align:center;padding:20px;background:#0b1117;border-radius:15px;border:1px solid #202a34}
+.signal{font-size:34px;font-weight:900}
+.buy{color:#65e59a!important}
+.sell{color:#ff777f!important}
+.wait{color:#f0c66b!important}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.box{background:#0b1117;border:1px solid #202a34;border-radius:13px;padding:12px}
+.label{font-size:11px;color:#8995a5}
+.value{font-size:18px;font-weight:700;margin-top:5px}
+.manual{background:#172331;color:#7db7ff;border:1px solid #29445f;text-align:center;padding:12px;border-radius:12px;font-size:13px;margin-top:12px;line-height:1.7}
+button{width:100%;border:0;border-radius:13px;padding:14px;font-size:16px;font-weight:800;cursor:pointer;background:#1d5fbd;color:white;margin-top:12px}
+.notifyButton{background:#16834b}
+.row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid #202a34}
+.row:last-child{border-bottom:0}
+.badge{padding:5px 9px;border-radius:9px;background:#17212a;font-size:12px}
+.link{display:block;text-align:center;text-decoration:none;background:#172331;color:#7db7ff;padding:13px;border-radius:13px;margin-top:10px}
+.footer{text-align:center;color:#687585;font-size:11px;margin-top:18px}
+.news{font-size:12px;line-height:1.8;color:#aeb8c5}
+.newsItem{background:#0b1117;border:1px solid #202a34;border-radius:12px;padding:10px;margin:8px 0}
 </style>
 </head>
 
 <body>
-
 <div class="container">
 
 <div class="header">
-
-<div>
-<h1>🥇 XAUUSD Signal Bot</h1>
-<div class="sub">تحليل الذهب وإشارات الدخول اليدوي</div>
+  <div>
+    <h1>🥇 XAUUSD Signal Bot</h1>
+    <div class="sub">تحليل الذهب وإشارات الدخول اليدوي</div>
+  </div>
+  <div class="status">● LIVE</div>
 </div>
 
-<div class="status">● LIVE</div>
-
+<div class="card">
+  <div class="title">💰 السعر الحالي</div>
+  <div class="price" id="price">---</div>
+  <div class="sub" id="priceStatus">جاري الاتصال...</div>
 </div>
 
+<div class="card">
+  <div class="title">🎯 الإشارة الحالية</div>
 
-<!-- PRICE -->
+  <div class="signalBox">
+    <div class="signal wait" id="signal">WAIT</div>
+    <div class="sub" id="signalReason">جاري تحليل السوق...</div>
+  </div>
+
+  <br>
+
+  <div class="grid">
+
+    <div class="box">
+      <div class="label">Entry</div>
+      <div class="value" id="entry">---</div>
+    </div>
+
+    <div class="box">
+      <div class="label">Confidence</div>
+      <div class="value" id="confidence">0%</div>
+    </div>
+
+    <div class="box">
+      <div class="label">Stop Loss</div>
+      <div class="value" id="sl">---</div>
+    </div>
+
+    <div class="box">
+      <div class="label">Take Profit</div>
+      <div class="value" id="tp">---</div>
+    </div>
+
+  </div>
+
+  <div class="manual">
+    ✋ التنفيذ يدوي من MT5<br>
+    البوت يعطيك الإشارة فقط ولا يفتح أي صفقة.
+  </div>
+
+  <button onclick="updateMarket()">
+    🔄 تحديث التحليل
+  </button>
+
+  <button
+    class="notifyButton"
+    onclick="enableNotifications()">
+    🔔 تفعيل إشعارات الإشارة
+  </button>
+
+  <div
+    id="notificationStatus"
+    class="manual">
+    جاري تجهيز OneSignal...
+  </div>
+
+</div>
 
 <div class="card">
 
-<div class="title">💰 السعر الحالي</div>
+  <div class="title">
+    📊 تحليل السوق
+  </div>
 
-<div class="price" id="price">---</div>
+  <div class="row">
+    <span>الاتجاه</span>
+    <span class="badge" id="trend">---</span>
+  </div>
 
-<div class="sub" id="priceStatus">
-جاري الاتصال...
+  <div class="row">
+    <span>5M</span>
+    <span class="badge" id="tf5">---</span>
+  </div>
+
+  <div class="row">
+    <span>15M</span>
+    <span class="badge" id="tf15">---</span>
+  </div>
+
+  <div class="row">
+    <span>30M</span>
+    <span class="badge" id="tf30">---</span>
+  </div>
+
+  <div class="row">
+    <span>1H</span>
+    <span class="badge" id="tf60">---</span>
+  </div>
+
+  <div class="row">
+    <span>الزخم</span>
+    <span class="badge" id="momentum">---</span>
+  </div>
+
+  <div class="row">
+    <span>قوة الحركة</span>
+    <span class="badge" id="strength">---</span>
+  </div>
+
 </div>
-
-</div>
-
-
-<!-- SIGNAL -->
 
 <div class="card">
 
-<div class="title">🎯 الإشارة الحالية</div>
+  <div class="title">
+    📍 الدعم والمقاومة
+  </div>
 
-<div class="signalBox">
+  <div class="grid">
 
-<div
-class="signal wait"
-id="signal">
-WAIT
-</div>
+    <div class="box">
+      <div class="label">Support 1</div>
+      <div class="value" id="support1">---</div>
+    </div>
 
-<div
-class="sub"
-id="signalReason">
-جاري تحليل السوق...
-</div>
+    <div class="box">
+      <div class="label">Resistance 1</div>
+      <div class="value" id="resistance1">---</div>
+    </div>
 
-</div>
+    <div class="box">
+      <div class="label">Support 2</div>
+      <div class="value" id="support2">---</div>
+    </div>
 
-<br>
+    <div class="box">
+      <div class="label">Resistance 2</div>
+      <div class="value" id="resistance2">---</div>
+    </div>
 
-<div class="grid">
-
-<div class="box">
-
-<div class="label">Entry</div>
-
-<div
-class="value"
-id="entry">
----
-</div>
+  </div>
 
 </div>
-
-
-<div class="box">
-
-<div class="label">Confidence</div>
-
-<div
-class="value"
-id="confidence">
-0%
-</div>
-
-</div>
-
-
-<div class="box">
-
-<div class="label">Stop Loss</div>
-
-<div
-class="value"
-id="sl">
----
-</div>
-
-</div>
-
-
-<div class="box">
-
-<div class="label">Take Profit</div>
-
-<div
-class="value"
-id="tp">
----
-</div>
-
-</div>
-
-</div>
-
-
-<div class="manual">
-
-✋ التنفيذ يدوي من MT5
-
-<br>
-
-البوت يعطيك الإشارة فقط ولا يفتح أي صفقة.
-
-</div>
-
-
-<button onclick="updateMarket()">
-🔄 تحديث التحليل
-</button>
-
-
-<button
-class="notifyButton"
-onclick="enableNotifications()">
-
-🔔 تفعيل إشعارات الإشارة
-
-</button>
-
-
-<div
-id="notificationStatus"
-class="manual">
-
-جاري تجهيز نظام الإشعارات...
-
-</div>
-
-</div>
-
-
-<!-- MARKET -->
 
 <div class="card">
 
-<div class="title">📊 تحليل السوق</div>
+  <div class="title">
+    📈 الاحتمالات
+  </div>
 
-<div class="row">
+  <div class="grid">
 
-<span>الاتجاه</span>
+    <div class="box">
+      <div class="label">احتمال الصعود</div>
+      <div class="value buy" id="upProbability">
+        50%
+      </div>
+    </div>
 
-<span
-class="badge"
-id="trend">
----
-</span>
+    <div class="box">
+      <div class="label">احتمال الهبوط</div>
+      <div class="value sell" id="downProbability">
+        50%
+      </div>
+    </div>
 
-</div>
-
-
-<div class="row">
-
-<span>5M</span>
-
-<span
-class="badge"
-id="tf5">
----
-</span>
+  </div>
 
 </div>
-
-
-<div class="row">
-
-<span>15M</span>
-
-<span
-class="badge"
-id="tf15">
----
-</span>
-
-</div>
-
-
-<div class="row">
-
-<span>30M</span>
-
-<span
-class="badge"
-id="tf30">
----
-</span>
-
-</div>
-
-
-<div class="row">
-
-<span>1H</span>
-
-<span
-class="badge"
-id="tf60">
----
-</span>
-
-</div>
-
-
-<div class="row">
-
-<span>الزخم</span>
-
-<span
-class="badge"
-id="momentum">
----
-</span>
-
-</div>
-
-
-<div class="row">
-
-<span>قوة الحركة</span>
-
-<span
-class="badge"
-id="strength">
----
-</span>
-
-</div>
-
-</div>
-
-
-<!-- LEVELS -->
 
 <div class="card">
 
-<div class="title">📍 الدعم والمقاومة</div>
+  <div class="title">
+    📰 الأخبار الأمريكية
+  </div>
 
-<div class="grid">
+  <div
+    id="newsStatus"
+    class="manual">
+    جاري فحص الأخبار...
+  </div>
 
-<div class="box">
-
-<div class="label">Support 1</div>
-
-<div
-class="value"
-id="support1">
----
-</div>
-
-</div>
-
-
-<div class="box">
-
-<div class="label">Resistance 1</div>
-
-<div
-class="value"
-id="resistance1">
----
-</div>
+  <div
+    id="weeklyNews"
+    class="news">
+  </div>
 
 </div>
-
-
-<div class="box">
-
-<div class="label">Support 2</div>
-
-<div
-class="value"
-id="support2">
----
-</div>
-
-</div>
-
-
-<div class="box">
-
-<div class="label">Resistance 2</div>
-
-<div
-class="value"
-id="resistance2">
----
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- PROBABILITY -->
 
 <div class="card">
 
-<div class="title">📈 الاحتمالات</div>
+  <div class="title">
+    ⚙️ حالة النظام
+  </div>
 
-<div class="grid">
+  <div class="row">
+    <span>النظام</span>
+    <span class="badge" id="systemStatus">
+      جاري التحليل
+    </span>
+  </div>
 
-<div class="box">
+  <div class="row">
+    <span>الإشعارات</span>
+    <span class="badge" id="pushState">
+      غير مفعل
+    </span>
+  </div>
 
-<div class="label">احتمال الصعود</div>
+  <div class="row">
+    <span>التنفيذ</span>
+    <span class="badge">
+      يدوي
+    </span>
+  </div>
 
-<div
-class="value buy"
-id="upProbability">
-50%
+  <div class="row">
+    <span>الفريم الأساسي</span>
+    <span class="badge">
+      M5
+    </span>
+  </div>
+
 </div>
-
-</div>
-
-
-<div class="box">
-
-<div class="label">احتمال الهبوط</div>
-
-<div
-class="value sell"
-id="downProbability">
-50%
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- NEWS -->
 
 <div class="card">
 
-<div class="title">📰 الأخبار</div>
-
-<div
-id="newsStatus"
-class="manual">
-
-جاري فحص الأخبار...
+  <a
+    class="link"
+    href="https://sajoo2878-cell.github.io/">
+    📊 فتح Gold Analyzer
+  </a>
 
 </div>
-
-</div>
-
-
-<!-- STATUS -->
-
-<div class="card">
-
-<div class="title">⚙️ حالة النظام</div>
-
-<div class="row">
-
-<span>النظام</span>
-
-<span
-class="badge"
-id="systemStatus">
-
-جاري التحليل
-
-</span>
-
-</div>
-
-
-<div class="row">
-
-<span>التنفيذ</span>
-
-<span class="badge">
-يدوي
-</span>
-
-</div>
-
-
-<div class="row">
-
-<span>الفريم الأساسي</span>
-
-<span class="badge">
-M5
-</span>
-
-</div>
-
-</div>
-
-
-<div class="card">
-
-<a
-class="link"
-href="https://sajoo2878-cell.github.io/-XAUUSD-Gold-Analyzer/">
-
-📊 فتح Gold Analyzer
-
-</a>
-
-</div>
-
 
 <div class="footer">
-XAUUSD • Signal System • Manual Trading
+  XAUUSD • Signal System • Manual Trading
 </div>
 
 </div>
-
 
 <script>
-
-/* =====================================================
-   API
-===================================================== */
 
 const SPOT_API =
 "https://biquote.io/api/XAUUSD";
@@ -630,1931 +305,1151 @@ const OHLC_API =
 const NEWS_API =
 "https://biquote.io/api/calendar";
 
+let price = null;
 
-/* =====================================================
-   PATHS
-===================================================== */
+let points = [];
 
-const SW_PATH =
-"/-XAUUSD-Gold-Analyzer/service-worker.js";
+let lastSignal = "WAIT";
 
-const APP_PATH =
-"/-XAUUSD-Gold-Analyzer/bot.html";
-
-
-/* =====================================================
-   DATA
-===================================================== */
-
-let price=null;
-
-let points=[];
-
-let newsImpact={
-score:0,
-risk:false
+let newsImpact = {
+  score:0,
+  risk:false
 };
 
-let lastSignal="WAIT";
+const $ =
+id => document.getElementById(id);
 
-let notificationRegistration=null;
-
-
-/* =====================================================
-   SERVICE WORKER
-===================================================== */
-
-async function registerNotifications(){
-
-try{
-
-if(
-!("serviceWorker" in navigator)
-){
-
-console.log(
-"Service Worker غير مدعوم"
-);
-
-return;
-
-}
-
-
-notificationRegistration =
-await navigator.serviceWorker.register(
-SW_PATH,
-{
-scope:
-"/-XAUUSD-Gold-Analyzer/"
-}
-);
-
-
-await navigator.serviceWorker.ready;
-
-
-console.log(
-"✅ Service Worker جاهز"
-);
-
-
-document.getElementById(
-"notificationStatus"
-).textContent =
-"🟡 اضغط على زر تفعيل الإشعارات";
-
-
-}
-catch(error){
-
-console.error(
-"Service Worker Error:",
-error
-);
-
-
-document.getElementById(
-"notificationStatus"
-).textContent =
-"🔴 تعذر تشغيل نظام الإشعارات";
-
-}
-
-}
-
-
-/* =====================================================
-   ENABLE NOTIFICATIONS
-===================================================== */
-
-async function enableNotifications(){
-
-const status =
-document.getElementById(
-"notificationStatus"
-);
-
-
-try{
-
-
-if(
-!("serviceWorker" in navigator)
-){
-
-status.textContent =
-"❌ المتصفح لا يدعم Service Worker";
-
-return;
-
-}
-
-
-if(
-!("Notification" in window)
-){
-
-status.textContent =
-"❌ الإشعارات غير مدعومة";
-
-return;
-
-}
-
-
-notificationRegistration =
-await navigator.serviceWorker.register(
-SW_PATH,
-{
-scope:
-"/-XAUUSD-Gold-Analyzer/"
-}
-);
-
-
-await navigator.serviceWorker.ready;
-
-
-const permission =
-await Notification.requestPermission();
-
-
-if(
-permission==="granted"
-){
-
-status.textContent =
-"🟢 تم تفعيل الإشعارات";
-
-
-await sendTestNotification();
-
-
-}
-else if(
-permission==="denied"
-){
-
-status.textContent =
-"🔴 الإشعارات مرفوضة. فعّلها من إعدادات الآيفون.";
-
-}
-else{
-
-status.textContent =
-"🟡 لم يتم تفعيل الإشعارات";
-
-}
-
-
-}
-catch(error){
-
-console.error(
-"NOTIFICATION ERROR:",
-error
-);
-
-
-status.textContent =
-"🔴 حدث خطأ في نظام الإشعارات";
-
-}
-
-}
-
-
-/* =====================================================
-   TEST NOTIFICATION
-===================================================== */
-
-async function sendTestNotification(){
-
-try{
-
-
-if(
-!notificationRegistration
-){
-
-return;
-
-}
-
-
-if(
-Notification.permission!=="granted"
-){
-
-return;
-
-}
-
-
-await notificationRegistration.showNotification(
-
-"🥇 XAUUSD Signal Bot",
-
-{
-
-body:
-"تم تفعيل إشعارات إشارات الذهب بنجاح.",
-
-icon:
-"/-XAUUSD-Gold-Analyzer/icon-192.png",
-
-badge:
-"/-XAUUSD-Gold-Analyzer/icon-192.png",
-
-tag:
-"xauusd-test",
-
-data:{
-url:APP_PATH
-}
-
-}
-
-);
-
-
-}
-catch(error){
-
-console.error(
-"TEST NOTIFICATION ERROR:",
-error
-);
-
-}
-
-}
-
-
-/* =====================================================
-   SIGNAL NOTIFICATION
-===================================================== */
-
-async function sendSignalNotification(
-
-signal,
-entry,
-sl,
-tp,
-confidence
-
-){
-
-try{
-
-
-if(
-signal==="WAIT"
-){
-
-return;
-
-}
-
-
-if(
-!notificationRegistration
-){
-
-return;
-
-}
-
-
-if(
-Notification.permission!=="granted"
-){
-
-return;
-
-}
-
-
-const title =
-signal==="BUY"
-?
-"🟢 XAUUSD BUY"
-:
-"🔴 XAUUSD SELL";
-
-
-const body =
-
-"Entry: "+
-fmt(entry)+
-
-"\nSL: "+
-fmt(sl)+
-
-"\nTP: "+
-fmt(tp)+
-
-"\nConfidence: "+
-confidence+"%";
-
-
-await notificationRegistration.showNotification(
-
-title,
-
-{
-
-body:body,
-
-icon:
-"/-XAUUSD-Gold-Analyzer/icon-192.png",
-
-badge:
-"/-XAUUSD-Gold-Analyzer/icon-192.png",
-
-tag:
-"xauusd-signal",
-
-renotify:true,
-
-requireInteraction:true,
-
-data:{
-url:APP_PATH
-}
-
-}
-
-);
-
-
-}
-catch(error){
-
-console.error(
-"SIGNAL NOTIFICATION ERROR:",
-error
-);
-
-}
-
-}
-
-
-/* =====================================================
-   FORMAT
-===================================================== */
 
 function fmt(v){
 
-if(
-v===null ||
-v===undefined ||
-!Number.isFinite(Number(v))
-){
-
-return "---";
-
-}
-
-return Number(v).toFixed(2);
+  return Number.isFinite(Number(v))
+    ? Number(v).toFixed(2)
+    : "---";
 
 }
 
 
 function pct(v){
 
-if(
-!Number.isFinite(v)
-)
-return "---";
-
-
-return(
-v>=0?"+":""
-)+v.toFixed(2)+"%";
+  return Number.isFinite(v)
+    ? (v>=0?"+":"")+v.toFixed(2)+"%"
+    : "---";
 
 }
 
 
-/* =====================================================
-   SPOT
-===================================================== */
+function color(el,value){
+
+  el.className =
+    "badge " +
+    (
+      value==="صاعد" ||
+      value==="إيجابي"
+      ? "buy"
+      :
+      value==="هابط" ||
+      value==="سلبي"
+      ? "sell"
+      :
+      ""
+    );
+
+}
+
 
 async function getSpot(){
 
-const response =
-await fetch(
+  const r =
+    await fetch(
+      SPOT_API +
+      "?allowStale=true&fresh=" +
+      Date.now(),
+      {
+        cache:"no-store"
+      }
+    );
 
-SPOT_API+
-"?allowStale=true&fresh="+
-Date.now(),
+  if(!r.ok)
+    throw new Error(
+      "SPOT HTTP " + r.status
+    );
 
-{
-cache:"no-store"
-}
+  const d =
+    await r.json();
 
-);
+  const p =
+    Number(
+      d.mid ??
+      d.price ??
+      d.last ??
+      d.bid ??
+      d.ask
+    );
 
+  if(!Number.isFinite(p))
+    throw new Error(
+      "PRICE NOT FOUND"
+    );
 
-if(!response.ok)
-throw new Error(
-"SPOT HTTP "+
-response.status
-);
-
-
-const data =
-await response.json();
-
-
-const p =
-Number(
-
-data.mid ??
-data.price ??
-data.last ??
-data.bid ??
-data.ask
-
-);
-
-
-if(
-!Number.isFinite(p)
-){
-
-throw new Error(
-"PRICE NOT FOUND"
-);
+  return {
+    price:p,
+    stale:!!d.stale,
+    marketState:d.marketState
+  };
 
 }
 
-
-return p;
-
-}
-
-
-/* =====================================================
-   OHLC
-===================================================== */
 
 async function getOHLC(){
 
-const response =
-await fetch(
+  const r =
+    await fetch(
+      OHLC_API +
+      "?interval=5m&limit=300",
+      {
+        cache:"no-store"
+      }
+    );
 
-OHLC_API+
-"?interval=5m&limit=300",
+  if(!r.ok)
+    throw new Error(
+      "OHLC HTTP " + r.status
+    );
 
-{
-cache:"no-store"
-}
+  const d =
+    await r.json();
 
-);
+  if(!Array.isArray(d.bars))
+    throw new Error(
+      "NO BARS"
+    );
 
+  return d.bars
 
-if(!response.ok)
-throw new Error(
-"OHLC HTTP "+
-response.status
-);
+    .map(b => ({
 
+      t:Date.parse(
+        b.openTime ??
+        b.timestamp ??
+        ""
+      ),
 
-const data =
-await response.json();
+      open:Number(b.open),
 
+      high:Number(b.high),
 
-if(
-!data ||
-!Array.isArray(data.bars)
-){
+      low:Number(b.low),
 
-throw new Error(
-"NO BARS"
-);
+      close:Number(b.close)
 
-}
+    }))
 
+    .filter(x =>
+      Number.isFinite(x.t) &&
+      Number.isFinite(x.open) &&
+      Number.isFinite(x.high) &&
+      Number.isFinite(x.low) &&
+      Number.isFinite(x.close)
+    )
 
-return data.bars
-
-.map(b=>({
-
-t:Date.parse(
-
-b.openTime ??
-b.timestamp ??
-""
-
-),
-
-open:Number(b.open),
-
-high:Number(b.high),
-
-low:Number(b.low),
-
-close:Number(b.close)
-
-}))
-
-.filter(b=>
-
-Number.isFinite(b.t) &&
-
-Number.isFinite(b.open) &&
-
-Number.isFinite(b.high) &&
-
-Number.isFinite(b.low) &&
-
-Number.isFinite(b.close)
-
-)
-
-.sort(
-(a,b)=>a.t-b.t
-);
+    .sort(
+      (a,b) => a.t-b.t
+    );
 
 }
 
-
-/* =====================================================
-   PRICE AT TIME
-===================================================== */
 
 function priceAt(minutes){
 
-const target =
-Date.now()-
-minutes*60000;
+  const target =
+    Date.now() -
+    minutes*60000;
 
+  let best = null;
 
-let best=null;
+  let diff = Infinity;
 
-let diff=Infinity;
+  for(const p of points){
 
+    const d =
+      Math.abs(
+        p.t-target
+      );
 
-for(
-const p of points
-){
+    if(d<diff){
 
-const d =
-Math.abs(
-p.t-target
-);
+      diff=d;
 
+      best=p;
 
-if(
-d<diff
-){
+    }
 
-diff=d;
+  }
 
-best=p;
-
-}
-
-}
-
-
-return best
-?
-best.close
-:
-null;
+  return best
+    ? best.close
+    : null;
 
 }
 
-
-/* =====================================================
-   CHANGE
-===================================================== */
 
 function change(
-old,
-current
+  old,
+  current
 ){
 
-if(
+  if(
+    !Number.isFinite(old) ||
+    !Number.isFinite(current) ||
+    old===0
+  )
+    return 0;
 
-!Number.isFinite(old) ||
-
-!Number.isFinite(current) ||
-
-old===0
-
-){
-
-return 0;
-
-}
-
-
-return(
-(current-old)/old
-)*100;
+  return (
+    (current-old) /
+    old
+  ) * 100;
 
 }
 
 
-/* =====================================================
-   TREND
-===================================================== */
+function tfTrend(minutes){
 
-function timeframeTrend(
-minutes
-){
+  const m =
+    change(
+      priceAt(minutes),
+      price
+    );
 
-const old =
-priceAt(minutes);
-
-
-const move =
-change(
-old,
-price
-);
-
-
-if(
-move>0.10
-)
-return "صاعد";
-
-
-if(
-move<-0.10
-)
-return "هابط";
-
-
-return "عرضي";
+  return m>0.10
+    ? "صاعد"
+    :
+    m<-0.10
+    ? "هابط"
+    :
+    "عرضي";
 
 }
 
 
-/* =====================================================
-   LEVELS
-===================================================== */
+function levels(){
 
-function getLevels(){
+  const p =
+    points.slice(-300);
 
-const p =
-points.slice(-300);
+  const lows = [];
 
+  const highs = [];
 
-const lows=[];
+  for(
+    let i=2;
+    i<p.length-2;
+    i++
+  ){
 
-const highs=[];
+    const x =
+      p[i].close;
 
+    if(
+      x<=p[i-1].close &&
+      x<=p[i-2].close &&
+      x<=p[i+1].close &&
+      x<=p[i+2].close &&
+      x<price
+    ){
 
-for(
-let i=2;
-i<p.length-2;
-i++
-){
+      lows.push(x);
 
-const x =
-p[i].close;
+    }
 
+    if(
+      x>=p[i-1].close &&
+      x>=p[i-2].close &&
+      x>=p[i+1].close &&
+      x>=p[i+2].close &&
+      x>price
+    ){
 
-if(
+      highs.push(x);
 
-x<=p[i-1].close &&
+    }
 
-x<=p[i-2].close &&
+  }
 
-x<=p[i+1].close &&
+  lows.sort(
+    (a,b)=>b-a
+  );
 
-x<=p[i+2].close &&
-
-x<price
-
-){
-
-lows.push(x);
-
-}
-
-
-if(
-
-x>=p[i-1].close &&
-
-x>=p[i-2].close &&
-
-x>=p[i+1].close &&
-
-x>=p[i+2].close &&
-
-x>price
-
-){
-
-highs.push(x);
-
-}
-
-}
+  highs.sort(
+    (a,b)=>a-b
+  );
 
 
-lows.sort(
-(a,b)=>b-a
-);
+  const unique =
+    a => {
 
-highs.sort(
-(a,b)=>a-b
-);
+      const r=[];
 
+      for(
+        const x of a
+      ){
 
-function unique(arr){
+        if(
+          !r.some(
+            v =>
+            Math.abs(v-x)<1
+          )
+        ){
 
-const result=[];
+          r.push(x);
 
+        }
 
-for(
-const x of arr
-){
+        if(
+          r.length>=2
+        )
+          break;
 
-if(
+      }
 
-!result.some(
-v=>Math.abs(v-x)<1
-)
+      return r;
 
-){
-
-result.push(x);
-
-}
-
-
-if(
-result.length>=2
-)
-break;
-
-}
+    };
 
 
-return result;
+  const L =
+    unique(lows);
+
+  const H =
+    unique(highs);
+
+
+  return {
+
+    s1:L[0] ?? null,
+
+    s2:L[1] ?? null,
+
+    r1:H[0] ?? null,
+
+    r2:H[1] ?? null
+
+  };
 
 }
 
-
-const L =
-unique(lows);
-
-const H =
-unique(highs);
-
-
-return{
-
-s1:L[0] ?? null,
-
-s2:L[1] ?? null,
-
-r1:H[0] ?? null,
-
-r2:H[1] ?? null
-
-};
-
-}
-
-
-/* =====================================================
-   CANDLE
-===================================================== */
 
 function candleDirection(){
 
-const c =
-points[
-points.length-1
-];
+  const c =
+    points[
+      points.length-1
+    ];
 
+  if(!c)
+    return "عرضي";
 
-if(!c)
-return "عرضي";
-
-
-if(
-c.close>c.open
-)
-return "صاعد";
-
-
-if(
-c.close<c.open
-)
-return "هابط";
-
-
-return "عرضي";
+  return c.close>c.open
+    ? "صاعد"
+    :
+    c.close<c.open
+    ? "هابط"
+    :
+    "عرضي";
 
 }
 
 
-/* =====================================================
-   NEWS
-===================================================== */
+function probability(
+  t5,
+  t15,
+  t30,
+  t60,
+  trend,
+  momentum,
+  strength,
+  candle
+){
 
-function newsType(n){
+  let s=0;
 
-n =
-String(n||"")
-.toLowerCase();
-
-
-if(
-/cpi|pce|inflation|price index|ppi/.test(n)
-)
-return "inflation";
-
-
-if(
-/nonfarm|payroll|employment|unemployment|jobless|adp|jobs|jolts|wage|hourly/.test(n)
-)
-return "jobs";
-
-
-if(
-/interest rate|fed|fomc|federal reserve|powell|bowman|waller|rate decision|monetary/.test(n)
-)
-return "rates";
+  const a =
+    v =>
+      v==="صاعد"
+      ? 1
+      :
+      v==="هابط"
+      ? -1
+      :
+      0;
 
 
-if(
-/retail sales|consumer confidence|ism|pmi|gdp|durable goods|industrial production/.test(n)
-)
-return "growth";
+  s += a(t5)*8;
+
+  s += a(t15)*12;
+
+  s += a(t30)*15;
+
+  s += a(t60)*15;
+
+  s += a(trend)*12;
 
 
-return "other";
+  s +=
+    momentum==="إيجابي"
+    ? 15
+    :
+    momentum==="سلبي"
+    ? -15
+    :
+    0;
+
+
+  s +=
+    strength==="قوية"
+    ?
+      (
+        momentum==="إيجابي"
+        ? 8
+        :
+        momentum==="سلبي"
+        ? -8
+        :
+        0
+      )
+    :
+    strength==="متوسطة"
+    ?
+      (
+        momentum==="إيجابي"
+        ? 4
+        :
+        momentum==="سلبي"
+        ? -4
+        :
+        0
+      )
+    :
+      0;
+
+
+  s +=
+    candle==="صاعد"
+    ? 5
+    :
+    candle==="هابط"
+    ? -5
+    :
+    0;
+
+
+  if(newsImpact.risk)
+    s *= 0.55;
+
+
+  s +=
+    newsImpact.score;
+
+
+  s =
+    Math.max(
+      -100,
+      Math.min(
+        100,
+        s
+      )
+    );
+
+
+  const up =
+    Math.round(
+      50+s/2
+    );
+
+
+  return {
+
+    up:up,
+
+    down:100-up,
+
+    score:s
+
+  };
 
 }
 
 
-function newsEffect(e){
+function analyze(){
 
-const a =
-Number(e.actual);
-
-const f =
-Number(e.forecast);
-
-
-if(
-
-!Number.isFinite(a) ||
-
-!Number.isFinite(f) ||
-
-a===f
-
-)
-return 0;
+  if(
+    !price ||
+    points.length<10
+  )
+    return;
 
 
-const type =
-newsType(e.name);
+  const t5 =
+    tfTrend(5);
+
+  const t15 =
+    tfTrend(15);
+
+  const t30 =
+    tfTrend(30);
+
+  const t60 =
+    tfTrend(60);
 
 
-if(
-type==="other"
-)
-return 0;
+  $("tf5").textContent=t5;
+
+  $("tf15").textContent=t15;
+
+  $("tf30").textContent=t30;
+
+  $("tf60").textContent=t60;
 
 
-return a<f
-?
-1
-:
--1;
+  color(
+    $("tf5"),
+    t5
+  );
+
+  color(
+    $("tf15"),
+    t15
+  );
+
+  color(
+    $("tf30"),
+    t30
+  );
+
+  color(
+    $("tf60"),
+    t60
+  );
+
+
+  const c5 =
+    change(
+      priceAt(5),
+      price
+    );
+
+  const c15 =
+    change(
+      priceAt(15),
+      price
+    );
+
+
+  const pos =
+    [
+      t5,
+      t15,
+      t30,
+      t60
+    ]
+    .filter(
+      x=>x==="صاعد"
+    )
+    .length;
+
+
+  const neg =
+    [
+      t5,
+      t15,
+      t30,
+      t60
+    ]
+    .filter(
+      x=>x==="هابط"
+    )
+    .length;
+
+
+  const trend =
+    pos>=3
+    ? "صاعد"
+    :
+    neg>=3
+    ? "هابط"
+    :
+    "عرضي";
+
+
+  const momentum =
+    c5>0.05 &&
+    c15>0.08
+    ? "إيجابي"
+    :
+    c5<-0.05 &&
+    c15<-0.08
+    ? "سلبي"
+    :
+    "محايد";
+
+
+  const strength =
+    Math.abs(c15)>=0.30
+    ? "قوية"
+    :
+    Math.abs(c15)>=0.12
+    ? "متوسطة"
+    :
+    "ضعيفة";
+
+
+  $("trend").textContent =
+    trend;
+
+  color(
+    $("trend"),
+    trend
+  );
+
+
+  $("momentum").textContent =
+    momentum;
+
+  color(
+    $("momentum"),
+    momentum
+  );
+
+
+  $("strength").textContent =
+    strength;
+
+
+  const lv =
+    levels();
+
+
+  $("support1").textContent =
+    fmt(lv.s1);
+
+  $("support2").textContent =
+    fmt(lv.s2);
+
+  $("resistance1").textContent =
+    fmt(lv.r1);
+
+  $("resistance2").textContent =
+    fmt(lv.r2);
+
+
+  const prob =
+    probability(
+      t5,
+      t15,
+      t30,
+      t60,
+      trend,
+      momentum,
+      strength,
+      candleDirection()
+    );
+
+
+  $("upProbability").textContent =
+    prob.up+"%";
+
+
+  $("downProbability").textContent =
+    prob.down+"%";
+
+
+  let signal =
+    "WAIT";
+
+  let reason =
+    "التحليل الحالي لا يعطي توافقاً كافياً.";
+
+  let entry=null;
+
+  let sl=null;
+
+  let tp=null;
+
+
+  if(
+    trend==="صاعد" &&
+    momentum==="إيجابي" &&
+    strength!=="ضعيفة" &&
+    prob.up>=58 &&
+    lv.s1
+  ){
+
+    signal="BUY";
+
+    reason =
+      "توافق صعودي بين الاتجاه والفريمات والزخم.";
+
+    entry=price;
+
+    sl=lv.s1;
+
+    tp =
+      entry +
+      (entry-sl)*1.5;
+
+  }
+
+  else if(
+    trend==="هابط" &&
+    momentum==="سلبي" &&
+    strength!=="ضعيفة" &&
+    prob.down>=58 &&
+    lv.r1
+  ){
+
+    signal="SELL";
+
+    reason =
+      "توافق هبوطي بين الاتجاه والفريمات والزخم.";
+
+    entry=price;
+
+    sl=lv.r1;
+
+    tp =
+      entry -
+      (sl-entry)*1.5;
+
+  }
+
+
+  $("signal").textContent =
+    signal;
+
+
+  $("signal").className =
+    "signal " +
+    (
+      signal==="BUY"
+      ? "buy"
+      :
+      signal==="SELL"
+      ? "sell"
+      :
+      "wait"
+    );
+
+
+  $("signalReason").textContent =
+    reason;
+
+
+  $("confidence").textContent =
+    Math.max(
+      prob.up,
+      prob.down
+    )+"%";
+
+
+  $("entry").textContent =
+    fmt(entry);
+
+
+  $("sl").textContent =
+    fmt(sl);
+
+
+  $("tp").textContent =
+    fmt(tp);
+
+
+  $("systemStatus").textContent =
+    "🟢 يعمل";
+
+
+  if(
+    signal!==lastSignal &&
+    (
+      signal==="BUY" ||
+      signal==="SELL"
+    )
+  ){
+
+    lastSignal=signal;
+
+  }
+
+  else if(
+    signal==="WAIT"
+  ){
+
+    lastSignal="WAIT";
+
+  }
+
+}
+
+
+async function updateMarket(){
+
+  try{
+
+    const s =
+      await getSpot();
+
+
+    price =
+      s.price;
+
+
+    $("price").textContent =
+      "$ "+fmt(price);
+
+
+    $("priceStatus").textContent =
+      s.stale ||
+      s.marketState==="closed"
+      ? "🟡 آخر سعر معروف"
+      :
+      "🟢 السعر حي";
+
+  }
+
+  catch(e){
+
+    $("price").textContent =
+      "خطأ";
+
+    $("priceStatus").textContent =
+      "🔴 فشل اتصال السعر";
+
+    console.error(e);
+
+    return;
+
+  }
+
+
+  try{
+
+    points =
+      await getOHLC();
+
+
+    analyze();
+
+  }
+
+  catch(e){
+
+    console.error(e);
+
+    $("systemStatus").textContent =
+      "🟡 السعر يعمل، الشموع فشلت";
+
+  }
+
+}
+
+
+async function enableNotifications(){
+
+  const status =
+    $("notificationStatus");
+
+
+  status.textContent =
+    "🟡 جاري فتح إذن الإشعارات...";
+
+
+  try{
+
+    window.OneSignalDeferred =
+      window.OneSignalDeferred || [];
+
+
+    await new Promise(
+      (resolve,reject)=>{
+
+        window.OneSignalDeferred.push(
+          async function(OneSignal){
+
+            try{
+
+              await OneSignal.Notifications.requestPermission();
+
+
+              const allowed =
+                OneSignal.Notifications.permission === true;
+
+
+              if(allowed){
+
+                try{
+
+                  await OneSignal
+                    .User
+                    .PushSubscription
+                    .optIn();
+
+                }
+
+                catch(_){}
+
+
+                status.textContent =
+                  "🟢 تم تفعيل إشعارات الإشارة";
+
+
+                $("pushState").textContent =
+                  "🟢 مفعل";
+
+              }
+
+              else{
+
+                status.textContent =
+                  "🔴 لم يتم السماح بالإشعارات";
+
+
+                $("pushState").textContent =
+                  "🔴 مرفوض";
+
+              }
+
+
+              resolve();
+
+            }
+
+            catch(e){
+
+              reject(e);
+
+            }
+
+          }
+        );
+
+      }
+    );
+
+  }
+
+  catch(e){
+
+    console.error(
+      "OneSignal:",
+      e
+    );
+
+
+    status.textContent =
+      "🔴 تعذر تفعيل الإشعارات. افتح الموقع من الشاشة الرئيسية للآيفون ثم جرّب مرة ثانية.";
+
+  }
 
 }
 
 
 async function loadNews(){
 
-try{
+  try{
 
-const from =
-new Date(
-Date.now()-3600000
-)
-.toISOString();
+    const from =
+      new Date(
+        Date.now()-3600000
+      ).toISOString();
 
 
-const to =
-new Date(
-Date.now()+
-7*86400000
-)
-.toISOString();
+    const to =
+      new Date(
+        Date.now()+
+        7*86400000
+      ).toISOString();
 
 
-const url =
+    const u =
+      NEWS_API+
+      "?from="+
+      encodeURIComponent(from)+
+      "&to="+
+      encodeURIComponent(to)+
+      "&countries=US&importance=medium&type=indicator&limit=100";
 
-NEWS_API+
 
-"?from="+
-encodeURIComponent(from)+
+    const r =
+      await fetch(
+        u,
+        {
+          cache:"no-store"
+        }
+      );
 
-"&to="+
-encodeURIComponent(to)+
 
-"&countries=US&importance=medium&type=indicator&limit=200";
+    const data =
+      await r.json();
 
 
-const response =
-await fetch(
-url,
-{
-cache:"no-store"
-}
-);
+    const arr =
+      data
 
+      .filter(e=>{
 
-let data =
-await response.json();
+        const i =
+          String(
+            e.importance || ""
+          )
+          .toLowerCase();
 
 
-data =
-data.filter(e=>{
+        return(
+          e.countryCode==="US" &&
+          (
+            i==="high" ||
+            i==="medium"
+          )
+        );
 
-const importance =
+      })
 
-String(
-e.importance||""
-)
-.toLowerCase();
+      .sort(
+        (a,b)=>
+          new Date(a.time)-
+          new Date(b.time)
+      )
 
+      .slice(0,12);
 
-return(
 
-e.countryCode==="US" &&
+    let score=0;
 
-(
-importance==="high" ||
-importance==="medium"
-)
+    let risk=false;
 
-);
 
-});
+    $("weeklyNews").innerHTML =
+      arr
 
+      .map(e=>{
 
-let score=0;
+        const d =
+          new Date(e.time);
 
-let risk=false;
 
+        const mins =
+          (
+            d-Date.now()
+          )/60000;
 
-data.forEach(e=>{
 
-const time =
-new Date(e.time);
+        if(
+          !e.actual &&
+          mins>=-10 &&
+          mins<=15
+        ){
 
+          risk=true;
 
-const mins =
-(time-Date.now())/
-60000;
+        }
 
 
-const imp =
+        const actual =
+          e.actual ?? "--";
 
-String(
-e.importance||""
-)
-.toLowerCase();
 
+        const forecast =
+          e.forecast ?? "--";
 
-if(
 
-e.actual!=null &&
+        return `
+        <div class="newsItem">
 
-e.actual!=="" &&
+          <b>
+            ${e.name || "خبر اقتصادي"}
+          </b>
 
-mins<=0 &&
+          <br>
 
-mins>=-30
+          📅 ${
+            d.toLocaleString(
+              "ar-IQ",
+              {
+                dateStyle:"medium",
+                timeStyle:"short"
+              }
+            )
+          }
 
-){
+          <br>
 
-score +=
+          💵 ${
+            e.currency || "USD"
+          }
 
-newsEffect(e)*
+          • Actual:
 
-(
-imp==="high"
-?
-15
-:
-8
-);
+          <b>
+            ${actual}
+          </b>
 
-}
+          • Forecast:
 
+          <b>
+            ${forecast}
+          </b>
 
-if(
+        </div>
+        `;
 
-!e.actual &&
+      })
 
-mins>=-10 &&
+      .join("")
 
-mins<=15
+      ||
 
-){
+      "لا توجد أخبار مؤثرة معروضة حالياً";
 
-risk=true;
 
-}
+    newsImpact = {
 
-});
+      score:
+        Math.max(
+          -30,
+          Math.min(
+            30,
+            score
+          )
+        ),
 
+      risk:risk
 
-newsImpact.score =
-Math.max(
--30,
-Math.min(
-30,
-score
-)
-);
+    };
 
 
-newsImpact.risk =
-risk;
+    $("newsStatus").textContent =
+      risk
+      ? "🚨 يوجد خبر قريب جداً، الحذر مطلوب"
+      : "🟢 تم فحص الأخبار";
 
 
-const box =
-document.getElementById(
-"newsStatus"
-);
+    if(
+      points.length>=10
+    )
+      analyze();
 
+  }
 
-if(risk){
+  catch(e){
 
-box.textContent =
-"🚨 يوجد خبر قريب جداً، الإشارة تحتاج حذر";
+    $("newsStatus").textContent =
+      "🟡 تعذر قراءة الأخبار حالياً";
 
-}
+    console.error(e);
 
-else if(
-Math.abs(score)>=15
-){
-
-box.textContent =
-
-score>0
-
-?
-
-"🟢 تأثير الأخبار يميل للإيجابية"
-
-:
-
-"🔴 تأثير الأخبار يميل للسلبية";
-
-}
-
-else{
-
-box.textContent =
-"🟡 لا يوجد تأثير إخباري قوي حالياً";
-
-}
-
-
-}
-catch(error){
-
-console.log(
-"NEWS ERROR",
-error
-);
-
-
-document.getElementById(
-"newsStatus"
-).textContent =
-
-"🟡 تعذر قراءة الأخبار حالياً";
+  }
 
 }
 
-}
-
-
-/* =====================================================
-   ANALYSIS
-===================================================== */
-
-function analyze(){
-
-if(
-!price ||
-points.length<10
-)
-return;
-
-
-const t5 =
-timeframeTrend(5);
-
-const t15 =
-timeframeTrend(15);
-
-const t30 =
-timeframeTrend(30);
-
-const t60 =
-timeframeTrend(60);
-
-
-document.getElementById(
-"tf5"
-).textContent=t5;
-
-
-document.getElementById(
-"tf15"
-).textContent=t15;
-
-
-document.getElementById(
-"tf30"
-).textContent=t30;
-
-
-document.getElementById(
-"tf60"
-).textContent=t60;
-
-
-const positive =
-
-[t5,t15,t30,t60]
-.filter(
-x=>x==="صاعد"
-)
-.length;
-
-
-const negative =
-
-[t5,t15,t30,t60]
-.filter(
-x=>x==="هابط"
-)
-.length;
-
-
-let trend="عرضي";
-
-
-if(
-positive>=3
-)
-trend="صاعد";
-
-
-else if(
-negative>=3
-)
-trend="هابط";
-
-
-document.getElementById(
-"trend"
-).textContent =
-trend;
-
-
-const ch5 =
-change(
-priceAt(5),
-price
-);
-
-
-const ch15 =
-change(
-priceAt(15),
-price
-);
-
-
-let strength="ضعيفة";
-
-
-if(
-Math.abs(ch15)>=0.30
-)
-strength="قوية";
-
-
-else if(
-Math.abs(ch15)>=0.12
-)
-strength="متوسطة";
-
-
-let momentum="محايد";
-
-
-if(
-ch5>0.05 &&
-ch15>0.08
-)
-momentum="إيجابي";
-
-
-else if(
-ch5<-0.05 &&
-ch15<-0.08
-)
-momentum="سلبي";
-
-
-document.getElementById(
-"momentum"
-).textContent =
-momentum;
-
-
-document.getElementById(
-"strength"
-).textContent =
-strength;
-
-
-/* =====================================================
-   PROBABILITY
-===================================================== */
-
-let score=0;
-
-
-function add(v){
-
-return(
-
-v==="صاعد"
-?
-1
-:
-v==="هابط"
-?
--1
-:
-0
-
-);
-
-}
-
-
-score +=
-add(t5)*8;
-
-score +=
-add(t15)*12;
-
-score +=
-add(t30)*15;
-
-score +=
-add(t60)*15;
-
-score +=
-add(trend)*12;
-
-
-score +=
-
-momentum==="إيجابي"
-?
-15
-:
-momentum==="سلبي"
-?
--15
-:
-0;
-
-
-if(
-strength==="قوية"
-){
-
-score +=
-
-momentum==="إيجابي"
-?
-8
-:
-momentum==="سلبي"
-?
--8
-:
-0;
-
-}
-
-else if(
-strength==="متوسطة"
-){
-
-score +=
-
-momentum==="إيجابي"
-?
-4
-:
-momentum==="سلبي"
-?
--4
-:
-0;
-
-}
-
-
-const candle =
-candleDirection();
-
-
-score +=
-
-candle==="صاعد"
-?
-5
-:
-candle==="هابط"
-?
--5
-:
-0;
-
-
-if(
-newsImpact.risk
-)
-score *= 0.55;
-
-
-score +=
-newsImpact.score;
-
-
-score =
-Math.max(
--100,
-Math.min(
-100,
-score
-)
-);
-
-
-const up =
-Math.round(
-50+score/2
-);
-
-
-const down =
-100-up;
-
-
-document.getElementById(
-"upProbability"
-).textContent =
-up+"%";
-
-
-document.getElementById(
-"downProbability"
-).textContent =
-down+"%";
-
-
-/* =====================================================
-   LEVELS
-===================================================== */
-
-const lv =
-getLevels();
-
-
-document.getElementById(
-"support1"
-).textContent =
-fmt(lv.s1);
-
-
-document.getElementById(
-"support2"
-).textContent =
-fmt(lv.s2);
-
-
-document.getElementById(
-"resistance1"
-).textContent =
-fmt(lv.r1);
-
-
-document.getElementById(
-"resistance2"
-).textContent =
-fmt(lv.r2);
-
-
-/* =====================================================
-   SIGNAL
-===================================================== */
-
-let signal =
-"WAIT";
-
-
-if(
-
-trend==="صاعد" &&
-
-momentum==="إيجابي" &&
-
-up>=58 &&
-
-!newsImpact.risk
-
-){
-
-signal="BUY";
-
-}
-
-else if(
-
-trend==="هابط" &&
-
-momentum==="سلبي" &&
-
-down>=58 &&
-
-!newsImpact.risk
-
-){
-
-signal="SELL";
-
-}
-
-
-/* =====================================================
-   ENTRY SL TP
-===================================================== */
-
-let entry =
-price;
-
-let sl=null;
-
-let tp=null;
-
-
-if(
-signal==="BUY"
-){
-
-if(
-lv.s1!==null
-){
-
-sl =
-lv.s1-0.20;
-
-}
-else{
-
-sl =
-price-5.00;
-
-}
-
-
-if(
-
-lv.r1!==null &&
-
-lv.r1>price
-
-){
-
-tp =
-lv.r1;
-
-}
-else{
-
-tp =
-price+10.00;
-
-}
-
-
-const risk =
-entry-sl;
-
-
-const reward =
-tp-entry;
-
-
-if(
-
-risk>0 &&
-
-reward/risk<1.5
-
-){
-
-tp =
-entry+
-risk*1.5;
-
-}
-
-}
-
-
-else if(
-signal==="SELL"
-){
-
-if(
-lv.r1!==null
-){
-
-sl =
-lv.r1+0.20;
-
-}
-else{
-
-sl =
-price+5.00;
-
-}
-
-
-if(
-
-lv.s1!==null &&
-
-lv.s1<price
-
-){
-
-tp =
-lv.s1;
-
-}
-else{
-
-tp =
-price-10.00;
-
-}
-
-
-const risk =
-sl-entry;
-
-
-const reward =
-entry-tp;
-
-
-if(
-
-risk>0 &&
-
-reward/risk<1.5
-
-){
-
-tp =
-entry-
-risk*1.5;
-
-}
-
-}
-
-
-/* =====================================================
-   DISPLAY
-===================================================== */
-
-document.getElementById(
-"entry"
-).textContent =
-
-signal==="WAIT"
-
-?
-
-"---"
-
-:
-
-fmt(entry);
-
-
-document.getElementById(
-"sl"
-).textContent =
-
-signal==="WAIT"
-
-?
-
-"---"
-
-:
-
-fmt(sl);
-
-
-document.getElementById(
-"tp"
-).textContent =
-
-signal==="WAIT"
-
-?
-
-"---"
-
-:
-
-fmt(tp);
-
-
-const confidence =
-Math.max(
-up,
-down
-);
-
-
-document.getElementById(
-"confidence"
-).textContent =
-
-confidence+"%";
-
-
-const signalEl =
-document.getElementById(
-"signal"
-);
-
-
-signalEl.textContent =
-signal;
-
-
-signalEl.className =
-
-"signal "+
-
-(
-
-signal==="BUY"
-
-?
-
-"buy"
-
-:
-
-signal==="SELL"
-
-?
-
-"sell"
-
-:
-
-"wait"
-
-);
-
-
-/* =====================================================
-   REASON
-===================================================== */
-
-let reason =
-"لا يوجد توافق كافٍ حالياً.";
-
-
-if(
-signal==="BUY"
-){
-
-reason =
-
-"الاتجاه صاعد + الزخم إيجابي + احتمال الصعود متوافق مع شروط الدخول.";
-
-}
-
-else if(
-signal==="SELL"
-){
-
-reason =
-
-"الاتجاه هابط + الزخم سلبي + احتمال الهبوط متوافق مع شروط الدخول.";
-
-}
-
-else if(
-newsImpact.risk
-){
-
-reason =
-
-"يوجد خبر قريب، لذلك النظام يمنع إعطاء إشارة دخول حالياً.";
-
-}
-
-else if(
-trend==="عرضي"
-){
-
-reason =
-
-"الاتجاه العام عرضي حالياً، لذلك ننتظر توافقاً أقوى.";
-
-}
-
-else if(
-momentum==="محايد"
-){
-
-reason =
-
-"الزخم غير واضح حالياً، لذلك ننتظر تأكيداً إضافياً.";
-
-}
-
-
-document.getElementById(
-"signalReason"
-).textContent =
-reason;
-
-
-document.getElementById(
-"systemStatus"
-).textContent =
-"تم التحديث";
-
-
-/* =====================================================
-   NEW SIGNAL
-===================================================== */
-
-if(
-
-signal!=="WAIT" &&
-
-signal!==lastSignal
-
-){
-
-sendSignalNotification(
-
-signal,
-
-entry,
-
-sl,
-
-tp,
-
-confidence
-
-);
-
-}
-
-
-lastSignal =
-signal;
-
-}
-
-
-/* =====================================================
-   UPDATE MARKET
-===================================================== */
-
-async function updateMarket(){
-
-document.getElementById(
-"systemStatus"
-).textContent =
-"جاري التحليل...";
-
-
-try{
-
-price =
-await getSpot();
-
-
-document.getElementById(
-"price"
-).textContent =
-
-"$ "+
-fmt(price);
-
-
-document.getElementById(
-"priceStatus"
-).textContent =
-
-"🟢 السعر حي";
-
-}
-
-catch(error){
-
-console.log(error);
-
-
-document.getElementById(
-"price"
-).textContent =
-"---";
-
-
-document.getElementById(
-"priceStatus"
-).textContent =
-
-"🔴 فشل قراءة السعر";
-
-
-return;
-
-}
-
-
-try{
-
-points =
-await getOHLC();
-
-
-analyze();
-
-}
-
-catch(error){
-
-console.log(error);
-
-
-document.getElementById(
-"systemStatus"
-).textContent =
-
-"فشل قراءة الشموع";
-
-}
-
-}
-
-
-/* =====================================================
-   START
-===================================================== */
-
-registerNotifications();
 
 updateMarket();
 
@@ -2562,14 +1457,14 @@ loadNews();
 
 
 setInterval(
-updateMarket,
-30000
+  updateMarket,
+  30000
 );
 
 
 setInterval(
-loadNews,
-60000
+  loadNews,
+  60000
 );
 
 </script>
