@@ -1,1 +1,1 @@
-# -XAUUSD-Gold-Analyzer
+# -XAUUSD-Gold-Analyzer.
