@@ -4,8 +4,7 @@ on:
   workflow_dispatch:
 
   schedule:
-    # Run the XAUUSD analyzer every 5 minutes
-    - cron: "*/5 * * * *"
+    - cron: "1/5 * * * *"
 
 permissions:
   contents: read
@@ -15,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Analyze XAUUSD and send signal
+      - name: Analyze XAUUSD
         env:
           ONESIGNAL_REST_API_KEY: ${{ secrets.ONESIGNAL_REST_API_KEY }}
 
@@ -27,9 +26,6 @@ jobs:
 
           const OHLC_URL =
             "https://biquote.io/api/XAUUSD/ohlc?interval=5m&limit=300";
-
-          const NEWS_URL =
-            "https://biquote.io/api/calendar?importance=high&limit=50";
 
           const APP_ID =
             "092fc306-c2ab-4a85-a3f9-ff8b50dd8833";
@@ -43,25 +39,22 @@ jobs:
 
           async function getJSON(url) {
 
-            const response = await fetch(url, {
-              cache: "no-store"
-            });
+            const r = await fetch(url);
 
-            if (!response.ok) {
+            if (!r.ok) {
               throw new Error(
-                `${url} HTTP ${response.status}`
+                `HTTP ${r.status} - ${url}`
               );
             }
 
-            return await response.json();
+            return await r.json();
           }
 
 
           function sma(data, period) {
 
-            if (!data || data.length < period) {
+            if (data.length < period)
               return null;
-            }
 
             let sum = 0;
 
@@ -79,9 +72,8 @@ jobs:
 
           function ema(data, period) {
 
-            if (!data || data.length < period) {
+            if (data.length < period)
               return null;
-            }
 
             const k = 2 / (period + 1);
 
@@ -96,6 +88,7 @@ jobs:
               i < data.length;
               i++
             ) {
+
               value =
                 data[i] * k +
                 value * (1 - k);
@@ -107,15 +100,11 @@ jobs:
 
           function rsi(data, period = 14) {
 
-            if (
-              !data ||
-              data.length < period + 1
-            ) {
+            if (data.length < period + 1)
               return 50;
-            }
 
-            let gains = 0;
-            let losses = 0;
+            let gain = 0;
+            let loss = 0;
 
             for (
               let i = data.length - period;
@@ -126,346 +115,167 @@ jobs:
               const change =
                 data[i] - data[i - 1];
 
-              if (change > 0) {
-                gains += change;
-              } else {
-                losses += Math.abs(change);
-              }
+              if (change > 0)
+                gain += change;
+
+              else
+                loss += Math.abs(change);
             }
 
-            if (losses === 0) {
+            if (loss === 0)
               return 100;
-            }
 
             const rs =
-              gains / losses;
+              gain / loss;
 
-            return 100 - (100 / (1 + rs));
+            return 100 -
+              100 / (1 + rs);
           }
 
 
-          function trend(closes, price) {
-
-            if (closes.length < 30) {
-              return 0;
-            }
-
-            const fast =
-              ema(closes, 9);
-
-            const slow =
-              ema(closes, 21);
-
-            if (
-              fast === null ||
-              slow === null
-            ) {
-              return 0;
-            }
-
-            const difference =
-              fast - slow;
-
-            const threshold =
-              price * 0.00012;
-
-            if (difference > threshold) {
-              return 1;
-            }
-
-            if (difference < -threshold) {
-              return -1;
-            }
-
-            return 0;
-          }
-
-
-          function calculateScore(closes, price) {
-
-            const t5 =
-              trend(closes, price);
-
-            let t15 = t5;
-            let t30 = t5;
-            let t60 = t5;
-
-            const currentRSI =
-              rsi(closes, 14);
-
-
-            const sma20 =
-              sma(closes, 20);
-
-            const sma50 =
-              sma(closes, 50);
-
-            if (
-              sma20 !== null &&
-              sma50 !== null
-            ) {
-
-              if (sma20 > sma50) {
-                t15 = 1;
-              }
-
-              else if (sma20 < sma50) {
-                t15 = -1;
-              }
-            }
-
-
-            if (closes.length >= 100) {
-
-              const last100 =
-                closes.slice(-100);
-
-              const m50 =
-                sma(last100, 50);
-
-              const m100 =
-                sma(last100, 100);
-
-              if (
-                m50 !== null &&
-                m100 !== null
-              ) {
-
-                if (m50 > m100) {
-                  t30 = 1;
-                }
-
-                else if (m50 < m100) {
-                  t30 = -1;
-                }
-              }
-            }
-
-
-            const last =
-              closes[closes.length - 1];
-
-            const first =
-              closes[
-                Math.max(
-                  0,
-                  closes.length - 100
-                )
-              ];
-
-
-            if (last > first) {
-              t60 = 1;
-            }
-
-            else if (last < first) {
-              t60 = -1;
-            }
-
+          function getSignal(
+            closes,
+            price
+          ) {
 
             let score = 0;
 
 
-            if (t5 > 0) {
-              score += 1;
-            }
-
-            if (t5 < 0) {
-              score -= 1;
-            }
-
-
-            if (t15 > 0) {
-              score += 2;
-            }
-
-            if (t15 < 0) {
-              score -= 2;
-            }
-
-
-            if (t30 > 0) {
-              score += 1;
-            }
-
-            if (t30 < 0) {
-              score -= 1;
-            }
-
-
-            if (t60 > 0) {
-              score += 1;
-            }
-
-            if (t60 < 0) {
-              score -= 1;
-            }
-
-
-            if (currentRSI > 55) {
-              score += 1;
-            }
-
-            else if (currentRSI < 45) {
-              score -= 1;
-            }
-
-
-            const fast =
+            const e9 =
               ema(closes, 9);
 
-            const slow =
+            const e21 =
               ema(closes, 21);
 
 
             if (
-              fast !== null &&
-              slow !== null
+              e9 !== null &&
+              e21 !== null
             ) {
 
-              if (fast > slow) {
-                score += 1;
-              }
+              if (e9 > e21)
+                score += 2;
 
-              else if (fast < slow) {
-                score -= 1;
-              }
+              if (e9 < e21)
+                score -= 2;
             }
+
+
+            const s20 =
+              sma(closes, 20);
+
+            const s50 =
+              sma(closes, 50);
+
+
+            if (
+              s20 !== null &&
+              s50 !== null
+            ) {
+
+              if (s20 > s50)
+                score += 2;
+
+              if (s20 < s50)
+                score -= 2;
+            }
+
+
+            const r =
+              rsi(closes, 14);
+
+
+            if (r > 55)
+              score += 1;
+
+            if (r < 45)
+              score -= 1;
+
+
+            let signal = "WAIT";
+
+
+            if (score >= 4)
+              signal = "BUY";
+
+
+            if (score <= -4)
+              signal = "SELL";
 
 
             return {
               score,
-              rsi: currentRSI,
-              t5,
-              t15,
-              t30,
-              t60
+              signal,
+              rsi: r
             };
           }
 
 
-          function getLevels(bars) {
+          function levels(
+            bars,
+            price,
+            signal
+          ) {
 
             const recent =
               bars.slice(-60);
 
+
             const highs =
-              recent.map(c => c.high);
+              recent.map(
+                x => x.high
+              );
+
 
             const lows =
-              recent.map(c => c.low);
-
-
-            const sortedHighs =
-              [...highs].sort(
-                (a, b) => b - a
+              recent.map(
+                x => x.low
               );
 
 
-            const sortedLows =
-              [...lows].sort(
-                (a, b) => a - b
-              );
+            const resistance =
+              Math.max(...highs);
 
 
-            return {
-
-              r1:
-                sortedHighs[0],
-
-              r2:
-                sortedHighs[
-                  Math.min(
-                    5,
-                    sortedHighs.length - 1
-                  )
-                ],
-
-              s1:
-                sortedLows[0],
-
-              s2:
-                sortedLows[
-                  Math.min(
-                    5,
-                    sortedLows.length - 1
-                  )
-                ]
-            };
-          }
+            const support =
+              Math.min(...lows);
 
 
-          function tradeLevels(
-            signal,
-            price,
-            levels
-          ) {
-
-            let sl = 0;
-            let tp1 = 0;
-            let tp2 = 0;
+            let sl;
+            let tp1;
+            let tp2;
 
 
             if (signal === "BUY") {
 
-              if (
-                levels.s1 &&
-                levels.s1 < price
-              ) {
-
-                sl =
-                  levels.s1 - 1.5;
-
-              }
-
-              else {
-
-                sl =
-                  price - 5;
-
-              }
-
+              sl =
+                support < price
+                ? support - 1.5
+                : price - 5;
 
               const risk =
                 price - sl;
 
-
               tp1 =
                 price + risk * 1.5;
-
 
               tp2 =
                 price + risk * 2.2;
             }
 
 
-            if (signal === "SELL") {
+            else {
 
-              if (
-                levels.r1 &&
-                levels.r1 > price
-              ) {
-
-                sl =
-                  levels.r1 + 1.5;
-
-              }
-
-              else {
-
-                sl =
-                  price + 5;
-
-              }
-
+              sl =
+                resistance > price
+                ? resistance + 1.5
+                : price + 5;
 
               const risk =
                 sl - price;
 
-
               tp1 =
                 price - risk * 1.5;
-
 
               tp2 =
                 price - risk * 2.2;
@@ -473,7 +283,6 @@ jobs:
 
 
             return {
-              entry: price,
               sl,
               tp1,
               tp2
@@ -481,32 +290,25 @@ jobs:
           }
 
 
-          function money(value) {
-
-            return Number(value).toFixed(2);
-
-          }
-
-
-          async function sendNotification(message) {
+          async function sendNotification(
+            message
+          ) {
 
             if (!API_KEY) {
 
               throw new Error(
                 "ONESIGNAL_REST_API_KEY is missing"
               );
-
             }
 
 
-            const response =
+            const r =
               await fetch(
                 "https://api.onesignal.com/notifications",
                 {
                   method: "POST",
 
                   headers: {
-
                     "Authorization":
                       "Key " + API_KEY,
 
@@ -520,7 +322,9 @@ jobs:
                       APP_ID,
 
                     include_subscription_ids:
-                      [SUBSCRIPTION_ID],
+                      [
+                        SUBSCRIPTION_ID
+                      ],
 
                     headings: {
                       en:
@@ -538,40 +342,29 @@ jobs:
 
 
             const text =
-              await response.text();
-
-
-            if (!response.ok) {
-
-              throw new Error(
-                "OneSignal " +
-                response.status +
-                ": " +
-                text
-              );
-
-            }
+              await r.text();
 
 
             console.log(
-              "OneSignal response:",
+              "OneSignal:",
               text
             );
+
+
+            if (!r.ok) {
+
+              throw new Error(
+                "OneSignal error " +
+                r.status
+              );
+            }
           }
 
 
           async function main() {
 
             console.log(
-              "================================"
-            );
-
-            console.log(
-              "XAUUSD SIGNAL BOT"
-            );
-
-            console.log(
-              "================================"
+              "Starting XAUUSD analyzer..."
             );
 
 
@@ -593,133 +386,79 @@ jobs:
             if (!Number.isFinite(price)) {
 
               throw new Error(
-                "XAUUSD price not found"
+                "Price not found"
               );
-
             }
 
 
             console.log(
-              "Price:",
+              "XAUUSD:",
               price
             );
 
 
-            const ohlc =
+            const data =
               await getJSON(
                 OHLC_URL
               );
 
 
             if (
-              !ohlc ||
+              !data.bars ||
               !Array.isArray(
-                ohlc.bars
+                data.bars
               )
             ) {
 
               throw new Error(
-                "OHLC bars not found"
+                "OHLC data not found"
               );
-
             }
 
 
             let bars =
-              ohlc.bars
-
-              .map(c => ({
-
-                time:
-                  Date.parse(
-                    c.openTime
-                  ),
-
-                open:
-                  Number(c.open),
-
-                high:
-                  Number(c.high),
-
-                low:
-                  Number(c.low),
-
-                close:
-                  Number(c.close),
-
-                isOpen:
-                  Boolean(c.isOpen)
-
-              }))
-
-
-              .filter(c =>
-
-                Number.isFinite(
-                  c.time
-                ) &&
-
-                Number.isFinite(
-                  c.open
-                ) &&
-
-                Number.isFinite(
-                  c.high
-                ) &&
-
-                Number.isFinite(
-                  c.low
-                ) &&
-
-                Number.isFinite(
-                  c.close
+              data.bars
+                .filter(
+                  x => !x.isOpen
                 )
+                .map(
+                  x => ({
+                    open:
+                      Number(x.open),
 
-              )
+                    high:
+                      Number(x.high),
 
+                    low:
+                      Number(x.low),
 
-              .sort(
-                (a, b) =>
-                  a.time - b.time
-              );
-
-
-            /*
-             * استخدام الشموع المغلقة فقط
-             */
-
-            bars =
-              bars.filter(
-                c => !c.isOpen
-              );
+                    close:
+                      Number(x.close)
+                  })
+                );
 
 
             if (bars.length < 110) {
 
               throw new Error(
-                "Not enough closed candles: " +
+                "Not enough candles: " +
                 bars.length
               );
-
             }
 
 
             const closes =
               bars.map(
-                c => c.close
+                x => x.close
               );
 
 
             const current =
-              calculateScore(
+              getSignal(
                 closes,
                 price
               );
 
-
-            /*
-             * تحليل الشمعة السابقة
-             */
 
             const previousCloses =
               closes.slice(
@@ -729,58 +468,10 @@ jobs:
 
 
             const previous =
-              calculateScore(
+              getSignal(
                 previousCloses,
                 price
               );
-
-
-            let signal =
-              "WAIT";
-
-
-            if (
-              current.score >= 4
-            ) {
-
-              signal =
-                "BUY";
-
-            }
-
-
-            if (
-              current.score <= -4
-            ) {
-
-              signal =
-                "SELL";
-
-            }
-
-
-            let previousSignal =
-              "WAIT";
-
-
-            if (
-              previous.score >= 4
-            ) {
-
-              previousSignal =
-                "BUY";
-
-            }
-
-
-            if (
-              previous.score <= -4
-            ) {
-
-              previousSignal =
-                "SELL";
-
-            }
 
 
             console.log(
@@ -788,35 +479,53 @@ jobs:
               current.score
             );
 
-
             console.log(
               "Previous score:",
               previous.score
             );
 
+            console.log(
+              "Current signal:",
+              current.signal
+            );
 
             console.log(
-              "Signal:",
-              signal
+              "Previous signal:",
+              previous.signal
             );
 
 
-            /*
-             * عدم إرسال نفس الإشارة
-             * أكثر من مرة
-             */
-
             if (
-              signal === "WAIT" ||
-              signal === previousSignal
+              current.signal === "WAIT"
             ) {
 
               console.log(
-                "No NEW signal. No notification."
+                "WAIT - no notification"
               );
 
               return;
             }
+
+
+            if (
+              current.signal ===
+              previous.signal
+            ) {
+
+              console.log(
+                "Same signal - no notification"
+              );
+
+              return;
+            }
+
+
+            const trade =
+              levels(
+                bars,
+                price,
+                current.signal
+              );
 
 
             const confidence =
@@ -829,181 +538,43 @@ jobs:
               );
 
 
-            const levels =
-              getLevels(
-                bars
-              );
-
-
-            const trade =
-              tradeLevels(
-                signal,
-                price,
-                levels
-              );
-
-
-            let newsText =
-              "لا توجد بيانات أخبار قوية حالياً";
-
-
-            try {
-
-              const news =
-                await getJSON(
-                  NEWS_URL
-                );
-
-
-              if (
-                Array.isArray(news) &&
-                news.length > 0
-              ) {
-
-                const names =
-                  news
-                    .slice(0, 3)
-                    .map(
-                      item =>
-                        item.name ||
-                        item.title ||
-                        item.event ||
-                        "خبر اقتصادي"
-                    );
-
-
-                newsText =
-                  names.join(
-                    " | "
-                  );
-              }
-
-            }
-
-            catch (error) {
-
-              console.log(
-                "News unavailable:",
-                error.message
-              );
-
-            }
-
-
-            const trend =
-              signal === "BUY"
-              ? "UP ↑"
-              : "DOWN ↓";
-
-
-            const momentum =
-
-              current.rsi >= 60
-              ? "STRONG UP ↑"
-
-              : current.rsi >= 53
-              ? "UP ↑"
-
-              : current.rsi <= 40
-              ? "STRONG DOWN ↓"
-
-              : current.rsi <= 47
-              ? "DOWN ↓"
-
-              : "NEUTRAL";
-
-
             const message =
 
               (
-                signal === "BUY"
-
-                ? "🟢 XAUUSD BUY SIGNAL"
-
-                : "🔴 XAUUSD SELL SIGNAL"
-
+                current.signal === "BUY"
+                ? "🟢 XAUUSD BUY"
+                : "🔴 XAUUSD SELL"
               )
 
               + "\n\n"
 
               + "📍 Entry: "
-              + money(
-                  trade.entry
-                )
+              + price.toFixed(2)
 
               + "\n🛑 SL: "
-              + money(
-                  trade.sl
-                )
+              + trade.sl.toFixed(2)
 
               + "\n🎯 TP1: "
-              + money(
-                  trade.tp1
-                )
+              + trade.tp1.toFixed(2)
 
               + "\n🎯 TP2: "
-              + money(
-                  trade.tp2
-                )
+              + trade.tp2.toFixed(2)
 
               + "\n💪 Confidence: "
               + confidence
               + "%"
 
-              + "\n📊 Trend: "
-              + trend
+              + "\n📊 RSI: "
+              + current.rsi.toFixed(1)
 
-              + "\n⚡ Momentum: "
-              + momentum
+              + "\n📈 Score: "
+              + current.score
 
-              + "\n📈 5M: "
-
-              + (
-                  current.t5 > 0
-                  ? "UP"
-                  : current.t5 < 0
-                  ? "DOWN"
-                  : "SIDEWAYS"
-                )
-
-              + "\n📈 15M: "
-
-              + (
-                  current.t15 > 0
-                  ? "UP"
-                  : current.t15 < 0
-                  ? "DOWN"
-                  : "SIDEWAYS"
-                )
-
-              + "\n📈 30M: "
-
-              + (
-                  current.t30 > 0
-                  ? "UP"
-                  : current.t30 < 0
-                  ? "DOWN"
-                  : "SIDEWAYS"
-                )
-
-              + "\n📈 1H: "
-
-              + (
-                  current.t60 > 0
-                  ? "UP"
-                  : current.t60 < 0
-                  ? "DOWN"
-                  : "SIDEWAYS"
-                )
-
-              + "\n📰 News: "
-              + newsText
-
-              + "\n\n⏰ XAUUSD • 5M";
+              + "\n\n⏰ XAUUSD 5M";
 
 
             console.log(
-              "NEW SIGNAL DETECTED"
+              "NEW SIGNAL!"
             );
 
 
@@ -1018,34 +589,21 @@ jobs:
 
 
             console.log(
-              "================================"
+              "Notification sent successfully!"
             );
-
-
-            console.log(
-              "NOTIFICATION SENT SUCCESSFULLY"
-            );
-
-
-            console.log(
-              "================================"
-            );
-
           }
 
 
           main()
+            .catch(
+              error => {
 
-            .catch(error => {
+                console.error(
+                  error
+                );
 
-              console.error(
-                "BOT ERROR:",
-                error
-              );
-
-              process.exit(1);
-
-            });
-
+                process.exit(1);
+              }
+            );
 
           NODE
