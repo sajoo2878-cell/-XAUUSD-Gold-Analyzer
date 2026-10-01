@@ -1,0 +1,11 @@
+{
+  "name": "XAUUSD Signal Bot",
+  "short_name": "XAUUSD Bot",
+  "start_url": "/bot.html",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#0b1220",
+  "background_color": "#0b1220",
+  "gcm_sender_id": "482941778795"
+}
