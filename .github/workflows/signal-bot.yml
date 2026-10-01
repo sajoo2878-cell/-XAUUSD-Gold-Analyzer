@@ -14,6 +14,7 @@ jobs:
       - name: Send test notification
         env:
           ONESIGNAL_REST_API_KEY: ${{ secrets.ONESIGNAL_REST_API_KEY }}
+
         run: |
           curl --fail-with-body --request POST \
             --url https://api.onesignal.com/notifications \
@@ -21,7 +22,13 @@ jobs:
             --header "Content-Type: application/json" \
             --data '{
               "app_id": "092fc306-c2ab-4a85-a3f9-ff8b50dd8833",
-              "included_segments": ["Subscribed Users"],
-              "headings": {"en": "🟢 XAUUSD Signal Bot"},
-              "contents": {"en": "🔔 إشعار تجريبي ناجح. البوت متصل بـ OneSignal."}
+              "include_subscription_ids": [
+                "cdcd03a6-7830-4621-9178-8fb9cc306b8e"
+              ],
+              "headings": {
+                "en": "🟢 XAUUSD Signal Bot"
+              },
+              "contents": {
+                "en": "🔔 إشعار تجريبي مباشر إلى جهازك. البوت متصل بـ OneSignal."
+              }
             }'
